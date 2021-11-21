@@ -108,9 +108,18 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
 
-TIME_ZONE = 'UTC'
+
+def gettext_noop(s):
+    return s
+
+
+LANGUAGES = [
+    ("en", gettext_noop("English")),
+    ("tr", gettext_noop("Turkish"))
+]
+TIME_ZONE = 'Europe/Istanbul'
 
 USE_I18N = True
 
