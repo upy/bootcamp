@@ -42,7 +42,7 @@ SECRET_KEY = env('SECRET_KEY')
 
 DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 
 
 # Application definition
@@ -142,7 +142,8 @@ LANGUAGES = [
     ('en', gettext_noop('English')),
     ('tr', gettext_noop('Turkish'))
 ]
-TIME_ZONE = 'Europe/Istanbul'
+
+TIME_ZONE = env('TIME_ZONE')
 
 USE_I18N = True
 
