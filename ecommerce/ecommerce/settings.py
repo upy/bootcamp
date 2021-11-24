@@ -11,23 +11,45 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import environ
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+
+env = environ.Env(
+    # set casting, default value
+    # in the development Debug = True but production
+    DEBUG=(bool, False)
+)
+
+
+# to use .env file , first we need to load the .env file
+environ.Env.read_env()
+
+
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Take environment variables from .env file
+env.read_env(BASE_DIR, '.env')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-^5@e(m+8_(@ljs$4p&u()5ivodjy=ylt!=%cz%2(6#sysep2*y'
+# Raises Django's ImproperlyConfigured
+# exception if SECRET_KEY not in .env file
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+
+DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = []
 
 
 # Application definition
+# After installing django-environ, no need to add it to INSTALLED_APPS,
+# document says on the Note section :
+# https://django-environ.readthedocs.io/en/latest/getting-started.html
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -73,15 +95,16 @@ WSGI_APPLICATION = 'ecommerce.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
+# All variables that belongs our database is assigned in the .env file.
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': "bootcampecommerce",
-        "USER": "bootcamp",
-        "PASSWORD": "",
-        "HOST": "localhost",
-        "PORT": "5432",
+        'ENGINE': env('DATABASE_ENGINE'),
+        'NAME': env('DATABASE_NAME'),
+        "USER": env('DATABASE_USER'),
+        "HOST": env('DATABASE_HOST'),
+        "PASSWORD": env('DATABASE_PASSWORD'),
+        "PORT": env('DATABASE_PORT'),
     }
 }
 
@@ -132,6 +155,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+# In order to prevent error comes along with "django.contrib.sites"
+# we need to add id of sites model that we created
+
+
+# According to documentation of Django
+# To enable the sites framework, follow these steps:
+# https://docs.djangoproject.com/en/3.2/ref/contrib/sites/#enabling-the-sites-framework
+
+SITE_ID = 1
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
