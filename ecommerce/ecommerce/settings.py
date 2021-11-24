@@ -101,10 +101,10 @@ DATABASES = {
     'default': {
         'ENGINE': env('DATABASE_ENGINE'),
         'NAME': env('DATABASE_NAME'),
-        "USER": env('DATABASE_USER'),
-        "HOST": env('DATABASE_HOST'),
-        "PASSWORD": env('DATABASE_PASSWORD'),
-        "PORT": env('DATABASE_PORT'),
+        'USER': env('DATABASE_USER'),
+        'HOST': env('DATABASE_HOST'),
+        'PASSWORD': env('DATABASE_PASSWORD'),
+        'PORT': env('DATABASE_PORT'),
     }
 }
 
@@ -139,8 +139,8 @@ def gettext_noop(s):
 
 
 LANGUAGES = [
-    ("en", gettext_noop("English")),
-    ("tr", gettext_noop("Turkish"))
+    ('en', gettext_noop('English')),
+    ('tr', gettext_noop('Turkish'))
 ]
 TIME_ZONE = 'Europe/Istanbul'
 
