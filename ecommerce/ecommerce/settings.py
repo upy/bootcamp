@@ -11,21 +11,28 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import os
+import environ
+
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, True)
+)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
+# Take environment variables from .env file
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-^5@e(m+8_(@ljs$4p&u()5ivodjy=ylt!=%cz%2(6#sysep2*y'
+# False if not in os.environ because of casting above
+DEBUG = env('DEBUG')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# Raises Django's ImproperlyConfigured
+# exception if SECRET_KEY not in os.environ
+SECRET_KEY = env('SECRET_KEY')
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -36,9 +43,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "django.contrib.sites",
+#    "django.contrib.sites",
     "django_extensions"
 ]
+
+#Uncomment SITE_ID =1 and django.contrib.sites to perform task with a single task but django.sites enabled
+#Default site id since we migrated with 001
+#SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -76,12 +87,12 @@ WSGI_APPLICATION = 'ecommerce.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': "bootcampecommerce",
-        "USER": "bootcamp",
-        "PASSWORD": "",
-        "HOST": "localhost",
-        "PORT": "5432",
+        'ENGINE': env('DATABASE_ENGINE'),
+        'NAME': env('DATABASE_NAME'),
+        "USER": env('DATABASE_USER'),
+        "PASSWORD": env('DATABASE_PASS'),
+        "HOST": env('DATABASE_HOST') ,
+        "PORT":  env('DATABASE_PORT'),
     }
 }
 

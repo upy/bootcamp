@@ -102,7 +102,7 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-.env
+ecommerce/ecommerce/.env
 .venv
 env/
 venv/
@@ -129,3 +129,6 @@ dmypy.json
 .pyre/
 .idea
 static/
+
+#environs
+/ecommerce/ecommerce/.env
