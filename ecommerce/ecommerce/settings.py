@@ -14,6 +14,7 @@ from pathlib import Path
 import environ
 import os
 
+# Setup environ variable
 env = environ.Env(
     DEBUG=(bool, False),
     ALLOWED_HOSTS=(list, []),
@@ -22,6 +23,7 @@ env = environ.Env(
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# Designate the project root as the location to look for .env file
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 # Quick-start development settings - unsuitable for production
@@ -34,6 +36,7 @@ SECRET_KEY = env("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
 
+# Read from env
 ALLOWED_HOSTS = env('ALLOWED_HOSTS')
 
 SITE_ID = 1
@@ -84,6 +87,7 @@ WSGI_APPLICATION = 'ecommerce.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+# Read databse configuration/connection data from env
 DATABASES = {
     'default': {
         'ENGINE': env('DATABASE_ENGINE'),
@@ -127,6 +131,8 @@ LANGUAGES = [
     ("en", gettext_noop("English")),
     ("tr", gettext_noop("Turkish"))
 ]
+
+# Read from env
 TIME_ZONE = env('TIME_ZONE')
 
 USE_I18N = True
