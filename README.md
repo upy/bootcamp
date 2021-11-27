@@ -6,7 +6,8 @@
 
 ### 0. Clone the project
 ```bash
-$ git clone https://github.com/upy/bootcamp
+git clone https://github.com/upy/bootcamp
+
 cd bootcamp
 ```
 
@@ -34,6 +35,7 @@ cd bootcamp
 # activate virtual environment
 
 > python -m venv env
+
 > env/Scripts/activate
 
 # install dependencies
