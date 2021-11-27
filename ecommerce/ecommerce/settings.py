@@ -14,22 +14,19 @@ from pathlib import Path
 import environ
 import os
 
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
+
 # Set the project base directory
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
-def find_path(filename):
-    for dirpath, dirs, files in os.walk(BASE_DIR):
-        for name in files:
-            if name == filename:
-                return os.path.abspath(os.path.join(dirpath, name))
-
 # Find path to .env file
-ENV_FILE = find_path('.env')
+ENV_FILE = os.path.join(BASE_DIR, '.env')
 
 # Take environment variables from .env file
 environ.Env.read_env(ENV_FILE)
-env = environ.Env()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
