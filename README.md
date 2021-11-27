@@ -1,13 +1,13 @@
-#Django ecommerce project
+# Django ecommerce project
 
-##Installations
+## Installations
 
 - Pycharm
 - PostgreSQL
 
 After installing Pycharm and PostgreSQL, create new project in Pycharm with virtual environment.
 
-##Installing dependencies
+## Installing dependencies
 
 create **requirements.txt** in project's root file with following content:
 >Django==3.2.9 <br>
@@ -18,7 +18,7 @@ create **requirements.txt** in project's root file with following content:
 run command:
 >pip install requirements.txt
 
-##Project creation
+## Project creation
 
 After all dependencies installed, in project's root folder create new django project called "ecommerce" with the following command in terminal:
 > django-admin startproject ecommerce
@@ -26,7 +26,7 @@ After all dependencies installed, in project's root folder create new django pro
 In PostgreSQL create new login role with password and give it all privileges. 
 Create new database and assign newly created role as owner of this database.
 
-##Create .env file
+## Create .env file
 
 It is a must to hide all the sensitive data in settings.py in a separate .env file. 
 You have to create .env file in django project's root folder and fill it with all the sensitive variables from settings.py. Here is an example of .env:
@@ -42,7 +42,7 @@ USE_TZ=True <br>
 
 You have to change **DATABASE_URL** according to your database and its owner.
 
-##Changing settings.py according to .env
+## Changing settings.py according to .env
 
 We installed django-environ because it helps us to read .env file.
 Add this code snippet to your setting.py:
@@ -70,12 +70,12 @@ SECRET_KEY = env('SECRET_KEY')
 ```
 Argument in env() is the name of variable in .env file.
 
-##Migration
+## Migration
 
 Migrate django's default tables to your database by running the following command:
 >python manage.py migrate
 
-##Running project
+## Running project
 
 You have to create a super user so you can access to django admin panel. Use following command:
 >python manage.py createsuperuser
