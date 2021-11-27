@@ -13,7 +13,7 @@ cd bootcamp
 ### 1. Create a `.env` file in the project root directory.
 
 <details>
-    <summary>.env.local</summary>
+    <summary>.env</summary>
 
     DEBUG=
     SECRET_KEY=
