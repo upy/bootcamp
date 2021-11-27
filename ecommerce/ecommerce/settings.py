@@ -118,7 +118,7 @@ LANGUAGES = [
     ("en", gettext_noop("English")),
     ("tr", gettext_noop("Turkish"))
 ]
-TIME_ZONE = 'Europe/Istanbul'
+TIME_ZONE = env('TIME_ZONE')
 
 USE_I18N = True
 

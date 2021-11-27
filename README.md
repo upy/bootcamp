@@ -15,11 +15,12 @@
 - Execute the migrate process with `python manage.py migrate`
 - Fill in the contents of the [`.env.dist`](ecommerce/.env.dist) file and rename it as `.env`
 
-> SECRET_KEY in the .env file can be generated with the following command. <br> `python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'`
+### Inside of the ".env" File
+- SECRET_KEY in the .env file can be generated with the following command. <br> `python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'`
 
-> DEBUG variable should be True only during project development. 
+- DEBUG variable should be True only during project development. 
 
-> The parameters in the DATABASE_URL variable in the .env file are the superuser username and password, the IP and port specified for the server, and the database name, respectively.
+- The parameters in the DATABASE_URL variable in the .env file are the superuser username and password, the IP and port specified for the server, and the database name, respectively.
 
 ## Run 
 
