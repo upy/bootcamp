@@ -7,6 +7,7 @@ This repo will be updated weekly during bootcamp.
 ### Project Description
 
 
+
 ### Installation
 After Django is installed, the project should be cloned and the .env file created in the main folder.
 
@@ -19,3 +20,4 @@ TIME_ZONE=...
 
 DATABASE_URL=*database_kind*://*username*:*password*@*address*:*port*/*database_name*
 ```
+
