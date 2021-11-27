@@ -114,13 +114,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
 LANGUAGE_CODE = 'en'
-<<<<<<< HEAD
 
 
-=======
-
-
->>>>>>> bc465b398bc4ee746bdbadde6c1b04de75cc402d
 def gettext_noop(s):
     return s
 
