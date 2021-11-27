@@ -28,7 +28,7 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = env('ALLOWED_HOSTS')
 
 
 # Application definition
@@ -123,7 +123,7 @@ LANGUAGES = [
     ("tr", gettext_noop("Turkish"))
 ]
 
-TIME_ZONE = 'Europe/Istanbul'
+TIME_ZONE = env('TIME_ZONE')
 
 USE_I18N = True
 
