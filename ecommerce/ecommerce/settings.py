@@ -118,7 +118,8 @@ def gettext_noop(s):
 LANGUAGES = [
     ("en", gettext_noop("English")),
     ("tr", gettext_noop("Turkish")),
-    ("de", gettext_noop("German"))
+    ("de", gettext_noop("German")),
+    ("fr", gettext_noop("French")),
 ]
 TIME_ZONE = env('TIME_ZONE')
 
