@@ -1,4 +1,10 @@
 Django==3.2.9
+<<<<<<< HEAD
+django-environ==0.8.1
+django-extensions==3.1.5
+psycopg2==2.9.2
+=======
 psycopg2-binary==2.9.2
 django-extensions==3.1.2
 django-environ==0.8.1
+>>>>>>> c74f9eacaabdb66dcc47c4e9e5f34fa9a9635894

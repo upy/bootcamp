@@ -9,17 +9,25 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-
+import environ
+import os
 from pathlib import Path
 import environ
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+<<<<<<< HEAD
+# Read environment variables
+env = environ.Env()
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+=======
 env = environ.Env()
 
 # Take environment variables from .env file
 env.read_env(str(BASE_DIR / '.env'))
+>>>>>>> c74f9eacaabdb66dcc47c4e9e5f34fa9a9635894
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -28,7 +36,11 @@ env.read_env(str(BASE_DIR / '.env'))
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
+<<<<<<< HEAD
+DEBUG = env('DEBUG')
+=======
 DEBUG = env.bool('DEBUG', default=False)
+>>>>>>> c74f9eacaabdb66dcc47c4e9e5f34fa9a9635894
 
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=[])
 
@@ -59,7 +71,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'ecommerce.urls'
+ROOT_URLCONF = env('ROOT_URLCONF')
 
 TEMPLATES = [
     {
@@ -83,7 +95,13 @@ WSGI_APPLICATION = 'ecommerce.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+<<<<<<< HEAD
+DATABASES = {
+    'default': env.db()
+}
+=======
 DATABASES = {'default': env.db('DATABASE_URL')}
+>>>>>>> c74f9eacaabdb66dcc47c4e9e5f34fa9a9635894
 
 
 # Password validation
@@ -121,6 +139,10 @@ LANGUAGES = [
     ("de", gettext_noop("German")),
     ("fr", gettext_noop("French")),
 ]
+<<<<<<< HEAD
+
+=======
+>>>>>>> c74f9eacaabdb66dcc47c4e9e5f34fa9a9635894
 TIME_ZONE = env('TIME_ZONE')
 
 USE_I18N = True
@@ -134,6 +156,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+
 MEDIA_URL = '/media/'
 
 # Default primary key field type

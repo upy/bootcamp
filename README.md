@@ -1,3 +1,19 @@
+<<<<<<< HEAD
+# Plentific Django Bootcamp by Patika
+This project includes Django based e-commerce website, using PostgreSQL as database.
+
+Changelog will be updated weekly.
+<br><br>
+## Usage
+- Install all modules with `pip install -r requirements.txt`
+- Create database on PostgreSQL with using PgAdmin
+- Set `DATABASE_URL` in `.env` file
+- Change directory to ecommerce app with `cd ecommerce`
+- Run `python ./manage migrate` to create database connections
+- Run `python ./manage runserver` to run the server
+
+Navigate to `http://localhost:8000` to see the website.
+=======
 # E-Commerce Application using Django
 
 ## Dependencies used in the project
@@ -29,3 +45,4 @@ Run `python manage.py runserver ip_you_want:port_you_want` and go to [`http://ip
 Ex.: Run `python manage.py runserver 0.0.0.0:5252` and go to [`http://0.0.0.0:5252`](http://0.0.0.0:5252) from the browser.
 
 > Note: If ip and port are not specified, it will work on the default ip(127.0.0.1) and port(8000). Make sure that the ip address entered in "ip_you_want" is in ALLOWED_HOSTS variable in the [`.env`](ecommerce/.env) file.
+>>>>>>> c74f9eacaabdb66dcc47c4e9e5f34fa9a9635894
