@@ -7,13 +7,13 @@
 
 ## Project Setup
 
-- Clone the project with `git clone -b task1-django-environ --single-branch https://github.com/smlblr/bootcamp.git ecommerce-django && cd ecommerce-django`
+- Clone the project with `git clone https://github.com/upy/bootcamp.git ecommerce-django && cd ecommerce-django`
 - Create virtual environment with `virtualenv --python=3.9 .venv` and activate it with `source .venv/bin/activate`
 - Enter the ecommerce folder with `cd ecommerce`
 - Install dependencies with `pip install -r requirements.txt`
 - Create server, database and superuser with the Postgresql. (If you want to do database operations with a gui, you can additionally use pgAdmin.)
 - Execute the migrate process with `python manage.py migrate`
-- Fill in the contents of the [`.env.dist`](ecommerce/.env.dist) file and rename it as `.env`
+- Fill in the contents of the [`.env.dist`](ecommerce/.env.dist) file and copy it as `.env`
 
 ### Inside of the ".env" File
 - SECRET_KEY in the .env file can be generated with the following command. <br> `python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'`
