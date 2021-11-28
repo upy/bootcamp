@@ -18,4 +18,4 @@ _/ecommerce_
     SECRET_KEY=django-insecure-^5@e(m+8_(@ljs$4p&u()5ivodjy=ylt!=%cz%2(6#sysep2*y  
     TIME_ZONE=Europe/Istanbul  
     DATABASE_URL=psql://<role_name>:<db_password>@127.0.0.1:<db_port>/<db_name>
-
+test
