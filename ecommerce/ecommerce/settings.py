@@ -11,20 +11,28 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import environ
+import os
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+env = environ.Env()
+
+# Take environment variables from .env file
+env.read_env(os.path.join(BASE_DIR, '.env'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-^5@e(m+8_(@ljs$4p&u()5ivodjy=ylt!=%cz%2(6#sysep2*y'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool('DEBUG', default=False)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=[])
 
 
 # Application definition
@@ -74,16 +82,7 @@ WSGI_APPLICATION = 'ecommerce.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': "bootcampecommerce",
-        "USER": "bootcamp",
-        "PASSWORD": "",
-        "HOST": "localhost",
-        "PORT": "5432",
-    }
-}
+DATABASES = {'default': env.db('DATABASE_URL')}
 
 
 # Password validation
@@ -119,7 +118,7 @@ LANGUAGES = [
     ("en", gettext_noop("English")),
     ("tr", gettext_noop("Turkish"))
 ]
-TIME_ZONE = 'Europe/Istanbul'
+TIME_ZONE = env('TIME_ZONE')
 
 USE_I18N = True
 
@@ -132,8 +131,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Due to the admin panel error caused by "django.contrib.sites", 
+# it is necessary to edit the sites model id.
+SITE_ID = 1
