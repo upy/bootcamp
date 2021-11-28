@@ -51,6 +51,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -116,7 +117,8 @@ def gettext_noop(s):
 
 LANGUAGES = [
     ("en", gettext_noop("English")),
-    ("tr", gettext_noop("Turkish"))
+    ("tr", gettext_noop("Turkish")),
+    ("de", gettext_noop("German"))
 ]
 TIME_ZONE = env('TIME_ZONE')
 
@@ -138,3 +140,5 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = "customers.Customer"
+
+LOCALE_PATHS = (str(BASE_DIR / "locale/"), )
