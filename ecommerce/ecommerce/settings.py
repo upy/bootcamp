@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     "core",
     "customers",
     "products",
-    "baskets"
+    "baskets",
+    "payments"
     # TODO: ADD NEW APPS HERE!
 ]
 
