@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     "core",
     "customers",
     "products",
+    "baskets"
+    # TODO: ADD NEW APPS HERE!
 ]
 
 MIDDLEWARE = [

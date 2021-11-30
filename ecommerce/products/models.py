@@ -47,3 +47,14 @@ class Price(BaseAbstractModel):
     def __str__(self):
         return f"{self.product} - {self.amount}"
 
+
+class Category(BaseAbstractModel):
+    name = models.CharField(max_length=255, verbose_name=_("Name"))
+
+    class Meta:
+        verbose_name = _("category")
+        verbose_name_plural = _("categories")
+
+    def __str__(self):
+        return f"{self.name}"
+
