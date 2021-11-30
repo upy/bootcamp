@@ -8,7 +8,7 @@ from products.models import Product
 
 
 class Basket(BaseAbstractModel):
-    customer = models.OneToOneField(Customer, verbose_name=_("Customer"), null=True, on_delete=models.PROTECT)
+    customer = models.ForeignKey(Customer, verbose_name=_("Customer"), null=True, on_delete=models.PROTECT)
     status = models.CharField(
         choices=enums.Status.choices, verbose_name=_("Status"), max_length=50)
 
@@ -21,8 +21,8 @@ class Basket(BaseAbstractModel):
 
 
 class BasketItem(BaseAbstractModel):
-    basket = models.OneToOneField(Basket, verbose_name="Basket", on_delete=models.PROTECT)
-    product = models.OneToOneField(Product, verbose_name="Product", on_delete=models.PROTECT)
+    basket = models.ForeignKey(Basket, verbose_name="Basket", on_delete=models.PROTECT)
+    product = models.ForeignKey(Product, verbose_name="Product", on_delete=models.PROTECT)
     quantity = models.PositiveIntegerField(verbose_name=_("Quantity"))
     price = models.DecimalField(verbose_name=_("Price"), max_digits=10, decimal_places=2)
 
