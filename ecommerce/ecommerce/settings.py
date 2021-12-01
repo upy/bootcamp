@@ -142,4 +142,4 @@ MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = "customers.Customer"
 
-LOCALE_PATHS = (str(BASE_DIR / "locale/"), )
+LOCALE_PATHS = (BASE_DIR / "locale/"),

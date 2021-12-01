@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-28 15:02+0300\n"
+"POT-Creation-Date: 2021-11-30 23:32+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,148 +18,152 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: core/models.py:6
+#: .\core\models.py:6
 msgid "Created at"
 msgstr "Oluşturma tarihi"
 
-#: core/models.py:7
+#: .\core\models.py:7
 msgid "Modified at"
 msgstr "Değiştirme tarihi"
 
-#: customers/admin.py:12
+#: .\customers\admin.py:12
 msgid "Personal info"
 msgstr ""
 
-#: customers/admin.py:14
+#: .\customers\admin.py:14
 msgid "Permissions"
 msgstr ""
 
-#: customers/admin.py:25
+#: .\customers\admin.py:25
 msgid "Important dates"
 msgstr ""
 
-#: customers/models.py:23
+#: .\customers\models.py:23
 msgid "first name"
 msgstr ""
 
-#: customers/models.py:24
+#: .\customers\models.py:24
 msgid "last name"
 msgstr ""
 
-#: customers/models.py:26
+#: .\customers\models.py:26
 msgid "email address"
 msgstr ""
 
-#: customers/models.py:29
+#: .\customers\models.py:29
 msgid "staff status"
 msgstr ""
 
-#: customers/models.py:31
+#: .\customers\models.py:31
 msgid "Designates whether the user can log into this admin site."
 msgstr ""
 
-#: customers/models.py:34
+#: .\customers\models.py:34
 msgid "active"
 msgstr ""
 
-#: customers/models.py:37
+#: .\customers\models.py:37
 msgid ""
 "Designates whether this user should be treated as active. Unselect this "
 "instead of deleting accounts."
 msgstr ""
 
-#: customers/models.py:41
+#: .\customers\models.py:41
 msgid "date joined"
 msgstr ""
 
-#: customers/models.py:49
+#: .\customers\models.py:49
 msgid "customer"
 msgstr ""
 
-#: customers/models.py:50
+#: .\customers\models.py:50
 msgid "customers"
 msgstr "Müşteriler"
 
-#: ecommerce/settings.py:119
+#: .\ecommerce\settings.py:119
 msgid "English"
 msgstr ""
 
-#: ecommerce/settings.py:120
+#: .\ecommerce\settings.py:120
 msgid "Turkish"
 msgstr ""
 
-#: ecommerce/settings.py:121
+#: .\ecommerce\settings.py:121
 msgid "German"
 msgstr ""
 
-#: products/enums.py:6
+#: .\ecommerce\settings.py:122
+msgid "French"
+msgstr ""
+
+#: .\products\enums.py:6
 msgid "Red"
 msgstr "Kırmız"
 
-#: products/enums.py:7
+#: .\products\enums.py:7
 msgid "Blue"
 msgstr "Mavi"
 
-#: products/enums.py:8
+#: .\products\enums.py:8
 msgid "White"
 msgstr "Beyaz"
 
-#: products/enums.py:9
+#: .\products\enums.py:9
 msgid "Yellow"
 msgstr ""
 
-#: products/models.py:9
+#: .\products\models.py:9
 msgid "SKU"
 msgstr ""
 
-#: products/models.py:10
+#: .\products\models.py:10
 msgid "Name"
 msgstr "İsim"
 
-#: products/models.py:11
+#: .\products\models.py:11
 msgid "Description"
 msgstr "Açıklama"
 
-#: products/models.py:13
+#: .\products\models.py:13
 msgid "Color"
 msgstr "Renk"
 
-#: products/models.py:14
+#: .\products\models.py:14
 msgid "Size"
 msgstr "Boyut"
 
-#: products/models.py:17
+#: .\products\models.py:17
 msgid "product"
 msgstr "Ürün"
 
-#: products/models.py:18
+#: .\products\models.py:18
 msgid "products"
 msgstr "Ürünler"
 
-#: products/models.py:25 products/models.py:38
+#: .\products\models.py:25 .\products\models.py:38
 msgid "Product"
 msgstr ""
 
-#: products/models.py:27
+#: .\products\models.py:27
 msgid "Quantity"
 msgstr ""
 
-#: products/models.py:30
+#: .\products\models.py:30
 msgid "stock"
 msgstr "Stok"
 
-#: products/models.py:31
+#: .\products\models.py:31
 msgid "stocks"
 msgstr "Stoklar"
 
-#: products/models.py:40
+#: .\products\models.py:40
 msgid "Amount"
 msgstr ""
 
-#: products/models.py:44
+#: .\products\models.py:44
 msgid "price"
 msgstr ""
 
-#: products/models.py:45
+#: .\products\models.py:45
 msgid "prices"
-msgstr ""
+msgstr "Fiyatlar"

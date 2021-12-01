@@ -26,7 +26,7 @@ class StockAdmin(admin.ModelAdmin):
 
 
 @admin.register(Price)
-class StockAdmin(admin.ModelAdmin):
+class PriceAdmin(admin.ModelAdmin):
     list_display = ("product", "amount")
     search_fields = ("product__name", "product__sku")
     autocomplete_fields = ("product", )
