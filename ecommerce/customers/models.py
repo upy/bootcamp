@@ -2,22 +2,43 @@ from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.core.mail import send_mail
+from django.core.validators import RegexValidator
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from django.db import models
 
+from core.models import BaseAbstractModel
 from customers.managers import CustomerManager
 
 
+class Country(BaseAbstractModel):
+    name = models.CharField(max_length=255, verbose_name=_("Name"))
+
+
+class City(BaseAbstractModel):
+    name = models.CharField(max_length=255, verbose_name=_("Name"))
+    country = models.ForeignKey(Country, on_delete=models.PROTECT)
+
+
+class Address(BaseAbstractModel):
+    name = models.CharField(max_length=255, verbose_name=_("Name"))
+    full_name = models.CharField(max_length=255, verbose_name=_("Full Name"))
+    line_one = models.CharField(max_length=511, verbose_name=_("Line One"))
+    line_two = models.CharField(max_length=511, verbose_name=_("Line Two"))
+
+    # regex validator that accepts a "+" symbol followed by 9 to 15 digits in accordance with E.164 format
+    phone_regex = RegexValidator(
+        regex=r'^\+?\d{9,15}$',
+        message=_(
+            "Enter phone number in the following format: '+xxxxxxxxxxxx'. Up to 15 digits including country code.")
+    )
+    phone = models.CharField(validators=[phone_regex], max_length=16, verbose_name=_("Phone Number"))
+    district = models.CharField(max_length=255, verbose_name=_("District"))
+    city = models.ForeignKey(City, on_delete=models.PROTECT)
+
+
 class Customer(AbstractBaseUser, PermissionsMixin):
-    """
-    An abstract base class implementing a fully featured User model with
-    admin-compliant permissions.
-
-    Username and password are required. Other fields are optional.
-    """
-
     username_validator = UnicodeUsernameValidator()
 
     first_name = models.CharField(_("first name"), max_length=150, blank=True)
