@@ -7,6 +7,7 @@ from django.utils.translation import gettext_lazy as _
 
 from django.db import models
 
+from core.models import BaseAbstractModel
 from customers.managers import CustomerManager
 
 
@@ -67,3 +68,70 @@ class Customer(AbstractBaseUser, PermissionsMixin):
     def email_user(self, subject, message, from_email=None, **kwargs):
         """Send an email to this user."""
         send_mail(subject, message, from_email, [self.email], **kwargs)
+
+    def __str__(self):
+        return f"{self.first_name} - {self.last_name}"
+
+
+class Country(BaseAbstractModel):
+    name = models.CharField(max_length=255, verbose_name=_("Country"))
+
+    class Meta:
+        verbose_name = _("country")
+        verbose_name_plural = _("countries")
+
+    def __str__(self):
+        return f"{self.name}"
+
+
+class City(BaseAbstractModel):
+    country = models.ForeignKey(Country, verbose_name=_("Country"),
+                                on_delete=models.CASCADE)
+    name = models.CharField(max_length=255, verbose_name=_("City"))
+
+    class Meta:
+        verbose_name = _("city")
+        verbose_name_plural = _("cities")
+
+    def __str__(self):
+        return f"{self.country} - {self.name}"
+
+
+class Address(BaseAbstractModel):
+    name = models.CharField(
+        "Name",
+        max_length=255,
+    )
+    full_name = models.CharField(
+        "Full name",
+        max_length=255,
+    )
+    line_1 = models.CharField(
+        "Address Line 1",
+        max_length=255,
+    )
+    line_2 = models.CharField(
+        "Address Line 2",
+        max_length=255,
+    )
+    phone = models.CharField(
+        "Phone number",
+        max_length=16,
+    )
+    district = models.CharField(
+        "District",
+        max_length=255,
+    )
+    postcode = models.CharField(
+        "Post code",
+        max_length=10,
+    )
+    city = models.ForeignKey(City, verbose_name=_("City"),
+                             on_delete=models.PROTECT)
+
+    class Meta:
+        verbose_name = _("address")
+        verbose_name_plural = _("addresses")
+
+    def __str__(self):
+        return f"{self.name}"
