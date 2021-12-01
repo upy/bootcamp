@@ -35,7 +35,7 @@ class Address(BaseAbstractModel):
     )
     phone = models.CharField(validators=[phone_regex], max_length=16, verbose_name=_("Phone Number"))
     district = models.CharField(max_length=255, verbose_name=_("District"))
-    city = models.ForeignKey(City, on_delete=models.PROTECT)
+    city = models.ForeignKey(City, on_delete=models.PROTECT, verbose_name=_("City"))
 
 
 class Customer(AbstractBaseUser, PermissionsMixin):
