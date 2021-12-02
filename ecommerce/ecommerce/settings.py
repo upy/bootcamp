@@ -44,9 +44,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "django_extensions",
     "phonenumber_field",
+    "localflavor",
     "core",
     "customers",
     "products",
+    "baskets",
+    "payments"
 ]
 
 MIDDLEWARE = [

@@ -5,7 +5,7 @@ from baskets import enums
 from customers.models import Customer
 from products.models import Product
 
-
+currency = 'TL'
 class Basket(BaseAbstractModel):
     customer = models.ForeignKey(Customer, verbose_name=_('Customer'),
                                  null=True, blank=True, on_delete=models.CASCADE)
@@ -31,10 +31,10 @@ class BasketItem(BaseAbstractModel):
 
     class Meta:
         verbose_name = _('basket item')
-        verbose_name_plural = _('basket items')
+        verbose_name_plural = _('Basket Items')
 
     def __str__(self):
-        return f'{self.product} - {self.price}'
+        return f'{self.product} - {self.price}{currency}'
 
 
 # Create your models here.

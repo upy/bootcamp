@@ -5,7 +5,7 @@ from baskets.models import Basket, BasketItem
 
 @admin.register(Basket)
 class BasketAdmin(admin.ModelAdmin):
-    search_fields = ("customer", "status")
+    search_fields = ("customer__email", "status")
     list_display = ("customer", "status")
 
 
