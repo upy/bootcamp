@@ -2,40 +2,40 @@ from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.core.mail import send_mail
-from django.core.validators import RegexValidator
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from django.db import models
 
-from core.models import BaseAbstractModel
+from core.models import BaseAbstractModel, AddressAbstractModel
 from customers.managers import CustomerManager
 
 
 class Country(BaseAbstractModel):
     name = models.CharField(max_length=255, verbose_name=_("Name"))
 
+    class Meta:
+        verbose_name = _("country")
+        verbose_name_plural = _("countries")
+
 
 class City(BaseAbstractModel):
     name = models.CharField(max_length=255, verbose_name=_("Name"))
     country = models.ForeignKey(Country, on_delete=models.PROTECT)
 
+    class Meta:
+        verbose_name = _("city")
+        verbose_name_plural = _("cities")
 
-class Address(BaseAbstractModel):
+
+class Address(AddressAbstractModel):
     name = models.CharField(max_length=255, verbose_name=_("Name"))
-    full_name = models.CharField(max_length=255, verbose_name=_("Full Name"))
-    line_one = models.CharField(max_length=511, verbose_name=_("Line One"))
-    line_two = models.CharField(max_length=511, verbose_name=_("Line Two"))
-
-    # regex validator that accepts a "+" symbol followed by 9 to 15 digits in accordance with E.164 format
-    phone_regex = RegexValidator(
-        regex=r'^\+?\d{9,15}$',
-        message=_(
-            "Enter phone number in the following format: '+xxxxxxxxxxxx'. Up to 15 digits including country code.")
-    )
-    phone = models.CharField(validators=[phone_regex], max_length=16, verbose_name=_("Phone Number"))
-    district = models.CharField(max_length=255, verbose_name=_("District"))
     city = models.ForeignKey(City, on_delete=models.PROTECT, verbose_name=_("City"))
+
+    class Meta:
+        ordering = ["name"]
+        verbose_name = _("address")
+        verbose_name_plural = _("addresses")
 
 
 class Customer(AbstractBaseUser, PermissionsMixin):
@@ -67,8 +67,8 @@ class Customer(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = []
 
     class Meta:
-        verbose_name = _("customer")
-        verbose_name_plural = _("customers")
+        verbose_name = _("Customer")
+        verbose_name_plural = _("Customers")
 
     def clean(self):
         super().clean()
