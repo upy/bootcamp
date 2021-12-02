@@ -5,9 +5,23 @@ from core.models import BaseAbstractModel
 from products import enums
 
 
+class Category(BaseAbstractModel):
+    """Product Category - Many to Many Relation with Product"""
+    name = models.CharField(max_length=255, verbose_name=_("Category"))
+
+    class Meta:
+        verbose_name = _("category")
+        verbose_name_plural = _("categories")
+
+    def __str__(self):
+        return self.name
+
+
 class Product(BaseAbstractModel):
     sku = models.CharField(verbose_name=_("SKU"), max_length=100, unique=True)
     name = models.CharField(max_length=255, verbose_name=_("Name"))
+    # categories: null and blank may change in the future
+    categories = models.ManyToManyField(Category, null=True, blank=True)
     description = models.TextField(max_length=2000, verbose_name=_("Description"))
     color = models.CharField(
         choices=enums.Colors.choices, verbose_name=_("Color"), max_length=20)
@@ -46,4 +60,5 @@ class Price(BaseAbstractModel):
 
     def __str__(self):
         return f"{self.product} - {self.amount}"
+
 
