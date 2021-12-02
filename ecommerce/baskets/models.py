@@ -19,8 +19,8 @@ class Basket(BaseAbstractModel):
 
 
 class BasketItem(BaseAbstractModel):
-    basket = models.ForeignKey(Basket, verbose_name=_("Basket"), on_delete=models.PROTECT)
-    product = models.ForeignKey(Product, verbose_name=_("Product"), on_delete=models.PROTECT)
+    basket = models.ForeignKey(Basket, verbose_name=_("Basket"), on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, verbose_name=_("Product"), on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(verbose_name=_("Quantity"))
     price = models.DecimalField(verbose_name=_("Price"), max_digits=10, decimal_places=2)
 
