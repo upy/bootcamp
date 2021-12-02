@@ -47,3 +47,32 @@ class Price(BaseAbstractModel):
     def __str__(self):
         return f"{self.product} - {self.amount}"
 
+
+class Category(BaseAbstractModel):
+    name = models.CharField(max_length=255,verbose_name=_("Name"))
+    products = models.ManyToManyField(
+        to='Product',
+        through='Categorization',
+        through_fields=('category', 'product'),
+        verbose_name=_('Products')
+    )
+
+    class Meta:
+        verbose_name = _("category")
+        verbose_name_plural = _("categories")
+
+
+class Categorization(BaseAbstractModel):
+    category = models.ForeignKey(
+        to='Category',
+        on_delete=models.CASCADE,
+        verbose_name=_("Category")
+    )
+    product = models.ForeignKey(
+        to='Product',
+        on_delete=models.CASCADE,
+        verbose_name=_("Product")
+    )
+    class Meta:
+        verbose_name = _("categorization")
+        verbose_name_plural = _("categorizations")

@@ -11,8 +11,6 @@ class Basket(BaseAbstractModel):
     customer = models.ForeignKey(
         Customer,
         on_delete=models.SET_NULL,
-        # related_name=<>
-        # related_query_name=<>
         null=True,
         verbose_name="customer"
     )
@@ -31,15 +29,11 @@ class BasketItem(BaseAbstractModel):
     basket = models.ForeignKey(
         Basket,
         on_delete=models.CASCADE,
-        # related_name=<>
-        # related_query_name=<>
         verbose_name="basket"
     )
     product = models.ForeignKey(
         Product,
         on_delete=models.PROTECT,
-        # related_name=<>
-        # related_query_name=<>
         verbose_name="product"
     )
 
