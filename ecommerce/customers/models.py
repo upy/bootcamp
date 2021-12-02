@@ -97,8 +97,7 @@ class Address(BaseAbstractModel):
     name = models.CharField(max_length=255, verbose_name=_('Name'))
     full_name = models.CharField(max_length=255, verbose_name=_('Full Name'))
     line_1 = models.CharField(max_length=255, verbose_name=_('First Address Line'))
-    line_2 = models.CharField(max_length=255, verbose_name=_('Second Address Line'),
-                              help_text=_('Not Mandatory'))
+    line_2 = models.CharField(max_length=255,null=True,blank=True,verbose_name=_('Second Address Line'),)
     phone = PhoneNumberField()
     district = models.CharField(max_length=255,verbose_name=_("District"))
     postcode = models.CharField(max_length=255,verbose_name=_('Post Code'))
