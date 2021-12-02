@@ -71,6 +71,10 @@ class Customer(AbstractBaseUser, PermissionsMixin):
 class Country(BaseAbstractModel):
     name = models.CharField(max_length=255, verbose_name=_("Name"))
 
+    class Meta:
+        verbose_name = _("country")
+        verbose_name_plural = _("countries")
+
     def __str__(self):
         return f"{self.name}"
 
@@ -78,6 +82,10 @@ class Country(BaseAbstractModel):
 class City(BaseAbstractModel):
     name = models.CharField(max_length=255, verbose_name=_("Name"))
     country = models.ForeignKey(Country, verbose_name=_("Country"), on_delete=models.PROTECT)
+
+    class Meta:
+        verbose_name = _("city")
+        verbose_name_plural = _("cities")
 
     def __str__(self):
         return f"{self.name} - {self.country}"
@@ -94,7 +102,9 @@ class Address(BaseAbstractModel):
     city = models.ForeignKey(City, verbose_name=_("City"), on_delete=models.PROTECT)
     customer = models.ForeignKey(Customer, verbose_name=_("Customer"), on_delete=models.PROTECT)
 
+    class Meta:
+        verbose_name = _("address")
+        verbose_name_plural = _("addresses")
+
     def __str__(self):
         return f"{self.name} - {self.line_1}, {self.line_2} - {self.district}/{self.city} - {self.postcode}"
-
-

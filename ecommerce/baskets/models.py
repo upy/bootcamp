@@ -29,4 +29,4 @@ class BasketItem(BaseAbstractModel):
         verbose_name_plural = _("basket items")
 
     def __str__(self):
-        return f"{self.product} - {self.quantity} - {self.price}"
+        return f"{self.basket} - {self.product} - {self.quantity} - {self.price}"
