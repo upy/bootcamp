@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+# to reach directly to admin site, I have changed the root url  temporarily
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('', admin.site.urls),
+    # path('admin/', admin.site.urls),
 ]
