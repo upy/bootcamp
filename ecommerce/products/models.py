@@ -10,6 +10,8 @@ class Category(BaseAbstractModel):
 
     class Meta:
         ordering = ["name"]
+        verbose_name = _("category")
+        verbose_name_plural = _("categories")
 
     def __str__(self):
         return self.name
