@@ -5,7 +5,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 from customers.models import City, Customer, Address
 from django_iban.fields import IBANField
 from baskets.models import Basket
-from products.models import Product,Price
+from products.models import Product, Price
 
 
 class BillingAddress(BaseAbstractModel):
@@ -42,15 +42,16 @@ class Order(BaseAbstractModel):
         verbose_name_plural = _("Orders")
 
     def __str__(self):
-        return f'{self.customer} - {self.basket}'
+        return f'{self.basket}'
 
 
 class OrderBankAccount(BaseAbstractModel):
     name = models.CharField(max_length=255, verbose_name=_('Name'))
     iban = IBANField()
     bank_name = models.CharField(max_length=255, verbose_name=_("Bank Name"))
-    order = models.ForeignKey(Order,verbose_name=_('Order'),
+    order = models.ForeignKey(Order, verbose_name=_('Order'),
                               on_delete=models.CASCADE)
+
     class Meta:
         verbose_name = _("Order Bank Account")
         verbose_name_plural = _("Order Bank Accounts")
@@ -58,21 +59,20 @@ class OrderBankAccount(BaseAbstractModel):
     def __str__(self):
         return f'{self.name}'
 
+
 class OrderItem(BaseAbstractModel):
-    order = models.ForeignKey(Order,verbose_name=_('Order'),
+    order = models.ForeignKey(Order, verbose_name=_('Order'),
                               on_delete=models.CASCADE)
-    product = models.ForeignKey(Product,verbose_name=_('Product'),
+    product = models.ForeignKey(Product, verbose_name=_('Product'),
                                 on_delete=models.CASCADE)
-    price = models.ForeignKey(Product,verbose_name=_('Price'),
-                              on_delete=models.PROTECT)
+    price = models.DecimalField(verbose_name=_("Amount"),
+                                      max_digits=10, decimal_places=2)
 
     class Meta:
         verbose_name = _("Order Item")
         verbose_name_plural = _("Order Items")
 
     def __str__(self):
-        return f'{self.product} - {self.order}'
-
-
+        return f'{self.order}'
 
 # Create your models here.

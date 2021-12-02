@@ -6,6 +6,8 @@ from customers.models import Customer
 from products.models import Product
 
 currency = 'TL'
+
+
 class Basket(BaseAbstractModel):
     customer = models.ForeignKey(Customer, verbose_name=_('Customer'),
                                  null=True, blank=True, on_delete=models.CASCADE)
@@ -35,6 +37,5 @@ class BasketItem(BaseAbstractModel):
 
     def __str__(self):
         return f'{self.product} - {self.price}{currency}'
-
 
 # Create your models here.
