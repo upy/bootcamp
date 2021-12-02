@@ -20,8 +20,8 @@ class BankAccount(BaseAbstractModel):
     iban = models.CharField(max_length=50, verbose_name=_("IBAN"))
 
     class Meta:
-        verbose_name = _("account")
-        verbose_name_plural = _("accounts")
+        verbose_name = _("bank account")
+        verbose_name_plural = _("bank accounts")
 
     def __str__(self):
         return f"{self.bank} - {self.name} - {self.iban}"
