@@ -13,6 +13,9 @@ class PriceInline(admin.StackedInline):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
+    """
+    Register the Product model to admin panel
+    """
     search_fields = ("name", "sku")
     list_display = ("sku", "name", "color", "size")
     inlines = [StockInline, PriceInline]
@@ -20,6 +23,9 @@ class ProductAdmin(admin.ModelAdmin):
 
 @admin.register(Stock)
 class StockAdmin(admin.ModelAdmin):
+    """
+    Register the Stock model to admin panel
+    """
     list_display = ("product", "quantity")
     search_fields = ("product__name", "product__sku")
     autocomplete_fields = ("product", )
@@ -27,6 +33,9 @@ class StockAdmin(admin.ModelAdmin):
 
 @admin.register(Price)
 class StockAdmin(admin.ModelAdmin):
+    """
+    Register the Price model to admin panel
+    """
     list_display = ("product", "amount")
     search_fields = ("product__name", "product__sku")
     autocomplete_fields = ("product", )
