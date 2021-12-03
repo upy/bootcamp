@@ -4,6 +4,15 @@ from django.utils.translation import gettext_lazy as _
 from core.models import BaseAbstractModel
 from products import enums
 
+class Category:
+    name = models.CharField(max_length=255, verbose_name=_("Name"))
+
+    class Meta:
+        verbose_name = _("category")
+        verbose_name_plural = _("categorie")
+
+    def __str__(self):
+        return f"{self.name}"
 
 class Product(BaseAbstractModel):
     sku = models.CharField(verbose_name=_("SKU"), max_length=100, unique=True)
@@ -12,6 +21,7 @@ class Product(BaseAbstractModel):
     color = models.CharField(
         choices=enums.Colors.choices, verbose_name=_("Color"), max_length=20)
     size = models.CharField(max_length=30, verbose_name=_("Size"))
+    categories = models.ManyToManyField(Category)
 
     class Meta:
         verbose_name = _("product")
