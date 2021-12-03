@@ -41,7 +41,8 @@ class BasketItem(BaseAbstractModel):
                                 )
     # There might be the basket which also used for wishlist.
     # Therefore PositiveSmallIntegerField could be insufficient with its 32767 item size
-    quantity = models.PositiveIntegerField(verbose_name=_("Quantity"))
+    # So, PositiveIntegerField is used. quantity and price also can't be null.
+    quantity = models.PositiveIntegerField(verbose_name=_("Quantity"), null=False)
 
     # price could be maximum 999.999.999,99 unit of money
     price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name=_("Price"))
