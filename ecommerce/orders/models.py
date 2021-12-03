@@ -67,7 +67,7 @@ class OrderItem(BaseAbstractModel):
                                 on_delete=models.CASCADE)
 
     price = models.DecimalField(verbose_name=_("Amount"),
-                                      max_digits=10, decimal_places=2)
+                                max_digits=10, decimal_places=2)
 
     class Meta:
         verbose_name = _("Order Item")
@@ -75,6 +75,5 @@ class OrderItem(BaseAbstractModel):
 
     def __str__(self):
         return f'{self.order}'
-
 
 # Create your models here.

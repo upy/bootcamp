@@ -22,6 +22,7 @@ class CategoryAdmin(admin.ModelAdmin):
 class ProductAdmin(admin.ModelAdmin):
     search_fields = ("name", "sku")
     list_display = ("sku", "name", "color", "size")
+    autocomplete_fields = ("categories",)
     inlines = [StockInline, PriceInline]
 
 

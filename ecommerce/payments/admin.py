@@ -13,3 +13,4 @@ class BankAdmin(admin.ModelAdmin):
 class BankAccountAdmin(admin.ModelAdmin):
     search_fields = ("iban", )
     list_display = ("bank", "name")
+    autocomplete_fields = ("bank",)

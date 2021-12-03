@@ -42,13 +42,17 @@ class CustomerAdmin(UserAdmin):
 @admin.register(Address)
 class AddressAdmin(admin.ModelAdmin):
     list_display = ('full_name',)
+    search_fields = ('full_name',)
+    autocomplete_fields = ('city',)
 
 
 @admin.register(City)
 class CityAdmin(admin.ModelAdmin):
     list_display = ('name',)
-
+    search_fields = ('name',)
+    autocomplete_fields = ('country',)
 
 @admin.register(Country)
 class CountryAdmin(admin.ModelAdmin):
     list_display = ('name',)
+    search_fields = ('name',)
