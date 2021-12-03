@@ -19,7 +19,7 @@ class Bank(BaseAbstractModel):
 
 
 class BankAccount(BaseAbstractModel):
-    bank = models.ForeignKey(Bank, verbose_name=_("Bank Name"), on_delete=models.PROTECT)
+    bank = models.ForeignKey(Bank, verbose_name=_("Bank Name"), on_delete=models.CASCADE)
     name = models.CharField(max_length=255, verbose_name=_("Name"))
     iban = models.CharField(max_length=16, validators=[IBAN_REGEX], verbose_name="IBAN")
 
