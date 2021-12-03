@@ -5,7 +5,7 @@ from orders.models import BillingAddress, Order, OrderBankAccount, OrderItem
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ("customer", "total_price",)
+    list_display = ("customer", "total_price")
     search_fields = ("customer__full_name", )
 
 

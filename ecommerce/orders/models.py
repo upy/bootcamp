@@ -65,6 +65,7 @@ class OrderItem(BaseAbstractModel):
                               on_delete=models.CASCADE)
     product = models.ForeignKey(Product, verbose_name=_('Product'),
                                 on_delete=models.CASCADE)
+
     price = models.DecimalField(verbose_name=_("Amount"),
                                       max_digits=10, decimal_places=2)
 
@@ -74,5 +75,6 @@ class OrderItem(BaseAbstractModel):
 
     def __str__(self):
         return f'{self.order}'
+
 
 # Create your models here.
