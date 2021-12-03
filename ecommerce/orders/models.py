@@ -6,6 +6,8 @@ from core.models import BaseAbstractModel
 from customers.models import City, Customer
 from baskets.models import Basket
 
+from core.regex_validators import IBAN_REGEX, PHONE_REGEX, POSTCODE_REGEX
+
 
 class BillingAddress(BaseAbstractModel):
     """
@@ -14,9 +16,13 @@ class BillingAddress(BaseAbstractModel):
     full_name = models.CharField(_("Full Name"), max_length=50)
     line_1 = models.CharField(_("Line 1"), max_length=200)
     line_2 = models.CharField(_("Line 2"), max_length=200)
-    phone = models.CharField(_("Phone Number"), max_length=50)
+    phone = models.CharField(_("Phone Number"),
+                             validators=[PHONE_REGEX],
+                             max_length=50)
     district = models.CharField(_("District"), max_length=50)
-    postcode = models.CharField(_("Postcode"), max_length=50)
+    postcode = models.CharField(_("Postcode"),
+                                validators=[POSTCODE_REGEX],
+                                max_length=50)
     city = models.ForeignKey(City, on_delete=models.PROTECT)
 
     class Meta:
@@ -34,9 +40,13 @@ class ShippingAddress(BaseAbstractModel):
     full_name = models.CharField(_("Full Name"), max_length=50)
     line_1 = models.CharField(_("Line 1"), max_length=200)
     line_2 = models.CharField(_("Line 2"), max_length=200)
-    phone = models.CharField(_("Phone Number"), max_length=50)
+    phone = models.CharField(_("Phone Number"),
+                             validators=[PHONE_REGEX],
+                             max_length=50)
     district = models.CharField(_("District"), max_length=50)
-    postcode = models.CharField(_("Postcode"), max_length=50)
+    postcode = models.CharField(_("Postcode"),
+                                validators=[POSTCODE_REGEX],
+                                max_length=50)
     city = models.ForeignKey(City, on_delete=models.PROTECT)
 
     class Meta:
@@ -52,8 +62,7 @@ class OrderBankAccount(BaseAbstractModel):
     Stores order bank accounts, related to :model:`orders.Order`
     """
     name = models.CharField(_("Name"), max_length=50)
-    # IBAN field should be changed in a more secure version before deployment
-    iban = models.CharField(_("IBAN"), max_length=50)
+    iban = models.CharField(_("IBAN"), validators=[IBAN_REGEX], max_length=50)
     bank_name = models.CharField(_("Bank Name"), max_length=50)
     order = models.ForeignKey('Order', on_delete=models.PROTECT)
 
@@ -74,7 +83,6 @@ class Order(BaseAbstractModel):
     basket = models.ForeignKey(Basket, on_delete=models.CASCADE)
     billing_address = models.CharField(_("Billing Address"), max_length=200)
     shipping_address = models.CharField(_("Shipping Address"), max_length=200)
-    # total_price should be calculated
     total_price = models.DecimalField(verbose_name=_("Total Price"),
                                       max_digits=10,
                                       decimal_places=2)

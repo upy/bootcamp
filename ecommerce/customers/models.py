@@ -7,6 +7,7 @@ from django.utils.translation import gettext_lazy as _
 
 from django.db import models
 from core.models import BaseAbstractModel
+from core.regex_validators import PHONE_REGEX, POSTCODE_REGEX
 
 from customers.managers import CustomerManager
 
@@ -79,9 +80,13 @@ class Address(BaseAbstractModel):
     full_name = models.CharField(max_length=200, verbose_name=_("Full Name"))
     line_1 = models.CharField(max_length=200, verbose_name=_("Line 1"))
     line_2 = models.CharField(max_length=200, verbose_name=_("Line 2"))
-    phone = models.CharField(max_length=25, verbose_name=_("Phone Number"))
+    phone = models.CharField(max_length=25,
+                             validators=[PHONE_REGEX],
+                             verbose_name=_("Phone Number"))
     district = models.CharField(max_length=50, verbose_name=_("District"))
-    postcode = models.CharField(max_length=50, verbose_name=_("Postcode"))
+    postcode = models.CharField(max_length=50,
+                                validators=[POSTCODE_REGEX],
+                                verbose_name=_("Postcode"))
     city = models.ForeignKey('City',
                              verbose_name=_("City"),
                              on_delete=models.PROTECT)
