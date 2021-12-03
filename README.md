@@ -29,3 +29,12 @@ Run `python manage.py runserver ip_you_want:port_you_want` and go to [`http://ip
 Ex.: Run `python manage.py runserver 0.0.0.0:5252` and go to [`http://0.0.0.0:5252`](http://0.0.0.0:5252) from the browser.
 
 > Note: If ip and port are not specified, it will work on the default ip(127.0.0.1) and port(8000). Make sure that the ip address entered in "ip_you_want" is in ALLOWED_HOSTS variable in the [`.env`](ecommerce/.env) file.
+
+## Baskets, Payments and Orders apps are updated and customer apps filled with some models.
+1- Customer Aps filled with Address, City and Country Models and admin settings done.
+2- Baskets app are created and admin settings done.
+3- Payments app are created and admin settings done.
+4- orders app are created and admin settings done. 
+- After each processing I committed to ertugrulbal-hw-2 branch.
+- End of the processings I pushed to my github account.
+- And then pulled request at the upy/bootmcap which before I forked account.
