@@ -6,12 +6,12 @@ from products import enums
 
 
 class Category(BaseAbstractModel):
-    name = models.CharField(max_length=50,)
+    name = models.CharField(max_length=255, verbose_name=_('Name'))
     # ı need to create a slug field
     # because if user wants to go a product with computer category
     # then our url can be such as '/computer/product_name or product_id'
     # this computer is our slug and it is unique
-    slug = models.SlugField(max_length=50, unique=True,)
+    slug = models.SlugField(max_length=50, unique=True, verbose_name=_('Slug'))
 
     class Meta:
         verbose_name = _('category')
