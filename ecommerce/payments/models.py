@@ -31,7 +31,7 @@ class BankAccount(BaseAbstractModel):
                             )
 
     class Meta:
-        verbose_name =_("bank account")
+        verbose_name = _("bank account")
         verbose_name_plural = _("bank accounts")
 
     def __str__(self):
