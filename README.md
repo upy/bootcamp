@@ -22,6 +22,9 @@
 
 - The parameters in the DATABASE_URL variable in the .env file are the superuser username and password, the IP and port specified for the server, and the database name, respectively.
 
+### Regex Validators 
+- New regex validators should be added to [`regex_validators.py`](ecommerce/core/regex_validators.py) file.
+
 ## Run 
 
 Run `python manage.py runserver ip_you_want:port_you_want` and go to [`http://ip_you_want:port_you_want`](ip_you_want:port_you_want) from the browser.
