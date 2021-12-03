@@ -8,6 +8,7 @@ from django.utils.translation import gettext_lazy as _
 from django.db import models
 
 from customers.managers import CustomerManager
+from core.models import AddressAbstractModel
 
 
 class Customer(AbstractBaseUser, PermissionsMixin):
@@ -104,7 +105,7 @@ class City(models.Model):
         return self.name
 
 
-class Address(models.Model):
+class Address(AddressAbstractModel):
     """
     Address Model for customer's address\n
     Required Fields: name, line1, district, post_code, city\n
@@ -112,13 +113,6 @@ class Address(models.Model):
     One to many relation with City model.
     """
     name = models.CharField(_("address name"), max_length=150)
-    full_name = models.CharField(_("address full name"), max_length=300, blank=True)
-    line1 = models.CharField(_("address line one"), max_length=300)
-    line2 = models.CharField(_("address line two"), max_length=300, blank=True)
-    phone = models.CharField(_("phone number"), max_length=300, blank=True)
-    district = models.CharField(_("district"), max_length=300)
-    post_code = models.CharField(_("post code"), max_length=50)
-    city = models.ForeignKey(City, on_delete=models.DO_NOTHING)
 
     class Meta:
         verbose_name = _("address")
