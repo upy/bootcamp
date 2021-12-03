@@ -74,7 +74,7 @@ class Order(BaseAbstractModel):
     basket = models.ForeignKey(Basket, on_delete=models.CASCADE)
     billing_address = models.CharField(_("Billing Address"), max_length=200)
     shipping_address = models.CharField(_("Shipping Address"), max_length=200)
-    # total_price should be calculated 
+    # total_price should be calculated
     total_price = models.DecimalField(verbose_name=_("Total Price"),
                                       max_digits=10,
                                       decimal_places=2)
