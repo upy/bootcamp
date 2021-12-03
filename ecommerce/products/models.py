@@ -23,7 +23,7 @@ class Product(BaseAbstractModel):
     color = models.CharField(
         choices=enums.Colors.choices, verbose_name=_("Color"), max_length=20)
     size = models.CharField(max_length=30, verbose_name=_("Size"))
-    categories = models.ManyToManyField(Category)
+    categories = models.ManyToManyField(Category, verbose_name=_("Category"))
 
     class Meta:
         verbose_name = _("product")
