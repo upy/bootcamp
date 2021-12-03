@@ -67,3 +67,62 @@ class Customer(AbstractBaseUser, PermissionsMixin):
     def email_user(self, subject, message, from_email=None, **kwargs):
         """Send an email to this user."""
         send_mail(subject, message, from_email, [self.email], **kwargs)
+
+
+class Country(models.Model):
+    """
+    Country model for address\n
+    Required Fields: name\n
+    Optional Fields: none\n
+    One to many relation with City model
+    """
+    name = models.CharField(_("country"), max_length=150)
+
+    class Meta:
+        verbose_name = _("country")
+        verbose_name_plural = _("countries")
+
+    def __str__(self):
+        return self.name
+
+
+class City(models.Model):
+    """
+    City model for address\n
+    Required Fields: name, country\n
+    Optional Fields: none\n
+    One to many relation with Country and Address models
+    """
+    name = models.CharField(_("city"), max_length=150)
+    country = models.ForeignKey(Country, on_delete=models.DO_NOTHING)
+
+    class Meta:
+        verbose_name = _("city")
+        verbose_name_plural = _("cities")
+
+    def __str__(self):
+        return self.name
+
+
+class Address(models.Model):
+    """
+    Address Model for customer's address\n
+    Required Fields: name, line1, district, post_code, city\n
+    Optional Fields: full_name, line2, phone\n
+    One to many relation with City model.
+    """
+    name = models.CharField(_("address name"), max_length=150)
+    full_name = models.CharField(_("address full name"), max_length=300, blank=True)
+    line1 = models.CharField(_("address line one"), max_length=300)
+    line2 = models.CharField(_("address line two"), max_length=300, blank=True)
+    phone = models.CharField(_("phone number"), max_length=300, blank=True)
+    district = models.CharField(_("district"), max_length=300)
+    post_code = models.CharField(_("post code"), max_length=50)
+    city = models.ForeignKey(City, on_delete=models.DO_NOTHING)
+
+    class Meta:
+        verbose_name = _("address")
+        verbose_name_plural = _("addresses")
+
+    def __str__(self):
+        return self.name

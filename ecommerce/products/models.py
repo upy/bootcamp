@@ -21,7 +21,7 @@ class Product(BaseAbstractModel):
     sku = models.CharField(verbose_name=_("SKU"), max_length=100, unique=True)
     name = models.CharField(max_length=255, verbose_name=_("Name"))
     # categories: null and blank may change in the future
-    categories = models.ManyToManyField(Category, null=True, blank=True)
+    categories = models.ManyToManyField(Category, blank=True)
     description = models.TextField(max_length=2000, verbose_name=_("Description"))
     color = models.CharField(
         choices=enums.Colors.choices, verbose_name=_("Color"), max_length=20)
