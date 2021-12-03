@@ -9,6 +9,10 @@ class Category(BaseAbstractModel):
     name = models.CharField(max_length=255, verbose_name=_("Name"), unique=True)
     slug = models.SlugField(name, null=False, unique=True)
 
+    class Meta:
+        verbose_name = _("category")
+        verbose_name_plural = _("categories")
+
     def __str__(self):
         return self.name
 

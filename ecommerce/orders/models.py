@@ -1,12 +1,10 @@
 from django.db import models
 from core.models import BaseAbstractModel
-# from django import forms  # Import forms library to use forms.RegexField for Address.phone
 from customers.models import City
 from django.utils.translation import gettext_lazy as _
 from customers.models import Customer
 from baskets.models import Basket
 from products.models import Product
-from payments.models import BankAccount, Bank
 from django.core.validators import RegexValidator  # Import forms library to use forms.RegexField for Address.phone/postcode
 
 
@@ -21,12 +19,16 @@ class BillingAddress(BaseAbstractModel):
     phone_regex = RegexValidator(regex=r'^[0-9]+$',
                                  message="Tel Number must be entered in the format: '09012345678'. Up to 15 digits "
                                          "allowed.")
-    phone = models.CharField(validators=[phone_regex], max_length=15, verbose_name='phone')
+    phone = models.CharField(validators=[phone_regex], max_length=15, verbose_name='phone', null=True)
     district = models.CharField(verbose_name=_("district"), max_length=100)
     postcode_regex = RegexValidator(regex=r'^[0-9]+$', message=("Postal Code must be entered in the format: "
                                                                 "'1234567'. Up to 7 digits allowed."))
     postcode = models.CharField(validators=[postcode_regex], max_length=7, verbose_name='Postal code')
     city = models.ForeignKey(City, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = _("billing address")
+        verbose_name_plural = _("billing addresses")
 
     def __str__(self):
         return f"{self.full_name} - {self.district}"
@@ -43,12 +45,16 @@ class ShippingAddress(BaseAbstractModel):  # InvoiceAddress' name is changed to 
     phone_regex = RegexValidator(regex=r'^[0-9]+$',
                                  message="Tel Number must be entered in the format: '09012345678'. Up to 15 digits "
                                          "allowed.")
-    phone = models.CharField(validators=[phone_regex], max_length=15, verbose_name='phone')
+    phone = models.CharField(validators=[phone_regex], max_length=15, verbose_name='phone', null=True)
     district = models.CharField(verbose_name=_("district"), max_length=100)
     postcode_regex = RegexValidator(regex=r'^[0-9]+$', message=("Postal Code must be entered in the format: "
                                                                 "'1234567'. Up to 7 digits allowed."))
     postcode = models.CharField(validators=[postcode_regex], max_length=7, verbose_name='Postal code')
     city = models.ForeignKey(City, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = _("shipping address")
+        verbose_name_plural = _("shipping addresses")
 
     def __str__(self):
         return f"{self.full_name} - {self.district}"
@@ -65,6 +71,10 @@ class Order(BaseAbstractModel):
     shipping_address = models.ForeignKey(ShippingAddress, on_delete=models.CASCADE)
     total_price = models.DecimalField(verbose_name=_("total price"), max_digits=10, decimal_places=2)
 
+    class Meta:
+        verbose_name = _("order")
+        verbose_name_plural = _("orders")
+
     def __str__(self):
         return f"{self.customer} - {self.basket}"
 
@@ -75,9 +85,13 @@ class OrderBankAccount(BaseAbstractModel):
     params: BaseAbstractModel Class
     """
     name = models.CharField(verbose_name=_("name"), max_length=50)
-    iban = models.ForeignKey(BankAccount, on_delete=models.CASCADE)
-    bank_name = models.ForeignKey(Bank, on_delete=models.CASCADE)
+    iban = models.CharField(max_length=34)
+    bank_name = models.CharField(verbose_name=_("name"), max_length=75)
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = _("order bank account")
+        verbose_name_plural = _("order bank accounts")
 
     def __str__(self):
         return self.name
@@ -91,6 +105,10 @@ class OrderItem(BaseAbstractModel):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     price = models.DecimalField(verbose_name=_("price"), max_digits=10, decimal_places=2)
+
+    class Meta:
+        verbose_name = _("order item")
+        verbose_name_plural = _("order items")
 
     def __str__(self):
         return str(self.order)

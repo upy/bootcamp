@@ -44,7 +44,7 @@ class Address(AbstractBaseUser):
     phone_regex = RegexValidator(regex=r'^[0-9]+$',
                                  message="Tel Number must be entered in the format: '09012345678'. Up to 15 digits "
                                          "allowed.")
-    phone = models.CharField(validators=[phone_regex], max_length=15, verbose_name='phone')
+    phone = models.CharField(validators=[phone_regex], max_length=15, verbose_name='phone', null=True)
     district = models.CharField(verbose_name=_("district"), max_length=100)
     postcode_regex = RegexValidator(regex=r'^[0-9]+$', message=("Postal Code must be entered in the format: "
                                                                 "'1234567'. Up to 7 digits allowed."))
