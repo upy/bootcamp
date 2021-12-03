@@ -111,4 +111,5 @@ class Address(BaseAbstractModel):
         verbose_name_plural = _("addresses")
 
     def __str__(self):
-        return f"{self.name} - {self.line_1}, {self.line_2} - {self.district}/{self.city} - {self.postcode} - {self.phone}"
+        return f"{self.name} - {self.line_1}, {self.line_2} - {self.district}/{self.city} - {self.postcode} - " \
+               f"{self.phone}"
