@@ -17,7 +17,7 @@ class Bank(BaseAbstractModel):
 class BankAccount(BaseAbstractModel):
     bank = models.ForeignKey(Bank, on_delete=models.PROTECT)
     name = models.CharField(max_length=255, verbose_name=_("Name"))
-    iban = models.CharField(max_length=255, verbose_name=_("IBAN"))
+    iban = models.CharField(max_length=255, verbose_name=_("IBAN")) # need validation!
 
     class Meta:
         verbose_name = _("bank account")
