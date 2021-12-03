@@ -22,7 +22,7 @@ class Basket(BaseAbstractModel):
         verbose_name_plural = _("Baskets")
 
     def __str__(self):
-        return f"{self.customer} : {self.status}"
+        return f"{self.customer} - {self.status}"
 
 
 class BasketItem(BaseAbstractModel):
@@ -34,10 +34,8 @@ class BasketItem(BaseAbstractModel):
                                 verbose_name=_("Product"),
                                 on_delete=models.CASCADE,
                                 null=True)
-    quantity = models.PositiveSmallIntegerField(default=0,
-                                                verbose_name=_("Quantity"))
-    price = models.DecimalField(default=0,
-                                max_digits=10,
+    quantity = models.PositiveSmallIntegerField(verbose_name=_("Quantity"))
+    price = models.DecimalField(max_digits=10,
                                 decimal_places=2,
                                 verbose_name=_("Price"))
 
@@ -46,4 +44,4 @@ class BasketItem(BaseAbstractModel):
         verbose_name_plural = _("Items")
 
     def __str__(self):
-        return f"{self.product} : {self.quantity} : {self.price}"
+        return f"{self.product} - {self.quantity} - {self.price}"

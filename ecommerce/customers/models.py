@@ -85,6 +85,9 @@ class Address(BaseAbstractModel):
     city = models.ForeignKey('City',
                              verbose_name=_("City"),
                              on_delete=models.PROTECT)
+    customer = models.ForeignKey(Customer,
+                                 verbose_name=_("Customer"),
+                                 on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = _("address")
@@ -100,7 +103,9 @@ class City(BaseAbstractModel):
     :model:`customers.Country`
     """
     name = models.CharField(max_length=50)
-    country = models.ForeignKey('Country', on_delete=models.PROTECT)
+    country = models.ForeignKey('Country',
+                                verbose_name=_("Country"),
+                                on_delete=models.PROTECT)
 
     class Meta:
         verbose_name = _("city")
@@ -115,7 +120,7 @@ class Country(BaseAbstractModel):
     Stores address countries, relates to :model:`customers.City` and
     :model:`customers.Address`
     """
-    name = models.CharField(max_length=50)
+    name = models.CharField(_("Name"), max_length=50)
 
     class Meta:
         verbose_name = _("country")

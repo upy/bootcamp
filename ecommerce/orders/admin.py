@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from orders.models import BillingAddress, InvoiceAddress, OrderBankAccount, \
+from orders.models import BillingAddress, ShippingAddress, OrderBankAccount, \
     Order, OrderItem
 
 
@@ -9,10 +9,11 @@ class BillingAddressAdmin(admin.ModelAdmin):
     search_fields = ["full_name", "district", "postcode", "city"]
     list_display = ["full_name", "line_1", "line_2", "phone", "district",
                     "postcode", "city"]
+    autocomplete_fields = ["city", ]
 
 
-@admin.register(InvoiceAddress)
-class InvoiceAddressAdmin(admin.ModelAdmin):
+@admin.register(ShippingAddress)
+class ShippingAddressAdmin(admin.ModelAdmin):
     search_fields = ["full_name", "district", "postcode", "city"]
     list_display = ["full_name", "line_1", "line_2", "phone", "district",
                     "postcode", "city"]

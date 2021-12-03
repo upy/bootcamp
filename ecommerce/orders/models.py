@@ -27,9 +27,9 @@ class BillingAddress(BaseAbstractModel):
         return f"{self.full_name} - {self.city} - {self.district} - {self.phone}"
 
 
-class InvoiceAddress(BaseAbstractModel):
+class ShippingAddress(BaseAbstractModel):
     """
-    Stores invoice address, relates to :model:`customers.City`
+    Stores shipping address, relates to :model:`customers.City`
     """
     full_name = models.CharField(_("Full Name"), max_length=50)
     line_1 = models.CharField(_("Line 1"), max_length=200)
@@ -40,8 +40,8 @@ class InvoiceAddress(BaseAbstractModel):
     city = models.ForeignKey(City, on_delete=models.PROTECT)
 
     class Meta:
-        verbose_name = _("Billing Address")
-        verbose_name_plural = _("Billing Addresses")
+        verbose_name = _("Shipping Address")
+        verbose_name_plural = _("Shipping Addresses")
 
     def __str__(self):
         return f"{self.full_name} - {self.city} - {self.district} - {self.phone}"

@@ -35,4 +35,4 @@ class BankAccount(BaseAbstractModel):
         verbose_name_plural = _("Bank Accounts")
 
     def __str__(self):
-        return f"{self.bank} : {self.name} : {self.iban}"
+        return f"{self.bank} - {self.name} - {self.iban}"

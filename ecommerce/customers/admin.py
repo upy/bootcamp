@@ -4,6 +4,10 @@ from django.utils.translation import gettext_lazy as _
 from customers.models import Customer, Address, City, Country
 
 
+class AddressInline(admin.StackedInline):
+    model = Address
+
+
 @admin.register(Customer)
 class CustomerAdmin(UserAdmin):
     change_user_password_template = None
@@ -36,6 +40,7 @@ class CustomerAdmin(UserAdmin):
     list_display = ("email", "first_name", "last_name", "is_staff")
     search_fields = ("first_name", "last_name", "email")
     ordering = ("email",)
+    inlines = [AddressInline, ]
 
 
 @admin.register(Address)
@@ -47,6 +52,7 @@ class AddressAdmin(admin.ModelAdmin):
 @admin.register(City)
 class CityAdmin(admin.ModelAdmin):
     list_display = ["name", "country"]
+    search_fields = ["name", ]
 
 
 @admin.register(Country)
