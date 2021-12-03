@@ -6,6 +6,7 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from django.db import models
+from core.models import BaseAbstractModel
 
 from customers.managers import CustomerManager
 
@@ -67,3 +68,58 @@ class Customer(AbstractBaseUser, PermissionsMixin):
     def email_user(self, subject, message, from_email=None, **kwargs):
         """Send an email to this user."""
         send_mail(subject, message, from_email, [self.email], **kwargs)
+
+
+class Address(BaseAbstractModel):
+    """
+    Stores individual addresses, relates to :model:`customers.Customer`,
+    :model:`customers.City` and :model:`customers.Country`
+    """
+    name = models.CharField(max_length=50, verbose_name=_("Name"))
+    full_name = models.CharField(max_length=200, verbose_name=_("Full Name"))
+    line_1 = models.CharField(max_length=200, verbose_name=_("Line 1"))
+    line_2 = models.CharField(max_length=200, verbose_name=_("Line 2"))
+    phone = models.CharField(max_length=25, verbose_name=_("Phone Number"))
+    district = models.CharField(max_length=50, verbose_name=_("District"))
+    postcode = models.CharField(max_length=50, verbose_name=_("Postcode"))
+    city = models.ForeignKey('City',
+                             verbose_name=_("City"),
+                             on_delete=models.PROTECT)
+
+    class Meta:
+        verbose_name = _("address")
+        verbose_name_plural = _("addresses")
+
+    def __str__(self):
+        return f"{self.name}"
+
+
+class City(BaseAbstractModel):
+    """
+    Stores cities, relates to :model:`customers.Address` and
+    :model:`customers.Country`
+    """
+    name = models.CharField(max_length=50)
+    country = models.ForeignKey('Country', on_delete=models.PROTECT)
+
+    class Meta:
+        verbose_name = _("city")
+        verbose_name_plural = _("cities")
+
+    def __str__(self):
+        return f"{self.name} - {self.country}"
+
+
+class Country(BaseAbstractModel):
+    """
+    Stores address countries, relates to :model:`customers.City` and
+    :model:`customers.Address`
+    """
+    name = models.CharField(max_length=50)
+
+    class Meta:
+        verbose_name = _("country")
+        verbose_name_plural = _("countries")
+
+    def __str__(self):
+        return f"{self.name}"
