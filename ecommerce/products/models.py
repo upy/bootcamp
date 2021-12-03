@@ -5,6 +5,22 @@ from core.models import BaseAbstractModel
 from products import enums
 
 
+class Category(BaseAbstractModel):
+    name = models.CharField(max_length=50,)
+    # ı need to create a slug field
+    # because if user wants to go a product with computer category
+    # then our url can be such as '/computer/product_name or product_id'
+    # this computer is our slug and it is unique
+    slug = models.SlugField(max_length=50, unique=True,)
+
+    class Meta:
+        verbose_name = _('category')
+        verbose_name_plural = _('categories')
+
+    def __str__(self):
+        return f"{self.name}"
+
+
 class Product(BaseAbstractModel):
     sku = models.CharField(verbose_name=_("SKU"), max_length=100, unique=True)
     name = models.CharField(max_length=255, verbose_name=_("Name"))
@@ -12,6 +28,8 @@ class Product(BaseAbstractModel):
     color = models.CharField(
         choices=enums.Colors.choices, verbose_name=_("Color"), max_length=20)
     size = models.CharField(max_length=30, verbose_name=_("Size"))
+    # category and product model has been connected to each others with m-2-m relation
+    category = models.ManyToManyField(Category)
 
     class Meta:
         verbose_name = _("product")
