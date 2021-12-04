@@ -21,7 +21,20 @@
 - DEBUG variable should be True only during project development. 
 
 - The parameters in the DATABASE_URL variable in the .env file are the superuser username and password, the IP and port specified for the server, and the database name, respectively.
+## Apps Created
+- baskets
+- customers
+- orders
+- payments
+- products
 
+To create these apps:
+- Run `python manage.py startapp apps_name`
+
+## Migrations from Models to SQL
+-Making migration files => Run `python manage.py makemigrations`
+
+-Migrating => Run `python manage.py migrate`
 ## Run 
 
 Run `python manage.py runserver ip_you_want:port_you_want` and go to [`http://ip_you_want:port_you_want`](ip_you_want:port_you_want) from the browser.
@@ -29,3 +42,12 @@ Run `python manage.py runserver ip_you_want:port_you_want` and go to [`http://ip
 Ex.: Run `python manage.py runserver 0.0.0.0:5252` and go to [`http://0.0.0.0:5252`](http://0.0.0.0:5252) from the browser.
 
 > Note: If ip and port are not specified, it will work on the default ip(127.0.0.1) and port(8000). Make sure that the ip address entered in "ip_you_want" is in ALLOWED_HOSTS variable in the [`.env`](ecommerce/.env) file.
+
+## Accessing Admin 
+-To access admin panel, superuser must be created
+
+- Creating superuser => Run `python manage.py createsuperuser`.
+
+- Then enter an email address and password 
+
+- To access admin panel go to `http://ip_you_want:port_you_want/admin`
