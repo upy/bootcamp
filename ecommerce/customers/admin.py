@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import gettext_lazy as _
-from customers.models import Customer, Country, City
+from customers.models import Customer, Country, City, Address
 
 
 @admin.register(Customer)
@@ -45,6 +45,11 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(City)
 class CityAdmin(admin.ModelAdmin):
-    list_display = ("name",)
+    list_display = ("name","country")
     search_fields = ("name",)
     autocomplete_fields = ("country", )
+
+@admin.register(Address)
+class CityAdmin(admin.ModelAdmin):
+    list_display = ("fullname","city")
+    search_fields = ("name","fullname")
