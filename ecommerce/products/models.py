@@ -12,6 +12,8 @@ class Product(BaseAbstractModel):
     color = models.CharField(
         choices=enums.Colors.choices, verbose_name=_("Color"), max_length=20)
     size = models.CharField(max_length=30, verbose_name=_("Size"))
+    categories = models.ManyToManyField("products.Category", verbose_name=_("Category Name"))
+    # Categories field for related product
 
     class Meta:
         verbose_name = _("product")
@@ -47,3 +49,16 @@ class Price(BaseAbstractModel):
     def __str__(self):
         return f"{self.product} - {self.amount}"
 
+
+class Category(BaseAbstractModel):
+    """
+    Model defining Category for related products
+    """
+    name = models.CharField(max_length=255, verbose_name=_("Category Name"))
+
+    class Meta:
+        verbose_name = _("category")
+        verbose_name_plural = _("categories")
+
+    def __str__(self):
+        return f"{self.name}"
