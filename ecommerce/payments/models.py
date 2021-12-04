@@ -23,7 +23,7 @@ class BankAccount(BaseAbstractModel):
     # create a regex validator to ensure that the iban is in a valid format
     # 2 letter country code, 2 check digits, up to 30 alphanumeric characters
     iban_regex_validator = RegexValidator(
-        regex=r"/^(?:(?:IT|SM)\d{2}[A-Z]\d{22}|CY\d{2}[A-Z]\d{23}|NL\d{2}[A-Z]{4}\d{10}|LV\d{2}[A-Z]{4}\d{13}|(?:BG|BH|GB|IE)\d{2}[A-Z]{4}\d{14}|GI\d{2}[A-Z]{4}\d{15}|RO\d{2}[A-Z]{4}\d{16}|KW\d{2}[A-Z]{4}\d{22}|MT\d{2}[A-Z]{4}\d{23}|NO\d{13}|(?:DK|FI|GL|FO)\d{16}|MK\d{17}|(?:AT|EE|KZ|LU|XK)\d{18}|(?:BA|HR|LI|CH|CR)\d{19}|(?:GE|DE|LT|ME|RS)\d{20}|IL\d{21}|(?:AD|CZ|ES|MD|SA)\d{22}|PT\d{23}|(?:BE|IS)\d{24}|(?:FR|MR|MC)\d{25}|(?:AL|DO|LB|PL)\d{26}|(?:AZ|HU)\d{27}|(?:GR|MU)\d{28})$/i",
+        regex=r"^[A-Z]{2}[a-zA-Z0-9]{10,34}$",
         message=_("Enter your IBAN (without spaces) in the appropriate format.")
     )
     iban = models.CharField(validators=[iban_regex_validator], max_length=34, verbose_name=_("IBAN"))
