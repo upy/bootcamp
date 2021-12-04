@@ -4,6 +4,7 @@ from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.core.mail import send_mail
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
+from django.core.validators import RegexValidator
 
 from django.db import models
 
@@ -16,6 +17,7 @@ class Country(AbstractBaseUser):
     def __str__(self):
         return f"{self.name}"
 
+
 class City(AbstractBaseUser):
     country = models.ForeignKey(Country,verbose_name=("Country"),
                                on_delete=models.PROTECT)
@@ -23,6 +25,36 @@ class City(AbstractBaseUser):
 
     def __str__(self):
         return f"{self.country} - {self.name}"
+
+
+class Address(AbstractBaseUser):
+
+    city = models.ForeignKey(City,verbose_name=("City"),
+                             on_delete=models.PROTECT)
+
+    name = models.CharField(max_length=127, verbose_name=("name"))
+    fullname = models.CharField(max_length=255, verbose_name=("fullname"))
+    address1 = models.CharField(max_length=1024, verbose_name=("Address line 1"))
+    address2 = models.CharField(max_length=1024, verbose_name=("Address line 2"))
+    phone_validator = RegexValidator(regex=r'^[0-9]+$',
+                                 message="Phone number must be entered as all numeric"
+                                         "in the format 05555555555"
+                                         "up to 16 digits")
+
+    phone = models.CharField(validators=[phone_validator], max_length=16, verbose_name="phone")
+
+    name = models.CharField(max_length=127, verbose_name=("district"))
+
+    postcode_validator = RegexValidator(regex=r'^[0-9]+$',
+                                 message="Postcode must be entered as all numeric "
+                                         "up to 10 digits 0123456789" )
+    postcode = models.CharField(validators=[postcode_validator], max_length=10, verbose_name="postcode")
+
+
+    def __str__(self):
+        return f"{self.fullname} - {self.city}"
+
+
 
 
 class Customer(AbstractBaseUser, PermissionsMixin):
