@@ -1,4 +1,14 @@
+asgiref==3.4.1
 Django==3.2.9
-psycopg2-binary==2.9.2
-django-extensions==3.1.2
+django-countries==7.2.1
 django-environ==0.8.1
+django-extensions==3.1.2
+django-iban==0.3.1
+django-phonenumber-field==6.0.0
+localflavor==1.9
+phonenumbers==8.12.38
+psycopg2-binary==2.9.2
+python-gettext==4.0
+pytz==2021.3
+six==1.16.0
+sqlparse==0.4.2
