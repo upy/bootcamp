@@ -42,8 +42,10 @@ class BasketItem(BaseAbstractModel):
         verbose_name=_("Quantity"),
         default=1
     )
-    price = models.PositiveIntegerField(
-        verbose_name=_("Price")
+    price = models.DecimalField(
+        verbose_name=_("Price"),
+        max_digits=10,
+        decimal_places=2
     )
 
     class Meta:
