@@ -47,3 +47,15 @@ class Price(BaseAbstractModel):
     def __str__(self):
         return f"{self.product} - {self.amount}"
 
+
+# saves the category name which is connected to product class
+class Category(BaseAbstractModel):
+    name = models.CharField(max_length=50,
+                            verbose_name=_("Category"))
+
+    class Meta:
+        verbose_name = _("category")
+        verbose_name_plural = _("categories")
+
+    def __str__(self):
+        return f"{self.name}"
