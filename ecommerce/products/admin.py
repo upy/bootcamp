@@ -37,3 +37,4 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display = ("name",)
     search_fields = ("product__name", "product__sku")
     autocomplete_fields = ("product", )
+

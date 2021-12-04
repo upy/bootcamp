@@ -10,6 +10,21 @@ from django.db import models
 from customers.managers import CustomerManager
 
 
+class Country(AbstractBaseUser):
+    name = models.CharField(max_length=127, verbose_name=("name"))
+
+    def __str__(self):
+        return f"{self.name}"
+
+class City(AbstractBaseUser):
+    country = models.ForeignKey(Country,verbose_name=("Country"),
+                               on_delete=models.PROTECT)
+    name = models.CharField(max_length=127, verbose_name=("name"))
+
+    def __str__(self):
+        return f"{self.country} - {self.name}"
+
+
 class Customer(AbstractBaseUser, PermissionsMixin):
     """
     An abstract base class implementing a fully featured User model with
@@ -67,3 +82,4 @@ class Customer(AbstractBaseUser, PermissionsMixin):
     def email_user(self, subject, message, from_email=None, **kwargs):
         """Send an email to this user."""
         send_mail(subject, message, from_email, [self.email], **kwargs)
+
