@@ -81,8 +81,12 @@ class Order(BaseAbstractModel):
     """
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     basket = models.ForeignKey(Basket, on_delete=models.CASCADE)
-    billing_address = models.CharField(_("Billing Address"), max_length=200)
-    shipping_address = models.CharField(_("Shipping Address"), max_length=200)
+    billing_address = models.ForeignKey(BillingAddress,
+                                        verbose_name=_("Billing Address"),
+                                        on_delete=models.PROTECT)
+    shipping_address = models.ForeignKey(ShippingAddress,
+                                         verbose_name=_("Shipping Address"),
+                                         on_delete=models.PROTECT)
     total_price = models.DecimalField(verbose_name=_("Total Price"),
                                       max_digits=10,
                                       decimal_places=2)

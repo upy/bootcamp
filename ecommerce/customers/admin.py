@@ -6,6 +6,7 @@ from customers.models import Customer, Address, City, Country
 
 class AddressInline(admin.StackedInline):
     model = Address
+    extra = 1
 
 
 @admin.register(Customer)
