@@ -7,6 +7,7 @@ from django.utils.translation import gettext_lazy as _
 
 from django.db import models
 
+import core.models
 from customers.managers import CustomerManager
 from core.models import AddressAbstractModel
 
@@ -113,6 +114,7 @@ class Address(AddressAbstractModel):
     One to many relation with City model.
     """
     name = models.CharField(_("address name"), max_length=150)
+    city = models.ForeignKey(City, on_delete=models.DO_NOTHING)
 
     class Meta:
         verbose_name = _("address")
