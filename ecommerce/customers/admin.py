@@ -1,7 +1,9 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import gettext_lazy as _
-from customers.models import Customer, Country, City, Address
+
+from core.models import City, Country
+from customers.models import Customer, Address
 
 
 @admin.register(Customer)

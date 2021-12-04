@@ -9,37 +9,34 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('products', '0001_initial'),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Basket',
+            name='Country',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='Created at')),
                 ('modified_at', models.DateTimeField(auto_now=True, verbose_name='Modified at')),
-                ('status', models.CharField(choices=[('open', 'Open'), ('submitted', 'Submitted'), ('merged', 'Merged')], max_length=20, verbose_name='Status')),
+                ('name', models.CharField(max_length=255, verbose_name='Country Name')),
             ],
             options={
-                'verbose_name': 'basket',
-                'verbose_name_plural': 'baskets',
+                'verbose_name': 'country',
+                'verbose_name_plural': 'countries',
             },
         ),
         migrations.CreateModel(
-            name='BasketItem',
+            name='City',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='Created at')),
                 ('modified_at', models.DateTimeField(auto_now=True, verbose_name='Modified at')),
-                ('quantity', models.PositiveIntegerField(verbose_name='Quantity')),
-                ('price', models.DecimalField(decimal_places=2, max_digits=10, verbose_name='Price')),
-                ('basket', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='baskets.basket')),
-                ('product', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='products.product')),
+                ('name', models.CharField(max_length=255, verbose_name='City Name')),
+                ('country', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='core.country')),
             ],
             options={
-                'verbose_name': 'basket item',
-                'verbose_name_plural': 'basket items',
+                'verbose_name': 'city',
+                'verbose_name_plural': 'cities',
             },
         ),
     ]

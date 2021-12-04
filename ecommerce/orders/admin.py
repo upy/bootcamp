@@ -1,6 +1,4 @@
 from django.contrib import admin
-
-from customers.admin import AddressAdmin
 from orders.models import Order, OrderItem, OrderBankAccount, ShippingAddress, BillingAddress
 from payments.admin import BankAccountAdmin
 
@@ -18,9 +16,9 @@ class OrderBankAccountAdmin(BankAccountAdmin): # Inherited from payments app adm
     list_display = ("name", "iban", "bank",)
 
 @admin.register(ShippingAddress)
-class ShippingAddressAdmin(AddressAdmin):  # Inherited from customers app admin AddressAdmin
+class ShippingAddressAdmin(admin.ModelAdmin):
     list_display = ("name", "line1", "line2", "district", "city", "postal_code",)
 
 @admin.register(BillingAddress)
-class BillingAddressAdmin(AddressAdmin):  # Inherited from customers app admin AddressAdmin
+class BillingAddressAdmin(admin.ModelAdmin):
     list_display = ("name", "line1", "line2", "district", "city", "postal_code",)

@@ -1,13 +1,14 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from baskets.models import Basket
-from core.models import BaseAbstractModel
-from customers.models import Customer, Address
+from core.models import BaseAbstractModel, BaseAbstractAddressModel
+from customers.models import Customer
 from payments.models import BankAccount
 from products.models import Product
 
 
-class BillingAddress(Address):  # Inherited from customers app model Address
+class BillingAddress(BaseAbstractAddressModel):  # Inherited from core app model BaseAbstractAddressModel
+    name = models.CharField(max_length=255, verbose_name=_("Name"))
 
     class Meta:
         verbose_name = _("billing address")
@@ -17,7 +18,8 @@ class BillingAddress(Address):  # Inherited from customers app model Address
         return super().__str__()
 
 
-class ShippingAddress(Address):  # Inherited from customers app model Address
+class ShippingAddress(BaseAbstractAddressModel):  # Inherited from core app model BaseAbstractAddressModel
+    name = models.CharField(max_length=255, verbose_name=_("Name"))
 
     class Meta:
         verbose_name = _("shipping address")
@@ -32,7 +34,8 @@ class Order(BaseAbstractModel):
     basket = models.ForeignKey(Basket, on_delete=models.PROTECT)
     billing_address = models.ForeignKey(BillingAddress, on_delete=models.PROTECT)
     shipping_address = models.ForeignKey(ShippingAddress, on_delete=models.PROTECT)
-    total_price = models.PositiveIntegerField(verbose_name=_("Total Price"))
+    total_price = models.DecimalField(verbose_name=_("Total Price"),
+                                 max_digits=10, decimal_places=2)
 
     class Meta:
         verbose_name = _("order")
@@ -45,7 +48,8 @@ class Order(BaseAbstractModel):
 class OrderItem(BaseAbstractModel):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    price = models.PositiveIntegerField(verbose_name=_("Price"))
+    price = models.DecimalField(verbose_name=_("Price"),
+                                 max_digits=10, decimal_places=2)
 
     class Meta:
         verbose_name = _("order item")
