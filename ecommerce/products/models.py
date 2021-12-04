@@ -17,6 +17,9 @@ class Product(BaseAbstractModel):
         verbose_name = _("product")
         verbose_name_plural = _("products")
 
+    def categoryList(self):
+        return "\n".join([p.name for p in self.category_set.all()])
+
     def __str__(self):
         return f"{self.sku} - {self.name}"
 

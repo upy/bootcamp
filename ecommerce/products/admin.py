@@ -18,7 +18,7 @@ class CategorizationInline(admin.StackedInline):
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     search_fields = ("name", "sku")
-    list_display = ("sku", "name", "color", "size")
+    list_display = ("sku", "name", "color", "size", "categoryList")
     inlines = [StockInline, PriceInline, CategorizationInline]
 
 
