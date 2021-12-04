@@ -18,10 +18,10 @@ class CategoryInline(admin.StackedInline):
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     search_fields = ("name", "sku")
-    list_display = ("sku", "name", "color", "size", "get_categories")
+    list_display = ("sku", "name", "color", "size", "all_categories")
     inlines = [StockInline, PriceInline]
 
-    def get_categories(self, obj):
+    def all_categories(self, obj):
         return "\n".join([p.name for p in obj.categories.all()])
 
 
