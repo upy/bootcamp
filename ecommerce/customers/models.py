@@ -6,13 +6,15 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from django.db import models
+from phone_field import PhoneField
 
+from core.models import BaseAbstractModel
 from customers.managers import CustomerManager
 
 
 class Customer(AbstractBaseUser, PermissionsMixin):
     """
-    An abstract base class implementing a fully featured User model with
+    Customer class implementing a fully featured User model with
     admin-compliant permissions.
 
     Username and password are required. Other fields are optional.
@@ -67,3 +69,37 @@ class Customer(AbstractBaseUser, PermissionsMixin):
     def email_user(self, subject, message, from_email=None, **kwargs):
         """Send an email to this user."""
         send_mail(subject, message, from_email, [self.email], **kwargs)
+
+
+class Country(BaseAbstractModel):
+    name = models.CharField(max_length=255, verbose_name=_("Name"))
+
+    class Meta:
+        verbose_name = _("country")
+        verbose_name_plural = _("countries")
+
+    def __str__(self):
+        return str(self.name)
+
+
+class City(BaseAbstractModel):
+    name = models.CharField(max_length=255, verbose_name=_("Name"))
+    country = models.ForeignKey(Country, verbose_name=_("Country"), on_delete=models.PROTECT)
+
+    class Meta:
+        verbose_name = _("city")
+        verbose_name_plural = _("cities")
+
+    def __str__(self):
+        return f'{self.name} ({self.country})'
+
+
+class Address(BaseAbstractModel):
+    name = models.CharField(max_length=255, verbose_name=_("Name"))
+    line1 = models.CharField(max_length=1000, verbose_name=_("Address Line 1"))
+    line2 = models.CharField(max_length=1000, verbose_name=_("Address Line 2"))
+    phone_number = PhoneField(verbose_name=_("Phone Number"))
+    district = models.CharField(max_length=255, verbose_name=_("District"))
+    postcode = models.CharField(max_length=20, verbose_name=_("Postcode"))
+    city = models.ForeignKey(City, verbose_name=_("City"), on_delete=models.PROTECT)
+    customer = models.ForeignKey(Customer, verbose_name=_("Customer"), on_delete=models.CASCADE)
