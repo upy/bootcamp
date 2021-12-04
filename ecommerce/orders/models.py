@@ -58,11 +58,10 @@ class Order(BaseAbstractModel):
 
 
 class OrderBankAccount(BaseAbstractModel):
-    name = models.CharField(verbose_name=_("Name"), max_length=100)
     iban_regex = RegexValidator(regex=Regex.IBAN,
                           message=ValidatorMessage.IBAN)
     iban = models.CharField(validators=[iban_regex], max_length=27)
-    bank_name = name = models.CharField(verbose_name=_("Name"), max_length=100)
+    bank_name = models.CharField(verbose_name=_("Bank Name"), max_length=100)
     order = models.ForeignKey(
         Order,
         on_delete=models.CASCADE,
@@ -72,6 +71,7 @@ class OrderBankAccount(BaseAbstractModel):
     class Meta:
         verbose_name = _("order bank account")
         verbose_name_plural = _("order bank accounts")
+        db_table = "bank_account"
 
 
 class OrderItem(BaseAbstractModel):
