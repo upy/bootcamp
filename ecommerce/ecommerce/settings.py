@@ -42,12 +42,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "django_extensions",
-    "phone_field",
-    "core",
-    "customers",
-    "products",
-    "baskets",
+    'django_extensions',
+    'phone_field',
+    'localflavor',
+    'core',
+    'customers',
+    'products',
+    'baskets',
+    'payments',
 ]
 
 MIDDLEWARE = [
@@ -118,10 +120,10 @@ def gettext_noop(s):
 
 
 LANGUAGES = [
-    ("en", gettext_noop("English")),
-    ("tr", gettext_noop("Turkish")),
-    ("de", gettext_noop("German")),
-    ("fr", gettext_noop("French")),
+    ('en', gettext_noop('English')),
+    ('tr', gettext_noop('Turkish')),
+    ('de', gettext_noop('German')),
+    ('fr', gettext_noop('French')),
 ]
 TIME_ZONE = env('TIME_ZONE')
 
@@ -142,6 +144,6 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-AUTH_USER_MODEL = "customers.Customer"
+AUTH_USER_MODEL = 'customers.Customer'
 
-LOCALE_PATHS = (str(BASE_DIR / "locale/"), )
+LOCALE_PATHS = (str(BASE_DIR / 'locale/'), )
