@@ -6,6 +6,9 @@ from core.utils import IBANValidator
 
 
 class Bank(BaseAbstractModel):
+    """
+    Bank model
+    """
     name = models.CharField(max_length=100, verbose_name=_("Bank Name"))
 
     class Meta:
@@ -17,6 +20,9 @@ class Bank(BaseAbstractModel):
 
 
 class BankAccount(BaseAbstractModel):
+    """
+    Bank Account model
+    """
     iban_validator = IBANValidator()
     bank = models.ForeignKey(Bank, verbose_name=_("Bank Name"), on_delete=models.PROTECT)
     name = models.CharField(max_length=100, verbose_name=_("Bank Account Name"))

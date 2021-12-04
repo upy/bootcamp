@@ -5,15 +5,24 @@ from customers.models import Customer, Address, City, Country
 
 
 class CityInline(admin.TabularInline):
+    """
+    Inline class for City
+    """
     model = City
 
 
 class CountryInline(admin.TabularInline):
+    """
+    Inline class for Country
+    """
     model = Country
 
 
 @admin.register(Customer)
 class CustomerAdmin(UserAdmin):
+    """
+    Admin view for Customer
+    """
     change_user_password_template = None
     fieldsets = (
         (None, {"fields": ("email", "password")}),
@@ -48,6 +57,9 @@ class CustomerAdmin(UserAdmin):
 
 @admin.register(Address)
 class AddressAdmin(admin.ModelAdmin):
+    """
+    Admin view for Address
+    """
     list_display = ("customer", "name", "city")
     list_filter = ("city",)
     search_fields = ("line_1", "line_2", "city")
@@ -56,6 +68,9 @@ class AddressAdmin(admin.ModelAdmin):
 
 @admin.register(City)
 class CityAdmin(admin.ModelAdmin):
+    """
+    Admin view for City
+    """
     list_display = ("name", "country")
     list_filter = ("country",)
     search_fields = ("city",)
@@ -64,6 +79,9 @@ class CityAdmin(admin.ModelAdmin):
 
 @admin.register(Country)
 class CountryAdmin(admin.ModelAdmin):
+    """
+    Admin view for Country
+    """
     list_display = ("name",)
     list_filter = ("name",)
     search_fields = ("name",)
