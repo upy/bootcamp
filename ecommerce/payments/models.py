@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from core.models import BankAccountAbstractModel
 
+
 class Bank(models.Model):
     """
     Bank model for payments\n
@@ -25,6 +26,8 @@ class BankAccount(BankAccountAbstractModel):
     Optional Fields: none\n
     One to many relation with Bank
     """
+    bank = models.ForeignKey(Bank, on_delete=models.DO_NOTHING)
+
     class Meta:
         verbose_name = _("bank account")
         verbose_name_plural = _("banks accounts")
