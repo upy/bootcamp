@@ -22,7 +22,7 @@ class Basket(BaseAbstractModel):
         verbose_name_plural = _("baskets")
 
     def __str__(self):
-        return f"{self.customer.name} - {self.status}"
+        return f"{self.customer.email} - {self.status}"
 
 
 class BasketItem(BaseAbstractModel):

@@ -101,7 +101,7 @@ class City(BaseAbstractModel):
 
 
 class Address(BaseAbstractModel):
-    name = models.CharField(verbose_name=_("Name"), max_length=100, unique=True)
+    name = models.CharField(verbose_name=_("Name"), max_length=100)
     full_name = models.CharField(verbose_name=_("Full Name"), max_length=100)
     line1 = models.TextField(verbose_name=_("Line1"))
     line2 = models.TextField(verbose_name=_("Line2"))
@@ -109,13 +109,22 @@ class Address(BaseAbstractModel):
                                  message=ValidatorMessage.PHONE)
     phone_number = models.CharField(validators=[phone_regex], max_length=19)
     district = models.CharField(verbose_name=_("District"), max_length=100)
-    post_code = RegexValidator(regex=Regex.POSTCODE,
+    post_code_regex = RegexValidator(regex=Regex.POSTCODE,
                                message=ValidatorMessage.POSTCODE)
+    post_code = models.CharField(validators=[post_code_regex], max_length=5)
     city = models.ForeignKey(
         City,
         on_delete=models.PROTECT,
         verbose_name="city"
     )
+    customer = models.ForeignKey(
+        Customer,
+        on_delete=models.CASCADE,
+        verbose_name=_("Customer")
+    )
 
     class Meta:
         abstract = True
+
+    def __str__(self):
+        return f"{self.city}"

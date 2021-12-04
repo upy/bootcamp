@@ -10,23 +10,21 @@ from products.models import Product
 
 
 class BillingAddress(Address):
-    customer = models.ForeignKey(
-        Customer,
-        on_delete=models.CASCADE,
-        verbose_name=_("Customer")
-    )
+    class Meta:
+        verbose_name = _("billing address")
+        verbose_name_plural = _("billing addresses")
+
+    def __str__(self):
+        return f"{self.customer.email} - 'billing-address'- {self.city}"
 
 
 class ShippingAddress(Address):
-    customer = models.ForeignKey(
-        Customer,
-        on_delete=models.CASCADE,
-        verbose_name=_("Customer")
-    )
-
     class Meta:
         verbose_name = _("shipping address")
         verbose_name_plural = _("shipping addresses")
+
+    def __str__(self):
+        return f"{self.customer.email} - 'shipping-address' - {self.city}"
 
 
 class Order(BaseAbstractModel):
@@ -56,10 +54,13 @@ class Order(BaseAbstractModel):
         verbose_name = _("order")
         verbose_name_plural = _("orders")
 
+    def __str__(self):
+        return f"{self.basket} - total price: {self.total_price}"
+
 
 class OrderBankAccount(BaseAbstractModel):
     iban_regex = RegexValidator(regex=Regex.IBAN,
-                          message=ValidatorMessage.IBAN)
+                                message=ValidatorMessage.IBAN)
     iban = models.CharField(validators=[iban_regex], max_length=27)
     bank_name = models.CharField(verbose_name=_("Bank Name"), max_length=100)
     order = models.ForeignKey(
@@ -73,6 +74,9 @@ class OrderBankAccount(BaseAbstractModel):
         verbose_name_plural = _("order bank accounts")
         db_table = "bank_account"
 
+    def __str__(self):
+        return f"{self.iban} - {self.bank_name}"
+
 
 class OrderItem(BaseAbstractModel):
     product = models.ForeignKey(
@@ -84,7 +88,7 @@ class OrderItem(BaseAbstractModel):
     order = models.ForeignKey(
         Order,
         on_delete=models.CASCADE,
-        verbose_name=_("Order Bank Account")
+        verbose_name=_("Order")
     )
 
     price = models.PositiveIntegerField(verbose_name=_("Price"))
@@ -93,3 +97,6 @@ class OrderItem(BaseAbstractModel):
         verbose_name = _("order item")
         verbose_name_plural = _("order items")
         unique_together = ['product', 'order']
+
+    def __str__(self):
+        return f"{self.product} - {self.order}"

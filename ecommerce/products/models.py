@@ -49,7 +49,7 @@ class Price(BaseAbstractModel):
 
 
 class Category(BaseAbstractModel):
-    name = models.CharField(max_length=255,verbose_name=_("Name"))
+    name = models.CharField(max_length=255, verbose_name=_("Name"))
     products = models.ManyToManyField(
         to='Product',
         through='Categorization',
@@ -57,9 +57,15 @@ class Category(BaseAbstractModel):
         verbose_name=_('Products')
     )
 
+    def productList(self):
+        return "\n".join([p.name for p in self.products.all()])
+
     class Meta:
         verbose_name = _("category")
         verbose_name_plural = _("categories")
+
+    def __str__(self):
+        return f"{self.name}"
 
 
 class Categorization(BaseAbstractModel):
@@ -73,6 +79,10 @@ class Categorization(BaseAbstractModel):
         on_delete=models.CASCADE,
         verbose_name=_("Product")
     )
+
     class Meta:
         verbose_name = _("categorization")
         verbose_name_plural = _("categorizations")
+
+    def __str__(self):
+        return f"{self.product} - {self.category}"

@@ -3,6 +3,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from core.models import BaseAbstractModel
+from customers.models import Customer
 from ecommerce.utils import Regex
 from ecommerce.utils import ValidatorMessage
 
@@ -25,6 +26,11 @@ class BankAccount(BaseAbstractModel):
     iban_regex = RegexValidator(regex=Regex.IBAN,
                                 message=ValidatorMessage.IBAN)
     iban = models.CharField(validators=[iban_regex], max_length=27)
+    customer = models.ForeignKey(
+        Customer,
+        on_delete=models.CASCADE,
+        verbose_name="customer"
+    )
 
     class Meta:
         verbose_name = _("bank account")
