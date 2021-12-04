@@ -43,7 +43,7 @@ class Address(AbstractBaseUser):
 
     phone = models.CharField(validators=[phone_validator], max_length=16, verbose_name="phone")
 
-    name = models.CharField(max_length=127, verbose_name=("district"))
+    district = models.CharField(max_length=127, verbose_name=("district"))
 
     postcode_validator = RegexValidator(regex=r'^[0-9]+$',
                                  message="Postcode must be entered as all numeric "
