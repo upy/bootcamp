@@ -2,12 +2,18 @@ from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.core.mail import send_mail
+from django.core.validators import RegexValidator
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from django.db import models
 
+from core.models import BaseAbstractModel
 from customers.managers import CustomerManager
+
+phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$',
+                             message="Phone number must be entered in the format: '+999999999'. Up to 15 digits "
+                                     "allowed.")
 
 
 class Customer(AbstractBaseUser, PermissionsMixin):
@@ -67,3 +73,44 @@ class Customer(AbstractBaseUser, PermissionsMixin):
     def email_user(self, subject, message, from_email=None, **kwargs):
         """Send an email to this user."""
         send_mail(subject, message, from_email, [self.email], **kwargs)
+
+
+class Country(BaseAbstractModel):
+    name = models.CharField(max_length=100, verbose_name=_("Name"))
+
+    class Meta:
+        verbose_name = _("country")
+        verbose_name_plural = _("countries")
+
+    def __self__(self):
+        return f"{self.name}"
+
+
+class City(BaseAbstractModel):
+    name = models.CharField(max_length=100, verbose_name=_("City"))
+    country = models.ForeignKey(Country, verbose_name=_("Country"), on_delete=models.PROTECT)
+
+    class Meta:
+        verbose_name = _("city")
+        verbose_name_plural = _("cities")
+
+    def __str__(self):
+        return f"{self.name} - {self.country}"
+
+
+class Address(BaseAbstractModel):
+    name = models.CharField(max_length=50, verbose_name=_("Name"))
+    full_name = models.CharField(max_length=255, verbose_name=_("Full Name"))
+    line_1 = models.CharField(max_length=500, verbose_name=_("Line 1"))
+    line_2 = models.CharField(max_length=500, verbose_name=_("Line 2"))
+    phone = models.CharField(max_length=30, validators=[phone_regex], verbose_name=_("Phone Number"))
+    district = models.CharField(max_length=100, verbose_name=_("District"))
+    postcode = models.CharField(max_length=100, verbose_name=_("Postcode"))
+    city = models.ForeignKey(City, verbose_name=_("City"), on_delete=models.PROTECT)
+
+    class Meta:
+        verbose_name = _("address")
+        verbose_name_plural = _("addresses")
+
+    def __str__(self):
+        return f"{self.name}"
