@@ -10,6 +10,8 @@ from django.db import models
 
 from core.models import BaseAbstractModel
 from customers.managers import CustomerManager
+from ecommerce.utils import Regex
+from ecommerce.utils import ValidatorMessage
 
 
 class Customer(AbstractBaseUser, PermissionsMixin):
@@ -103,15 +105,15 @@ class Address(BaseAbstractModel):
     full_name = models.CharField(verbose_name=_("Full Name"), max_length=100)
     line1 = models.TextField(verbose_name=_("Line1"))
     line2 = models.TextField(verbose_name=_("Line2"))
-    phone_regex = RegexValidator(regex=r'^\+(\d{2})\s\((\d{3})\)\s(\d{3})\s(\d{2})\s(\d{2})',
-                                 message="Phone number must be entered in the format: '+99 (999) 999 99 99'.")
+    phone_regex = RegexValidator(regex=Regex.PHONE,
+                                 message=ValidatorMessage.PHONE)
     phone_number = models.CharField(validators=[phone_regex], max_length=19)
     district = models.CharField(verbose_name=_("District"), max_length=100)
-    post_code = RegexValidator(regex=r'\d{5}',
-                               message="postcode must be entered in the format: '99999'.")
+    post_code = RegexValidator(regex=Regex.POSTCODE,
+                               message=ValidatorMessage.POSTCODE)
     city = models.ForeignKey(
         City,
-        on_delete=models.CASCADE,
+        on_delete=models.PROTECT,
         verbose_name="city"
     )
 

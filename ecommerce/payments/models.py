@@ -3,6 +3,8 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from core.models import BaseAbstractModel
+from ecommerce.utils import Regex
+from ecommerce.utils import ValidatorMessage
 
 
 class Bank(BaseAbstractModel):
@@ -20,11 +22,10 @@ class BankAccount(BaseAbstractModel):
         on_delete=models.CASCADE,
         verbose_name="bank"
     )
-    iban = RegexValidator(regex=r'\b[A-Z]{2}[0-9]{2}(?:[ ]?[0-9]{4}){4}(?!(?:[ ]?[0-9]){3})(?:[ ]?[0-9]{1,2})?\b',
-                               message="iban must be entered in the format: '9999999999999999999999'\n or in the "
-                                       "format: '9999 9999 9999 9999 9999 99'.")
+    iban_regex = RegexValidator(regex=Regex.IBAN,
+                                message=ValidatorMessage.IBAN)
+    iban = models.CharField(validators=[iban_regex], max_length=27)
 
     class Meta:
         verbose_name = _("bank account")
         verbose_name_plural = _("bank accounts")
-

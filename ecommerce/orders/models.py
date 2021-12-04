@@ -1,10 +1,11 @@
+from django.core.validators import RegexValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from basket.models import Basket
 from core.models import BaseAbstractModel
 from customers.models import Address, Customer
-from payments.models import BankAccount
+from ecommerce.utils import Regex, ValidatorMessage
 from products.models import Product
 
 
@@ -57,8 +58,11 @@ class Order(BaseAbstractModel):
 
 
 class OrderBankAccount(BaseAbstractModel):
-    bank_account = models.OneToOneField(BankAccount, verbose_name=_("Bank Account"),
-                                        on_delete=models.PROTECT)
+    name = models.CharField(verbose_name=_("Name"), max_length=100)
+    iban_regex = RegexValidator(regex=Regex.IBAN,
+                          message=ValidatorMessage.IBAN)
+    iban = models.CharField(validators=[iban_regex], max_length=27)
+    bank_name = name = models.CharField(verbose_name=_("Name"), max_length=100)
     order = models.ForeignKey(
         Order,
         on_delete=models.CASCADE,
@@ -89,4 +93,3 @@ class OrderItem(BaseAbstractModel):
         verbose_name = _("order item")
         verbose_name_plural = _("order items")
         unique_together = ['product', 'order']
-
