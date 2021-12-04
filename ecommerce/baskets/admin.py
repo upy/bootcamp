@@ -1,13 +1,15 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import gettext_lazy as _
+from customers.models import Customer
 from customers.models import Customer, Address, City, Country
+
 
 class AddressInline(admin.StackedInline):
     model = Address
 
 
-#@admin.register(Customer)
+@admin.register(Customer)
 class CustomerAdmin(UserAdmin):
     change_user_password_template = None
     fieldsets = (
@@ -42,7 +44,7 @@ class CustomerAdmin(UserAdmin):
     inlines = [AddressInline,]
 
 
-#@admin.register(Address)
+@admin.register(Address)
 class AddressAdmin(admin.ModelAdmin):
     list_display = ("name", "city", "customer")
     search_fields = ("name", "full_name", "line_1", "line_2", "customer__first_name",
@@ -51,14 +53,14 @@ class AddressAdmin(admin.ModelAdmin):
     autocomplete_fields = ("customer", "city")
 
 
-#@admin.register(Country)
+@admin.register(Country)
 class CountryAdmin(admin.ModelAdmin):
     list_display = ("name",)
     search_fields = ("name",)
 
 
-#@admin.register(City)
+@admin.register(City)
 class CityAdmin(admin.ModelAdmin):
     list_display = ("name", "country")
     search_fields = ("name", "country__name")
-    autocomplete_fields = ("country",)
+    autocomplete_fields = ("country")

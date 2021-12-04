@@ -4,6 +4,8 @@ import customers.managers
 import django.contrib.auth.validators
 from django.db import migrations, models
 import django.utils.timezone
+import customers.managers
+from django.conf import settings
 
 
 class Migration(migrations.Migration):
@@ -118,4 +120,53 @@ class Migration(migrations.Migration):
                 ("objects", customers.managers.CustomerManager()),
             ],
         ),
+        migrations.CreateModel(
+            name='Country',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='Created at')),
+                ('modified_at', models.DateTimeField(auto_now=True, verbose_name='Modified at')),
+                ('name', models.CharField(max_length=255, verbose_name='Name')),
+            ],
+            options={
+                'abstract': False,
+            },
+        ),
+        migrations.CreateModel(
+            name='City',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='Created at')),
+                ('modified_at', models.DateTimeField(auto_now=True, verbose_name='Modified at')),
+                ('name', models.CharField(max_length=255, verbose_name='Name')),
+                ('country', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='customers.country',
+                                              verbose_name='Country')),
+            ],
+            options={
+                'abstract': False,
+            },
+        ),
+        migrations.CreateModel(
+            name='Address',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='Created at')),
+                ('modified_at', models.DateTimeField(auto_now=True, verbose_name='Modified at')),
+                ('name', models.CharField(max_length=255, verbose_name='Name')),
+                ('full_name', models.CharField(max_length=255, verbose_name='Full Name')),
+                ('line_1', models.CharField(max_length=255, verbose_name='Line 1')),
+                ('line_2', models.CharField(max_length=255, verbose_name='Line 2')),
+                ('phone', models.CharField(max_length=20, verbose_name='Phone')),
+                ('district', models.CharField(max_length=20, verbose_name='District')),
+                ('postcode', models.CharField(max_length=10, verbose_name='Postcode')),
+                ('city', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='customers.city',
+                                           verbose_name='City')),
+                ('customer', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to=settings.AUTH_USER_MODEL,
+                                               verbose_name='Customer')),
+            ],
+            options={
+                'abstract': False,
+            },
+        ),
     ]
+
