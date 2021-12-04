@@ -7,17 +7,11 @@ from django.utils.translation import gettext_lazy as _
 
 from django.db import models
 
+from core.models import BaseAbstractModel, AddressAbstractModel
 from customers.managers import CustomerManager
 
 
 class Customer(AbstractBaseUser, PermissionsMixin):
-    """
-    An abstract base class implementing a fully featured User model with
-    admin-compliant permissions.
-
-    Username and password are required. Other fields are optional.
-    """
-
     username_validator = UnicodeUsernameValidator()
 
     first_name = models.CharField(_("first name"), max_length=150, blank=True)
@@ -46,8 +40,8 @@ class Customer(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = []
 
     class Meta:
-        verbose_name = _("customer")
-        verbose_name_plural = _("customers")
+        verbose_name = _("Customer")
+        verbose_name_plural = _("Customers")
 
     def clean(self):
         super().clean()
@@ -67,3 +61,43 @@ class Customer(AbstractBaseUser, PermissionsMixin):
     def email_user(self, subject, message, from_email=None, **kwargs):
         """Send an email to this user."""
         send_mail(subject, message, from_email, [self.email], **kwargs)
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"
+
+
+class Country(BaseAbstractModel):
+    name = models.CharField(max_length=255, verbose_name=_("Name"))
+
+    class Meta:
+        verbose_name = _("country")
+        verbose_name_plural = _("countries")
+
+    def __str__(self):
+        return self.name
+
+
+class City(BaseAbstractModel):
+    name = models.CharField(max_length=255, verbose_name=_("Name"))
+    country = models.ForeignKey(Country, on_delete=models.PROTECT)
+
+    class Meta:
+        verbose_name = _("city")
+        verbose_name_plural = _("cities")
+
+    def __str__(self):
+        return self.name
+
+
+class Address(AddressAbstractModel):
+    name = models.CharField(max_length=255, verbose_name=_("Name"))
+    city = models.ForeignKey(City, on_delete=models.PROTECT, verbose_name=_("City"))
+    customer = models.ForeignKey(Customer, null=True, on_delete=models.CASCADE, verbose_name=_("Customer"))
+
+    class Meta:
+        ordering = ["name"]
+        verbose_name = _("address")
+        verbose_name_plural = _("addresses")
+
+    def __str__(self):
+        return self.name
