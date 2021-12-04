@@ -9,7 +9,8 @@ from django.db import models
 from core.models import BaseAbstractModel
 
 from customers.managers import CustomerManager
-from customers.validate_regex import validatePhoneNumber, validatePostCode
+from core.validate_regex import validatePhoneNumber, validatePostCode
+
 
 class Customer(AbstractBaseUser, PermissionsMixin):
     """
@@ -102,20 +103,22 @@ class City(BaseAbstractModel):
 class Address(BaseAbstractModel):
     name = models.CharField(max_length=100,
                             verbose_name=_("Name"))
-    fullname = models.CharField(max_length=255,
+    full_name = models.CharField(max_length=255,
                             verbose_name=_("Fullname"))
-    line1 = models.CharField(max_length=200,
+    line_1 = models.CharField(max_length=200,
                             verbose_name=_("Line 1"))
-    line2 = models.CharField(max_length=200,
+    line_2 = models.CharField(max_length=200,
                             verbose_name=_("Line 2"))
     phone = models.CharField(max_length=50,
                              verbose_name=_("Phone Number"),
                              validators=[validatePhoneNumber()]
     )
-    postcode = models.CharField(max_length=50,
+    post_code = models.CharField(max_length=50,
                              verbose_name=_("Postcode"),
                              validators = [validatePostCode()]
     )
+    district = models.CharField(max_length=100,
+                                 verbose_name=_("District"))
     city = models.ForeignKey(City,
                              verbose_name=_("City"),
                              on_delete=models.PROTECT)
