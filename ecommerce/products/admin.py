@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from products.models import Product, Stock, Price
+from products.models import Category, Product, Stock, Price
 
 
 class StockInline(admin.StackedInline):
@@ -30,3 +30,9 @@ class StockAdmin(admin.ModelAdmin):
     list_display = ("product", "amount")
     search_fields = ("product__name", "product__sku")
     autocomplete_fields = ("product", )
+
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    search_fields = ("name",)
+    list_display = ("name", "slug")

@@ -8,6 +8,8 @@ from django.utils.translation import gettext_lazy as _
 from django.db import models
 
 from customers.managers import CustomerManager
+from core.models import AddressAbstractModel
+from customers.enums import AddressTypeEnum
 
 
 class Customer(AbstractBaseUser, PermissionsMixin):
@@ -67,3 +69,26 @@ class Customer(AbstractBaseUser, PermissionsMixin):
     def email_user(self, subject, message, from_email=None, **kwargs):
         """Send an email to this user."""
         send_mail(subject, message, from_email, [self.email], **kwargs)
+
+
+class Address(AddressAbstractModel):
+    name = models.CharField(
+        max_length=255,
+        blank=True,
+    )
+    customer = models.ForeignKey(
+        "customers.Customer",
+        on_delete=models.CASCADE,
+    )
+    address_type = models.CharField(
+        max_length=2,
+        choices=AddressTypeEnum.choices,
+        default=AddressTypeEnum.BILLING_SHIPPING
+    )
+
+    class Meta:
+        verbose_name = _("Address")
+        verbose_name_plural = _("Addresses")
+
+    def __str__(self):
+        return f"{self.name}"
