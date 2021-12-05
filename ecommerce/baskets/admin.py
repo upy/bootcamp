@@ -6,8 +6,8 @@ from baskets.models import Basket, BasketItem
 @admin.register(Basket)
 class BasketAdmin(admin.ModelAdmin):
     search_fields = ("customer", )
-    list_filter = ("status", )
-    list_display = ("customer", "status")
+    list_filter = ("basket_status", )
+    list_display = ("customer", "basket_status")
 
 
 @admin.register(BasketItem)

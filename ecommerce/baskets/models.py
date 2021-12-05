@@ -11,10 +11,10 @@ class Basket(BaseAbstractModel):
     customer = models.ForeignKey(Customer,
                                  verbose_name=_("Customer"),
                                  on_delete=models.CASCADE,
-                                 null=True)
-    status = models.CharField(max_length=50,
-                              verbose_name=_("Status"),
-                              choices=enums.Status.choices
+                                 null=True, blank=True)
+    basket_status = models.CharField(max_length=50,
+                              verbose_name=_("Basket Status"),
+                              choices=enums.BasketStatus.choices
                               )
 
     class Meta:
@@ -22,7 +22,7 @@ class Basket(BaseAbstractModel):
         verbose_name_plural = _("Baskets")
 
     def __str__(self):
-        return f"{self.customer} - {self.status}"
+        return f"{self.customer} - {self.basket_status}"
 
 
 class BasketItem(BaseAbstractModel):
