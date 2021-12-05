@@ -5,6 +5,20 @@ from core.models import BaseAbstractModel
 from products import enums
 
 
+class Category(BaseAbstractModel):
+    """
+    Category model
+    """
+    name = models.CharField(max_length=255, verbose_name=_("Category Name"))
+
+    class Meta:
+        verbose_name = _("category")
+        verbose_name_plural = _("categories")
+
+    def __str__(self):
+        return f"{self.name}"
+
+
 class Product(BaseAbstractModel):
     """
     Product model
@@ -15,7 +29,7 @@ class Product(BaseAbstractModel):
     color = models.CharField(
         choices=enums.Colors.choices, verbose_name=_("Color"), max_length=20)
     size = models.CharField(max_length=30, verbose_name=_("Size"))
-    categories = models.ManyToManyField("Category", verbose_name=_("Category Name"))
+    categories = models.ManyToManyField(Category, verbose_name=_("Categories"))
 
     class Meta:
         verbose_name = _("product")
@@ -56,17 +70,3 @@ class Price(BaseAbstractModel):
 
     def __str__(self):
         return f"{self.amount}"
-
-
-class Category(BaseAbstractModel):
-    """
-    Category model
-    """
-    name = models.CharField(max_length=255, verbose_name=_("Category Name"))
-
-    class Meta:
-        verbose_name = _("category")
-        verbose_name_plural = _("categories")
-
-    def __str__(self):
-        return f"{self.name}"

@@ -10,13 +10,14 @@ class BankAccountInline(admin.TabularInline):
     model = BankAccount
     extra = 1
 
+
 @admin.register(Bank)
 class BankAdmin(admin.ModelAdmin):
     """
     Admin View for Bank
     """
     list_display = ('name', )
-    inlines = (BankAccountInline, )
+    inlines = [BankAccountInline, ]
 
 
 @admin.register(BankAccount)

@@ -10,13 +10,13 @@ class BillingAddress(BaseAbstractModel):
     """
     Billing Address Model
     """
-    full_name = models.CharField(max_length=255, verbose_name=_("Full Name"), blank=True)
+    full_name = models.CharField(max_length=255, verbose_name=_("Full Name"))
     line_1 = models.CharField(max_length=255, verbose_name=_("Address Line 1"))
-    line_2 = models.CharField(max_length=255, verbose_name=_("Address Line 2"), blank=True)
+    line_2 = models.CharField(max_length=255, verbose_name=_("Address Line 2"), blank=True, null=True)
     phone = models.CharField(
         max_length=20, verbose_name=_("Phone Number"), validators=[phonenumber_validator])
     district = models.CharField(max_length=255, verbose_name=_("District"))
-    zipcode = models.CharField(max_length=20, verbose_name=_("Zip Code"), blank=True)
+    zipcode = models.CharField(max_length=20, verbose_name=_("Zip Code"))
     city = models.ForeignKey("customers.City", verbose_name=_("City"), on_delete=models.PROTECT)
 
     class Meta:
@@ -31,9 +31,9 @@ class ShippingAddress(BaseAbstractModel):
     """
     Shipping Address Model
     """
-    full_name = models.CharField(max_length=255, verbose_name=_("Full Name"), blank=True)
+    full_name = models.CharField(max_length=255, verbose_name=_("Full Name"))
     line_1 = models.CharField(max_length=255, verbose_name=_("Address Line 1"))
-    line_2 = models.CharField(max_length=255, verbose_name=_("Address Line 2"), blank=True)
+    line_2 = models.CharField(max_length=255, verbose_name=_("Address Line 2"), blank=True, null=True)
     phone = models.CharField(
         max_length=20, verbose_name=_("Phone Number"), validators=[phonenumber_validator])
     district = models.CharField(max_length=255, verbose_name=_("District"))
@@ -78,7 +78,6 @@ class Order(BaseAbstractModel):
     shipping_address = models.ForeignKey(
         ShippingAddress, verbose_name=_("Shipping Address"), on_delete=models.PROTECT)
     total_price = models.DecimalField(verbose_name=_("Total Price"), max_digits=10, decimal_places=2)
-
 
     class Meta:
         verbose_name = _("Order")

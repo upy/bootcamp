@@ -12,9 +12,9 @@ class Basket(BaseAbstractModel):
     Basket model
     """
     customer = models.ForeignKey(Customer, verbose_name=_("Customer"), 
-                                 on_delete=models.SET_NULL, null=True)
+                                 on_delete=models.PROTECT, null=True, blank=True)
     status = models.CharField(choices=enums.BasketStatus.choices, max_length=10, 
-                              verbose_name=_("Basket Status"))
+                              verbose_name=_("Basket Status"), default=enums.BasketStatus.OPEN)
 
     class Meta:
         verbose_name = _("Basket")
@@ -28,8 +28,8 @@ class BasketItem(BaseAbstractModel):
     """
     Basket item model
     """
-    basket = models.ForeignKey(Basket, verbose_name=_("Basket"), on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, verbose_name=_("Product"), on_delete=models.CASCADE)
+    basket = models.ForeignKey(Basket, verbose_name=_("Basket"), on_delete=models.PROTECT)
+    product = models.ForeignKey(Product, verbose_name=_("Product"), on_delete=models.PROTECT)
     quantity = models.PositiveIntegerField(verbose_name=_("Quantity"))
     price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name=_("Price"))
 
