@@ -3,12 +3,12 @@ from core.models import BaseAbstractModel
 from django.utils.translation import gettext_lazy as _
 from customers.models import Customer
 from products.models import Product
-from .enums import Status
+from .enums import BasketStatus
 
 
 class Basket(BaseAbstractModel):
     customer = models.ForeignKey(Customer, verbose_name=_('Customer'), null=True, on_delete=models.CASCADE)
-    status = models.CharField(choices=Status.choices, verbose_name=_('Status'), max_length=20)
+    status = models.CharField(choices=BasketStatus.choices, verbose_name=_('Status'), max_length=20)
 
     @property
     def get_status_display(self):
