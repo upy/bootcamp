@@ -42,7 +42,7 @@ class StockAdmin(admin.ModelAdmin):
     """
     Price admin
     """
-    list_display = ("product", "amount")
+    list_display = ("product", "amount", "created_at", "modified_at")
     search_fields = ("product__name", "product__sku")
     autocomplete_fields = ("product", )
 
