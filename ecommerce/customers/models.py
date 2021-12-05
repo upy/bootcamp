@@ -8,6 +8,8 @@ from django.utils.translation import gettext_lazy as _
 from django.db import models
 
 from customers.managers import CustomerManager
+from core.models import BaseAbstractModel
+from core.utils import PhoneNumberValidator
 
 
 class Customer(AbstractBaseUser, PermissionsMixin):
@@ -67,3 +69,63 @@ class Customer(AbstractBaseUser, PermissionsMixin):
     def email_user(self, subject, message, from_email=None, **kwargs):
         """Send an email to this user."""
         send_mail(subject, message, from_email, [self.email], **kwargs)
+
+    def __str__(self):
+        return f"{self.first_name} - {self.last_name}"
+
+
+class Address(BaseAbstractModel):
+    """
+    Address model
+    """
+    phonenumber_validator = PhoneNumberValidator()
+
+    customer = models.ForeignKey(
+        Customer, verbose_name=_("Customer"), on_delete=models.PROTECT)
+    name = models.CharField(max_length=255, verbose_name=_("Name"))
+    full_name = models.CharField(max_length=255, verbose_name=_("Full Name"), blank=True)
+    line_1 = models.CharField(max_length=255, verbose_name=_("Address Line 1"))
+    line_2 = models.CharField(max_length=255, verbose_name=_("Address Line 2"), blank=True)
+    phone = models.CharField(
+        max_length=20, verbose_name=_("Phone Number"), validators=[phonenumber_validator])
+    district = models.CharField(max_length=255, verbose_name=_("District"))
+    zipcode = models.CharField(max_length=20, verbose_name=_("Zip Code"), blank=True)
+    city = models.ForeignKey("customers.City", verbose_name=_("City"), on_delete=models.PROTECT)
+    is_default = models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name = _("address")
+        verbose_name_plural = _("addresses")
+
+    def __str__(self):
+        return f"{self.name} - {self.line_1} - {self.line_2} - {self.district} - {self.city}"
+
+
+class City(BaseAbstractModel):
+    """
+    City model
+    """
+    name = models.CharField(max_length=255)
+    country = models.ForeignKey(
+        "customers.Country", verbose_name=_("Country"), on_delete=models.PROTECT)
+
+    class Meta:
+        verbose_name = _("city")
+        verbose_name_plural = _("cities")
+
+    def __str__(self):
+        return f"{self.name}/{self.country}"
+
+
+class Country(BaseAbstractModel):
+    """
+    Country model
+    """
+    name = models.CharField(max_length=255, verbose_name=_("Country"))
+
+    class Meta:
+        verbose_name = _("country")
+        verbose_name_plural = _("countries")
+
+    def __str__(self):
+        return f"{self.name}"
