@@ -7,6 +7,7 @@ from django.utils.translation import gettext_lazy as _
 
 from django.db import models
 
+from core.models import BaseAbstractModel
 from customers.managers import CustomerManager
 
 
@@ -67,3 +68,44 @@ class Customer(AbstractBaseUser, PermissionsMixin):
     def email_user(self, subject, message, from_email=None, **kwargs):
         """Send an email to this user."""
         send_mail(subject, message, from_email, [self.email], **kwargs)
+
+
+class Country(BaseAbstractModel):
+    name = models.CharField(max_length=255, verbose_name=_("Name"))
+
+    class Meta:
+        verbose_name = _("country")
+        verbose_name_plural = _("countries")
+
+    def __str__(self):
+        return f"{self.name}"
+
+
+class City(BaseAbstractModel):
+    name = models.CharField(max_length=255, verbose_name=_("Name"))
+    country = models.ForeignKey(Country, on_delete=models.PROTECT, verbose_name=_("Country"))
+
+    class Meta:
+        verbose_name = _("city")
+        verbose_name_plural = _("cities")
+
+    def __str__(self):
+        return f"{self.name} - {self.country}"
+
+
+class Address(BaseAbstractModel):
+    name = models.CharField(max_length=255, verbose_name=_("Name"))
+    fullName = models.CharField(max_length=255, verbose_name=_("Full Name"))
+    line1 = models.CharField(max_length=255, verbose_name=_("Line1"))
+    line2 = models.CharField(max_length=255, verbose_name=_("Line2"))
+    phone = models.CharField(max_length=255, verbose_name=_("Phone"))
+    district = models.CharField(max_length=255, verbose_name=_("District"))
+    postcode = models.PositiveIntegerField(verbose_name=_("Postcode"))
+    city = models.ForeignKey(City,on_delete=models.PROTECT, verbose_name=_("City"))
+
+    class Meta:
+        verbose_name = _("address")
+        verbose_name_plural = _("addresses")
+
+    def __str__(self):
+        return f"{self.name} - {self.line1} - {self.line2}"
