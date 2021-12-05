@@ -30,7 +30,7 @@ class BillingAddress(BaseAbstractModel):
         verbose_name_plural = _("Billing Addresses")
 
     def __str__(self):
-        return f"{self.full_name} - {self.city} - {self.district} - {self.phone}"
+        return f"{self.full_name} - {self.city} - {self.district}"
 
 
 class ShippingAddress(BaseAbstractModel):
@@ -54,7 +54,7 @@ class ShippingAddress(BaseAbstractModel):
         verbose_name_plural = _("Shipping Addresses")
 
     def __str__(self):
-        return f"{self.full_name} - {self.city} - {self.district} - {self.phone}"
+        return f"{self.full_name} - {self.city} - {self.district}"
 
 
 class OrderBankAccount(BaseAbstractModel):
@@ -71,7 +71,7 @@ class OrderBankAccount(BaseAbstractModel):
         verbose_name_plural = _("Order Bank Accounts")
 
     def __str__(self):
-        return f"{self.name} - {self.order}"
+        return f"{self.name}"
 
 
 class Order(BaseAbstractModel):
@@ -96,7 +96,7 @@ class Order(BaseAbstractModel):
         verbose_name_plural = _("Orders")
 
     def __str__(self):
-        return f"{self.customer} - {self.basket}"
+        return f"{self.customer} - {self.basket.basket_status}"
 
 
 class OrderItem(BaseAbstractModel):
@@ -114,4 +114,4 @@ class OrderItem(BaseAbstractModel):
         verbose_name_plural = _("Orders Items")
 
     def __str__(self):
-        return f"{self.order} - {self.product} - {self.price}"
+        return f"{self.order.name} - {self.product} - {self.price}"

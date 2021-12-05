@@ -11,5 +11,5 @@ class BankAdmin(admin.ModelAdmin):
 
 @admin.register(BankAccount)
 class BankAccountAdmin(admin.ModelAdmin):
-    search_fields = ("bank", "name", "iban")
+    search_fields = ("bank__name", "name", "iban")
     list_display = ("bank", "name", "iban")
