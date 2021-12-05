@@ -95,6 +95,7 @@ class City(BaseAbstractModel):
 
 class Address(BaseAbstractModel):
     name = models.CharField(max_length=255, verbose_name=_('Name'))
+    costumer = models.ForeignKey(Customer,verbose_name=_("Costumer"),on_delete=models.CASCADE)
     full_name = models.CharField(max_length=255, verbose_name=_('Full Name'))
     line_1 = models.CharField(max_length=255, verbose_name=_('First Address Line'))
     line_2 = models.CharField(max_length=255,null=True,blank=True,verbose_name=_('Second Address Line'),)

@@ -12,7 +12,7 @@ class Basket(BaseAbstractModel):
     customer = models.ForeignKey(Customer, verbose_name=_('Customer'),
                                  null=True, blank=True, on_delete=models.CASCADE)
     status = models.CharField(
-        choices=enums.Status.choices, verbose_name=_('Status'), max_length=20)
+        choices=enums.BasketStatus.choices, verbose_name=_('Status'), max_length=20)
 
     class Meta:
         verbose_name = _('basket')

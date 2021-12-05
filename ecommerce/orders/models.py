@@ -25,6 +25,23 @@ class BillingAddress(BaseAbstractModel):
         return self.full_name
 
 
+class ShippingAddress(BaseAbstractModel):
+    full_name = models.CharField(max_length=255, verbose_name=_('Full Name'))
+    line_1 = models.CharField(max_length=255, verbose_name=_('First Address Line'))
+    line_2 = models.CharField(max_length=255, null=True, blank=True, verbose_name=_('Second Address Line'))
+    phone = PhoneNumberField()
+    district = models.CharField(max_length=255, verbose_name=_("District"))
+    postcode = models.CharField(max_length=255, verbose_name=_('Post Code'))
+    city = models.ForeignKey(City, verbose_name=_('City'), on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = _("Shipping Address")
+        verbose_name_plural = _("Shipping Addresses")
+
+    def __str__(self):
+        return self.full_name
+
+
 class Order(BaseAbstractModel):
     customer = models.ForeignKey(Customer, verbose_name=_('Customer'),
                                  on_delete=models.CASCADE)
@@ -32,7 +49,7 @@ class Order(BaseAbstractModel):
                                on_delete=models.PROTECT)
     billing_address = models.ForeignKey(BillingAddress, verbose_name=_('Billing Address'),
                                         on_delete=models.PROTECT)
-    shipping_address = models.ForeignKey(Address, verbose_name=_('Shipping Address'),
+    shipping_address = models.ForeignKey(ShippingAddress, verbose_name=_('Shipping Address'),
                                          on_delete=models.PROTECT)
     total_price = models.DecimalField(verbose_name=_("Amount"),
                                       max_digits=10, decimal_places=2)
