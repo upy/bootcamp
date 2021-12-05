@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import gettext_lazy as _
-from customers.models import Customer
+from customers.models import Customer, Country, City, Address
 
 
 @admin.register(Customer)
@@ -36,3 +36,23 @@ class CustomerAdmin(UserAdmin):
     list_display = ("email", "first_name", "last_name", "is_staff")
     search_fields = ("first_name", "last_name", "email")
     ordering = ("email",)
+
+#ADD new models to admin panel
+@admin.register(Country)
+class CountryAdmin(admin.ModelAdmin):
+    list_display = ("name",)
+    search_fields = ("name",)
+
+
+@admin.register(City)
+class CityAdmin(admin.ModelAdmin):
+    list_display = ("name", "country")
+    search_fields = ("name", "country")
+    autocomplete_fields = ('country',)
+
+
+@admin.register(Address)
+class AddressAdmin(admin.ModelAdmin):
+    list_display = ("name", "city")
+    search_fields = ("name", "city")
+    autocomplete_fields = ('city',)
