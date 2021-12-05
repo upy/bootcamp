@@ -1,5 +1,6 @@
 from django.contrib import admin
 
+from orders.forms import OrderAdminForm
 from orders.models import Order, OrderItem
 
 
@@ -18,6 +19,7 @@ class OrderAdmin(admin.ModelAdmin):
     list_display = ('customer', 'basket', 'total_price')
     list_filter = ('customer', )
     inlines = (OrderItemInline, )
+    form = OrderAdminForm
 
 
 @admin.register(OrderItem)
