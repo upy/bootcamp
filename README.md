@@ -16,11 +16,29 @@
 - Fill in the contents of the [`.env.dist`](ecommerce/.env.dist) file and copy it as `.env`
 
 ### Inside of the ".env" File
+
 - SECRET_KEY in the .env file can be generated with the following command. <br> `python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'`
-
 - DEBUG variable should be True only during project development. 
-
 - The parameters in the DATABASE_URL variable in the .env file are the superuser username and password, the IP and port specified for the server, and the database name, respectively.
+
+### Migrations for SQL
+
+In order for the changes to be created in the form of SQL Tables, the migrate operation must be performed. The migration process consists of the following two steps. 
+
+- Creating migration files: `python manage.py makemigrations`
+- The resulting files create the necessary tables in SQL database: `python manage.py migrate`
+
+### Localization
+
+In order to use the site in different languages, it is necessary to create localization files. The localization process consists of the following three steps. 
+
+- Creating the file with the phrases to be translated for the preferred language: `python manage.py makemessages -l <language>`. Language ex.: "en", "tr".
+- Translation of phrases in the file ending with ".po" located in the [`locale`](ecommerce/locale/) folder. 
+- Compile the file with the translated phrases: `python manage.py compilemessages`
+
+### Django Admin Panel
+
+In order to enter the admin panel, it is necessary to create a super user. It can be done with the following command: `python manage.py createsuperuser`. Then type email and password.
 
 ## Run 
 
