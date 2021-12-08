@@ -5,20 +5,21 @@ from django.core.mail import send_mail
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.core.validators import RegexValidator
+from core.models import BaseAbstractModel
 
 from django.db import models
 
 from customers.managers import CustomerManager
 
 
-class Country(AbstractBaseUser):
+class Country(BaseAbstractModel):
     name = models.CharField(max_length=127, verbose_name=("name"))
 
     def __str__(self):
         return f"{self.name}"
 
 
-class City(AbstractBaseUser):
+class City(BaseAbstractModel):
     country = models.ForeignKey(Country,verbose_name=("Country"),
                                on_delete=models.PROTECT)
     name = models.CharField(max_length=127, verbose_name=("name"))
@@ -27,7 +28,7 @@ class City(AbstractBaseUser):
         return f"{self.country} - {self.name}"
 
 
-class Address(AbstractBaseUser):
+class Address(BaseAbstractModel):
 
     city = models.ForeignKey(City,verbose_name=("City"),
                              on_delete=models.PROTECT)
