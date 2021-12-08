@@ -1,7 +1,7 @@
 from django.db.transaction import atomic
 from rest_framework import serializers
 
-from products.models import Product, Category
+from products.models import Product, Category, Stock, Price
 
 
 class ProductSerializer(serializers.ModelSerializer):
@@ -37,4 +37,31 @@ class ProductDetailedSerializer(serializers.ModelSerializer):
         return product
 
 
+class StockSerializer(serializers.ModelSerializer):
 
+    class Meta:
+        model = Stock
+        fields = ("product", "quantity")
+
+
+class StockDetailedSerializer(serializers.ModelSerializer):
+    product = ProductSerializer()
+
+    class Meta:
+        model = Stock
+        fields = ("product", "quantity")
+
+
+class PriceSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Price
+        fields = ("product", "amount")
+
+
+class PriceDetailedSerializer(serializers.ModelSerializer):
+    product = ProductSerializer()
+
+    class Meta:
+        model = Price
+        fields = ("product", "amount")
