@@ -5,10 +5,12 @@ from products.filters import ProductFilter
 from products.models import Product, Category
 from products.serializers import ProductSerializer, CategorySerializer, \
     ProductDetailedSerializer
+from products.managers import ProductQuerySet
 
 
 class ProductViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
-    queryset = Product.objects.all()
+    manager_class = ProductQuerySet
+    queryset = Product.objects.action_detailed_list()
     serializer_class = ProductSerializer
     filterset_class = ProductFilter
     serializer_action_classes = {
