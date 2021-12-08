@@ -1,5 +1,6 @@
 from rest_framework import serializers
 
+from baskets.serializers import BasketDetailedSerializer
 from customers.serializers import CustomerSerializer, CityDetailedSerializer
 from orders.models import BillingAddress, ShippingAddress, OrderBankAccount, Order, OrderItem
 
@@ -43,7 +44,7 @@ class OrderSerializer(serializers.ModelSerializer):
 
 class OrderDetailedSerializer(serializers.ModelSerializer):
     customer = CustomerSerializer()
-    # basket = BasketSerializer()
+    basket = BasketDetailedSerializer()
     billing_address = BillingAddressDetailedSerializer()
     shipping_address = ShippingAddressDetailedSerializer()
 
