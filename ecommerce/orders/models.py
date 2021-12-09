@@ -4,6 +4,8 @@ from django.utils.translation import gettext_lazy as _
 from core.utils import phonenumber_validator, iban_validator
 from core.models import BaseAbstractModel
 from orders import enums
+from orders.managers import BillingAddressQuerySet, ShippingAddressQuerySet, \
+    OrderQuerySet, OrderBankAccountQuerySet, OrderItemQuerySet
 
 
 class BillingAddress(BaseAbstractModel):
@@ -18,6 +20,7 @@ class BillingAddress(BaseAbstractModel):
     district = models.CharField(max_length=255, verbose_name=_("District"))
     zipcode = models.CharField(max_length=20, verbose_name=_("Zip Code"))
     city = models.ForeignKey("customers.City", verbose_name=_("City"), on_delete=models.PROTECT)
+    objects = BillingAddressQuerySet.as_manager()
 
     class Meta:
         verbose_name = _("Billing Address")
@@ -39,6 +42,7 @@ class ShippingAddress(BaseAbstractModel):
     district = models.CharField(max_length=255, verbose_name=_("District"))
     zipcode = models.CharField(max_length=20, verbose_name=_("Zip Code"), blank=True)
     city = models.ForeignKey("customers.City", verbose_name=_("City"), on_delete=models.PROTECT)
+    objects = ShippingAddressQuerySet.as_manager()
 
     class Meta:
         verbose_name = _("Shipping Address")
@@ -56,6 +60,7 @@ class OrderBankAccount(BaseAbstractModel):
     iban = models.CharField(max_length=100, verbose_name=_("IBAN"), validators=[iban_validator])
     bank_name = models.CharField(max_length=100, verbose_name=_("Bank Name"))
     order = models.ForeignKey("orders.Order", verbose_name=_("Order"), on_delete=models.PROTECT)
+    objects = OrderBankAccountQuerySet.as_manager()
 
     class Meta:
         verbose_name = _("Order Bank Account")
@@ -71,13 +76,14 @@ class Order(BaseAbstractModel):
     """
     customer = models.ForeignKey("customers.Customer", verbose_name=_("Customer"), on_delete=models.PROTECT)
     basket = models.ForeignKey("baskets.Basket", verbose_name=_("Basket"), on_delete=models.PROTECT)
-    status = models.CharField(choices=enums.OrderStatus.choices, 
+    status = models.CharField(choices=enums.OrderStatus.choices,
                               default=enums.OrderStatus.PENDING, max_length=20, verbose_name=_("Status"))
     billing_address = models.ForeignKey(
         BillingAddress, verbose_name=_("Billing Address"), on_delete=models.PROTECT)
     shipping_address = models.ForeignKey(
         ShippingAddress, verbose_name=_("Shipping Address"), on_delete=models.PROTECT)
     total_price = models.DecimalField(verbose_name=_("Total Price"), max_digits=10, decimal_places=2)
+    objects = OrderQuerySet.as_manager()
 
     class Meta:
         verbose_name = _("Order")
@@ -94,10 +100,11 @@ class OrderItem(BaseAbstractModel):
     order = models.ForeignKey("Order", verbose_name=_("Order"), on_delete=models.PROTECT)
     product = models.CharField(max_length=255, verbose_name=_("Product"))
     price = models.DecimalField(verbose_name=_("Price"), max_digits=10, decimal_places=2)
+    objects = OrderItemQuerySet.as_manager()
 
     class Meta:
         verbose_name = _("Order Item")
         verbose_name_plural = _("Order Items")
-    
+
     def __str__(self):
         return f"{self.order} - {self.product} - {self.price}"
