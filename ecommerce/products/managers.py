@@ -9,7 +9,9 @@ class ProductQuerySet(models.QuerySet):
         return self.filter(stock__quantity__gt=0)
 
     def action_detailed_list(self):
-        return self.prefetch_related("categories").order_by('id')
+        return self.prefetch_related("categories",).select_related("stock", "price")\
+            .order_by('id')
 
     def action_detailed(self):
-        return self.prefetch_related("categories")
+        return self.prefetch_related("categories",).select_related("stock", "price")\
+            .order_by('id')

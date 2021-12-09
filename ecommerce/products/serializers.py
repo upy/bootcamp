@@ -1,31 +1,46 @@
 from django.db.transaction import atomic
 from rest_framework import serializers
 
-from products.models import Product, Category
+from products.models import Product, Category, Stock, Price
 from products.managers import ProductQuerySet
 
 
 class ProductSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Product
-        fields = ("id", "sku", "name", "description", "color", "size", "categories", "created_at", "modified_at")
+        fields = (
+            "id", "sku", "name", "description", "color", "size", "stock","price",
+            "categories", "created_at", "modified_at")
 
 
 class CategorySerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Category
-        fields = ("id", "name", )
+        fields = ("id", "name",)
+
+
+class StockSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Stock
+        fields = ("id","quantity",)
+
+
+class PriceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Price
+        fields = ("id","amount",)
 
 
 class ProductDetailedSerializer(serializers.ModelSerializer):
     categories = CategorySerializer(many=True)
+    stock = StockSerializer()
+    price = PriceSerializer()
 
     class Meta:
         model = Product
-        manager = ProductQuerySet
-        fields = ("id", "sku", "name", "description", "color", "size", "categories", "created_at", "modified_at")
+        manager = ProductQuerySet.as_manager()
+        fields = (
+        "id", "sku", "name", "description", "color", "size", "categories", "stock","price", "created_at", "modified_at")
 
     # @atomic()
     # def create(self, validated_data):
@@ -37,6 +52,3 @@ class ProductDetailedSerializer(serializers.ModelSerializer):
     #         serializer.save()
     #         product.categories.add(*serializer.instance)
     #     return product
-
-
-
