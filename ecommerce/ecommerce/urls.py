@@ -19,22 +19,24 @@ from django.urls import path, include
 from ecommerce.router import router
 from products.views import ProductViewSet, CategoryViewSet, \
     StockViewSet, PriceViewSet
-from baskets.views import BasketViewSet,BasketItemViewSet
-from orders.views import BillingAddressViewSet,ShippingAddressViewSet,OrderViewSet,\
-    OrderBankAccountViewSet,OrderItemViewSet
+from baskets.views import BasketViewSet, BasketItemViewSet
+from orders.views import BillingAddressViewSet, ShippingAddressViewSet, OrderViewSet, \
+    OrderBankAccountViewSet, OrderItemViewSet
+from payments.views import BankViewSet,BankAccountViewSet
 
 router.register("products", ProductViewSet)
 router.register("categories", CategoryViewSet)
 router.register("prices", PriceViewSet)
 router.register("stocks", StockViewSet)
-router.register("baskets",BasketViewSet)
-router.register("basket-items",BasketItemViewSet)
-router.register("billing-addresses",BillingAddressViewSet)
-router.register("shipping-addresses",ShippingAddressViewSet)
-router.register("orders",OrderViewSet)
-router.register("order-bank-account",OrderBankAccountViewSet)
-router.register("order-ıtem",OrderItemViewSet)
-
+router.register("baskets", BasketViewSet)
+router.register("basket-items", BasketItemViewSet)
+router.register("billing-addresses", BillingAddressViewSet)
+router.register("shipping-addresses", ShippingAddressViewSet)
+router.register("orders", OrderViewSet)
+router.register("order-bank-account", OrderBankAccountViewSet)
+router.register("order-ıtem", OrderItemViewSet)
+router.register("bank", BankViewSet)
+router.register("bank-account", BankAccountViewSet)
 
 urlpatterns = [
     path("api/", include(router.urls)),

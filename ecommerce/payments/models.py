@@ -3,6 +3,7 @@ from django.utils.translation import gettext_lazy as _
 
 from core.models import BaseAbstractModel
 from core.utils import IBANValidator
+from payments.managers import BankAccountQuerySet
 
 
 class Bank(BaseAbstractModel):
@@ -27,6 +28,7 @@ class BankAccount(BaseAbstractModel):
     bank = models.ForeignKey(Bank, verbose_name=_("Bank Name"), on_delete=models.PROTECT)
     name = models.CharField(max_length=100, verbose_name=_("Bank Account Name"))
     iban = models.CharField(max_length=100, verbose_name=_("IBAN"), validators=[iban_validator])
+    objects = BankAccountQuerySet.as_manager()
 
     class Meta:
         verbose_name = _("Bank Account")
