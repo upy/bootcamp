@@ -1,4 +1,6 @@
 from rest_framework import serializers
+
+from customers.serializers import CustomerSerializer
 from orders.models import Order, OrderItem
 
 
@@ -21,7 +23,7 @@ class OrderItemDetailedSerializer(OrderItemSerializer):
     order = OrderSerializer()
 
 
-#class OrderDetailedSerializer(OrderSerializer):
+class OrderDetailedSerializer(OrderSerializer):
 
 #    basket = BasketSerializer()
-#    customer = CustomerSerializer()
+    customer = CustomerSerializer()
