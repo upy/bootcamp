@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 from ecommerce.router import router
+from orders.views import OrderViewSet, OrderItemViewSet
 from payments.views import BankViewSet, BankAccountViewSet
 from products.views import ProductViewSet, CategoryViewSet
 
@@ -24,6 +25,8 @@ router.register("products", ProductViewSet)
 router.register("categories", CategoryViewSet)
 router.register("banks", BankViewSet)
 router.register("bank accounts", BankAccountViewSet)
+router.register("orders", OrderViewSet)
+router.register("order items", OrderItemViewSet)
 
 urlpatterns = [
     path("api/", include(router.urls)),
