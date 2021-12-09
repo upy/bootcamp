@@ -1,5 +1,7 @@
 from django.db import models
 
+from products.enums import Colors
+
 
 class ProductQuerySet(models.QuerySet):
     def banner_products(self):
@@ -13,3 +15,9 @@ class ProductQuerySet(models.QuerySet):
 
     def action_detailed(self):
         return self.prefetch_related("categories")
+
+
+class ProductManager(models.Manager):
+
+    def get_queryset(self):
+        return super().get_queryset().filter(color=Colors.RED)
