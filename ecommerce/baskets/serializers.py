@@ -15,7 +15,7 @@ class CustomerSerializer(serializers.ModelSerializer):
 class BasketSerializer(serializers.ModelSerializer):
     class Meta:
         model = Basket
-        fields = ("customer", "status")
+        fields = ("id", "customer", "status")
         manager = BasketQuerySet.as_manager()
 
 
@@ -26,7 +26,7 @@ class BasketDetailedSerializer(BasketSerializer):
 class BasketItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = BasketItem
-        fields = ("basket", "product", "quantity", "price")
+        fields = ("id", "basket", "product", "quantity", "price")
 
 
 class BasketItemDetailedSerializer(BasketItemSerializer):
