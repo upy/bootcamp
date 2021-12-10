@@ -11,8 +11,11 @@ from customers.managers import CustomerManager
 from django.core.validators import RegexValidator  # Importing RegexValidator for phone and postcode
 from core.models import BaseAbstractModel
 
-phone_validator = RegexValidator(regex=r'^\+?1?\d{9,15}$', message = ("Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed."))
-postcode_validator = RegexValidator(regex=r'^[0-9]+$', message=("Postal Code must be entered in the format: '1234567'. Up to 7 digits allowed."))
+phone_validator = RegexValidator(regex=r'^\+?1?\d{9,15}$', message=(
+    "Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed."))
+postcode_validator = RegexValidator(regex=r'^[0-9]+$', message=(
+    "Postal Code must be entered in the format: '1234567'. Up to 7 digits allowed."))
+
 
 # Address Model
 class Address(BaseAbstractModel):

@@ -10,9 +10,9 @@ from products.models import Product
 
 # Basket Model
 class Basket(BaseAbstractModel):
-    customer = models.ForeignKey(Customer, verbose_name=_("Customer"), on_delete=models.CASCADE, null=True)
+    customer = models.ForeignKey(Customer, verbose_name=_("Customer"), on_delete=models.CASCADE, null=True, blank=True)
 
-    status = models.CharField(choices=enums.Status.choices, verbose_name=_("Status"), max_length=20)
+    status = models.CharField(choices=enums.BasketStatus.choices, verbose_name=_("Status"), max_length=20)
 
     class Meta:
         verbose_name = _("basket")

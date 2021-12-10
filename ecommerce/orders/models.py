@@ -12,9 +12,9 @@ postcode_validator = RegexValidator(regex=r'^[0-9]+$', message=( "Postal Code mu
 
 # Model for Billing address
 class BillingAddress(BaseAbstractModel):
-    full_name = models.CharField(max_length=255, verbose_name=_("Full Name"), blank=True)
+    full_name = models.CharField(max_length=255, verbose_name=_("Full Name"))
     line_1 = models.CharField(max_length=255, verbose_name=_("Address Line 1"))
-    line_2 = models.CharField(max_length=255, verbose_name=_("Address Line 2"), blank=True)
+    line_2 = models.CharField(max_length=255, verbose_name=_("Address Line 2"), blank=True, null=True)
     phone = models.CharField(max_length=20, verbose_name=_("Phone Number"), validators=[phone_validator])
     district = models.CharField(max_length=255, verbose_name=_("District"))
     postcode = models.CharField(max_length=20, verbose_name=_("Post Code"), blank=True, validators=[postcode_validator])
@@ -30,9 +30,9 @@ class BillingAddress(BaseAbstractModel):
 
 # Model for Shipping Address
 class ShippingAddress(BaseAbstractModel):
-    full_name = models.CharField(max_length=255, verbose_name=_("Full Name"), blank=True)
+    full_name = models.CharField(max_length=255, verbose_name=_("Full Name"))
     line_1 = models.CharField(max_length=255, verbose_name=_("Address Line 1"))
-    line_2 = models.CharField(max_length=255, verbose_name=_("Address Line 2"), blank=True)
+    line_2 = models.CharField(max_length=255, verbose_name=_("Address Line 2"), blank=True, null=True)
     phone = models.CharField(max_length=20, verbose_name=_("Phone Number"), validators=[phone_validator])
     district = models.CharField(max_length=255, verbose_name=_("District"))
     postcode = models.CharField(max_length=20, verbose_name=_("Post Code"), blank=True, validators=[postcode_validator])
