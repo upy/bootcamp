@@ -10,7 +10,7 @@ class BasketViewSet(viewsets.ModelViewSet):
     serializer_class = BasketSerializer
     filterset_class = BasketFilter
 
-class BasketItemViewSet(viewsets.ModelViewSet):
+class BasketItemViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
     queryset = BasketItem.objects.all()
     serializer_class = BasketItemSerializer
 
