@@ -1,7 +1,7 @@
 from rest_framework import viewsets
 
 from core.mixins import DetailedViewSetMixin
-from payments.filters import BankAccountFilter
+from payments.filters import BankAccountFilter, BankFilter
 from payments.models import Bank, BankAccount
 from payments.serializers import BankSerializer, BankAccountSerializer, BankAccountDetailedSerializer
 
@@ -9,6 +9,7 @@ from payments.serializers import BankSerializer, BankAccountSerializer, BankAcco
 class BankViewSet(viewsets.ModelViewSet):
     queryset = Bank.objects.all()
     serializer_class = BankSerializer
+    filterset_class = BankFilter
 
 
 class BankAccountViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
