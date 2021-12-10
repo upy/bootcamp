@@ -1,3 +1,4 @@
+
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.validators import UnicodeUsernameValidator
@@ -7,7 +8,7 @@ from django.utils.translation import gettext_lazy as _
 
 from django.db import models
 
-from customers.managers import CustomerManager
+from customers.managers import CustomerManager, CityQuerySet, AddressQuerySet
 from core.models import BaseAbstractModel
 from core.utils import PhoneNumberValidator
 
@@ -19,6 +20,7 @@ class City(BaseAbstractModel):
     name = models.CharField(max_length=255)
     country = models.ForeignKey(
         "customers.Country", verbose_name=_("Country"), on_delete=models.PROTECT)
+    objects = CityQuerySet.as_manager()
 
     class Meta:
         verbose_name = _("city")
@@ -122,6 +124,7 @@ class Address(BaseAbstractModel):
     zipcode = models.CharField(max_length=20, verbose_name=_("Zip Code"))
     city = models.ForeignKey(City, verbose_name=_("City"), on_delete=models.PROTECT)
     is_default = models.BooleanField(default=False)
+    objects = AddressQuerySet.as_manager()
 
     class Meta:
         verbose_name = _("address")

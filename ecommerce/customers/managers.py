@@ -1,6 +1,7 @@
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib import auth
 from django.contrib.auth.hashers import make_password
+from django.db import models
 
 
 class CustomerManager(BaseUserManager):
@@ -36,7 +37,7 @@ class CustomerManager(BaseUserManager):
         return self._create_user(email, password, **extra_fields)
 
     def with_perm(
-        self, perm, is_active=True, include_superusers=True, backend=None, obj=None
+            self, perm, is_active=True, include_superusers=True, backend=None, obj=None
     ):
         if backend is None:
             backends = auth._get_backends(return_tuples=True)
@@ -61,3 +62,19 @@ class CustomerManager(BaseUserManager):
                 obj=obj,
             )
         return self.none()
+
+
+class CityQuerySet(models.QuerySet):
+    def action_detailed_list(self):
+        return self.select_related("country", ).order_by('id')
+
+    def action_detailed(self):
+        return self.select_related("country", ).order_by('id')
+
+
+class AddressQuerySet(models.QuerySet):
+    def action_detailed_list(self):
+        return self.select_related("city", "customer" ).order_by('id')
+
+    def action_detailed(self):
+        return self.select_related("city", "customer" ).order_by('id')
