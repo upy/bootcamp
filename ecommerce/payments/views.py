@@ -1,5 +1,4 @@
 from rest_framework import viewsets
-
 from core.mixins import DetailedViewSetMixin
 from payments.filters import BankAccountFilter, BankFilter
 from payments.models import Bank, BankAccount

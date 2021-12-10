@@ -1,6 +1,22 @@
 from django_filters import rest_framework as filters
 from django.utils.translation import gettext_lazy as _
-from customers.models import Customer, Address, City
+from customers.models import Customer, Address, City, Country
+
+
+class CityFilter(filters.FilterSet):
+    name = filters.CharFilter(label=_("Name"), lookup_expr="icontains")
+
+    class Meta:
+        model = City
+        fields = ("name", "country",)
+
+
+class CountryFilter(filters.FilterSet):
+    name = filters.CharFilter(label=_("Name"), lookup_expr="icontains")
+
+    class Meta:
+        model = Country
+        fields = ("name",)
 
 
 class CustomerFilter(filters.FilterSet):
@@ -25,11 +41,3 @@ class AddressFilter(filters.FilterSet):
         model = Address
         fields = ("customer", "name", "full_name",
                   "line_1", "line_2", "phone", "district", "zipcode", "city", "is_default")
-
-
-class CityFilter(filters.FilterSet):
-    name = filters.CharFilter(label=_("Name"), lookup_expr="icontains")
-
-    class Meta:
-        model = City
-        fields = ("name", "country",)

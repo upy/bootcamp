@@ -2,6 +2,20 @@ from rest_framework import serializers
 from customers.models import Customer, Address, City, Country
 
 
+class CitySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = City
+        fields = ("id", "name", "country")
+
+
+class CountrySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Country
+        fields = ("name",)
+
+
 class CustomerSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -17,20 +31,6 @@ class AddressSerializer(serializers.ModelSerializer):
                   "phone", "district", "zipcode", "city",)
 
 
-class CitySerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = City
-        fields = ("id", "name", "country")
-
-
-class CountrySerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Country
-        fields = ("name",)
-
-
 class AddressDetailedSerializer(AddressSerializer):
 
     customer = CustomerSerializer()
@@ -40,4 +40,3 @@ class AddressDetailedSerializer(AddressSerializer):
 class CityDetailedSerializer(CitySerializer):
 
     country = CountrySerializer()
-

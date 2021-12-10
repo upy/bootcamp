@@ -1,6 +1,4 @@
 from rest_framework import serializers
-
-
 from payments.models import Bank, BankAccount
 
 

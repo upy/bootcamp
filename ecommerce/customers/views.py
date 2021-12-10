@@ -1,10 +1,25 @@
 from rest_framework import viewsets
-
 from core.mixins import DetailedViewSetMixin
-from customers.filters import CustomerFilter, AddressFilter, CityFilter
-from customers.models import Customer, Address, City
+from customers.filters import CustomerFilter, AddressFilter, CityFilter, CountryFilter
+from customers.models import Customer, Address, City, Country
 from customers.serializers import CustomerSerializer, AddressSerializer, AddressDetailedSerializer, \
-    CityDetailedSerializer, CitySerializer
+    CityDetailedSerializer, CitySerializer, CountrySerializer
+
+
+class CityViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
+    queryset = City.objects.all()
+    serializer_class = CitySerializer
+    filterset_class = CityFilter
+    serializer_action_classes = {
+        "detailed_list": CityDetailedSerializer,
+        "detailed": CityDetailedSerializer,
+    }
+
+
+class CountryViewSet(viewsets.ModelViewSet):
+    queryset = Country.objects.all()
+    serializer_class = CountrySerializer
+    filterset_class = CountryFilter
 
 
 class CustomerViewSet(viewsets.ModelViewSet):
@@ -20,14 +35,4 @@ class AddressViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
     serializer_action_classes = {
         "detailed_list": AddressDetailedSerializer,
         "detailed": AddressDetailedSerializer,
-    }
-
-
-class CityViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
-    queryset = City.objects.all()
-    serializer_class = CitySerializer
-    filterset_class = CityFilter
-    serializer_action_classes = {
-        "detailed_list": CityDetailedSerializer,
-        "detailed": CityDetailedSerializer,
     }
