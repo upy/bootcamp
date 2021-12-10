@@ -20,15 +20,21 @@ from ecommerce.router import router
 from products.views import ProductViewSet, CategoryViewSet
 from payments.views import BankViewSet, BankAccountViewSet
 from customers.views import CityViewSet, CountryViewSet, CustomerViewSet, AddressViewSet
+from baskets.views import BasketViewSet, BasketItemViewSet
 
 router.register("products", ProductViewSet)
 router.register("categories", CategoryViewSet)
+
 router.register("banks", BankViewSet)
-router.register("bank accounts", BankAccountViewSet)
+router.register("bank-accounts", BankAccountViewSet)
+
 router.register("cities", CityViewSet)
 router.register("countries", CountryViewSet)
 router.register("customers", CustomerViewSet)
 router.register("addresses", AddressViewSet)
+
+router.register("baskets", BasketViewSet)
+router.register("basket-items", BasketItemViewSet)
 
 urlpatterns = [
     path("api/", include(router.urls)),
