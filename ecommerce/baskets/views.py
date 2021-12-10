@@ -1,7 +1,7 @@
 from rest_framework import viewsets
 
 from baskets.models import Basket
-from baskets.serializer import BasketSerializer
+from baskets.serializers import BasketSerializer
 
 
 class BasketViewSet(viewsets.ModelViewSet):
