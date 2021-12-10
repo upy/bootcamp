@@ -21,6 +21,7 @@ from products.views import ProductViewSet, CategoryViewSet
 from baskets.views import BasketViewSet
 from customers.views import CustomerViewSet, AddressViewSet
 from orders.views import OrderViewSet
+from payments.views import PaymentViewSet, BankViewSet
 
 router.register("products", ProductViewSet)
 router.register("categories", CategoryViewSet)
@@ -28,6 +29,8 @@ router.register("baskets", BasketViewSet)
 router.register("customers", CustomerViewSet)
 router.register("addresses", AddressViewSet)
 router.register("orders", OrderViewSet)
+router.register("payments", PaymentViewSet)
+router.register("banks", BankViewSet)
 
 urlpatterns = [
     path("api/", include(router.urls)),
