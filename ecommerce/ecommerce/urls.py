@@ -22,6 +22,7 @@ from customers.views import CustomerViewSet, CityViewSet, CountryViewSet, \
 from ecommerce.router import router
 from orders.views import OrderViewSet, BillingAddressViewSet, \
     ShippingAddressViewSet, OrderItemViewSet, OrderBankAccountViewSet
+from payments.views import BankViewSet, BankAccountViewSet
 from products.views import ProductViewSet, CategoryViewSet
 
 router.register("products", ProductViewSet)
@@ -36,6 +37,8 @@ router.register("shipping-addresses", ShippingAddressViewSet)
 router.register("orders", OrderViewSet)
 router.register("order-items", OrderItemViewSet)
 router.register("order-bank-accounts", OrderBankAccountViewSet)
+router.register("banks", BankViewSet)
+router.register("bank-accounts", BankAccountViewSet)
 
 urlpatterns = [
     path("api/", include(router.urls)),
