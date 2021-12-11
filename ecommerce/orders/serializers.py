@@ -37,7 +37,7 @@ class OrderItemSerializer(serializers.ModelSerializer):
 
 class OrderBankAccountSerializer(serializers.ModelSerializer):
     class Meta:
-        model = OrderItem
+        model = OrderBankAccount
         read_only_fields = ['id', 'created_at', 'updated_at']
         fields = '__all__'
 
