@@ -15,12 +15,29 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-
 from ecommerce.router import router
 from products.views import ProductViewSet, CategoryViewSet
+from baskets.views import BasketViewSet, BasketItemViewSet
+from customers.views import CustomerViewSet, CityViewSet, CountryViewSet, AddressViewSet
+from payments.views import BankViewSet, BankAccountViewSet
+from orders.views import BillingAddressViewSet, ShippingAddressViewSet,\
+    OrderBankAccountViewSet, OrderViewSet, OrderItemViewSet
 
 router.register("products", ProductViewSet)
 router.register("categories", CategoryViewSet)
+router.register("customers", CustomerViewSet)
+router.register("cities", CityViewSet)
+router.register("countries", CountryViewSet)
+router.register("addresses", AddressViewSet)
+router.register("baskets", BasketViewSet)
+router.register("basket_items", BasketItemViewSet)
+router.register("banks", BankViewSet)
+router.register("bank_accounts", BankAccountViewSet)
+router.register("billing_addresses", BillingAddressViewSet)
+router.register("shipping_addresses", ShippingAddressViewSet)
+router.register("order_bank_accounts", OrderBankAccountViewSet)
+router.register("order_items", OrderItemViewSet)
+
 
 urlpatterns = [
     path("api/", include(router.urls)),
