@@ -5,17 +5,23 @@ from orders.models import BillingAddress, ShippingAddress, OrderBankAccount, Ord
 from customers.models import City, Country, Customer, Address
 
 
+class CountrySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Country
+        fields = '__all__'
+
+
 class CitySerializer(serializers.ModelSerializer):
     class Meta:
         model = City
         fields = '__all__'
 
 
-class CountrySerializer(serializers.ModelSerializer):
+class CityDetailedSerializer(serializers.ModelSerializer):
+    country = CountrySerializer()
     class Meta:
-        model = Country
+        model = City
         fields = '__all__'
-
 
 
 class CustomerSerializer(serializers.ModelSerializer):
@@ -25,7 +31,14 @@ class CustomerSerializer(serializers.ModelSerializer):
 
 
 class AddressSerializer(serializers.ModelSerializer):
-    # order = OrderSerializer()
+    class Meta:
+        model = Address
+        fields = '__all__'
+
+
+class AddressDetailedSerializer(serializers.ModelSerializer):
+    customer = CustomerSerializer()
+    city = CitySerializer()
     class Meta:
         model = Address
         fields = '__all__'
