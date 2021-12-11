@@ -22,6 +22,7 @@ from customers.views import AddressViewSet, CityViewSet, CountryViewSet, Custome
 from baskets.views import BasketViewSet, BasketItemViewSet
 from orders.views import (BillingAddressViewSet, OrderViewSet, OrderBankAccountViewSet,
                           OrderItemViewSet, ShippingAddressViewSet)
+from payments.views import BankViewSet, BankAccountViewSet
 
 router.register("products", ProductViewSet)
 router.register("categories", CategoryViewSet)
@@ -39,6 +40,10 @@ router.register("order-items", OrderItemViewSet)
 router.register("order-bank-accounts", OrderBankAccountViewSet)
 router.register("shipping-addresses", ShippingAddressViewSet)
 router.register("billing-addresses", BillingAddressViewSet)
+
+router.register("banks", BankViewSet)
+router.register("bank-accounts", BankAccountViewSet)
+
 
 urlpatterns = [
     path("api/", include(router.urls)),
