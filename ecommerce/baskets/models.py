@@ -16,6 +16,8 @@ class Basket(BaseAbstractModel):
     status = models.CharField(choices=enums.BasketStatus.choices, max_length=10, 
                               verbose_name=_("Basket Status"), default=enums.BasketStatus.OPEN)
 
+
+
     class Meta:
         verbose_name = _("Basket")
         verbose_name_plural = _("Baskets")
