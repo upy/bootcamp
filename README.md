@@ -40,6 +40,9 @@ In order to use the site in different languages, it is necessary to create local
 
 In order to enter the admin panel, it is necessary to create a super user. It can be done with the following command: `python manage.py createsuperuser`. Then type email and password.
 
+### Rest Framework
+
+After run this project you can check [Api Root](http://127.0.0.1:8000/api/) to deal with API's.
 ## Run 
 
 Run `python manage.py runserver ip_you_want:port_you_want` and go to [`http://ip_you_want:port_you_want`](ip_you_want:port_you_want) from the browser.
