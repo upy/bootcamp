@@ -17,8 +17,27 @@ from django.contrib import admin
 from django.urls import path, include
 
 from ecommerce.router import router
+
+from products.views import ProductViewSet, CategoryViewSet
+from baskets.views import BasketItemViewSet, BasketViewSet
+from customers.views import CustomerViewSet, AddressViewSet, CityViewSet, CountryViewSet
+from orders.views import OrderItemViewSet, OrderViewSet, BillingAddressViewSet, ShippingAddressViewSet, OrderBankAccountViewSet
+from payments.views import BankAccountViewSet, BankViewSet
 from products.views import ProductViewSet, CategoryViewSet
 
+router.register("customers", CustomerViewSet)
+router.register("addresses", AddressViewSet)
+router.register("cities", CityViewSet)
+router.register("countries", CountryViewSet)
+router.register("order-items", OrderItemViewSet)
+router.register("orders", OrderViewSet)
+router.register("order-bank-accounts", OrderBankAccountViewSet)
+router.register("banks", BankViewSet)
+router.register("bank-accounts", BankAccountViewSet)
+router.register("billing-addresses", BillingAddressViewSet)
+router.register("shipping-addresses", ShippingAddressViewSet)
+router.register("basket-items", BasketItemViewSet)
+router.register("baskets", BasketViewSet)
 router.register("products", ProductViewSet)
 router.register("categories", CategoryViewSet)
 
