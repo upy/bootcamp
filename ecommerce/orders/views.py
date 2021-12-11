@@ -1,5 +1,6 @@
 from rest_framework import viewsets
 from core.mixins import DetailedViewSetMixin
+from orders.filters import OrderFilter
 from orders.models import Order, OrderItem, OrderBankAccount, ShippingAddress, BillingAddress
 from orders.serializer import OrderSerializer, OrderItemSerializer, OrderBankAccountSerializer, BillingAddressSerializer, ShippingAddressSerializer, \
             OrderDetailedSerializer
@@ -7,6 +8,7 @@ from orders.serializer import OrderSerializer, OrderItemSerializer, OrderBankAcc
 
 class OrderViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
     queryset = Order.objects.all()
+    filterset_class = OrderFilter
     serializer_class = OrderSerializer
 
 class OrderBankAccountViewSet(viewsets.ModelViewSet):
