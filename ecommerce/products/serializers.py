@@ -5,17 +5,17 @@ from products.models import Product, Category, Stock, Price
 
 
 class ProductSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Product
-        fields = ("id", "sku", "name", "description", "color", "size", "categories", "created_at", "modified_at")
+        fields = (
+        "id", "sku", "name", "description", "color", "size", "categories",
+        "created_at", "modified_at")
 
 
 class CategorySerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Category
-        fields = ("id", "name", )
+        fields = ("id", "name",)
 
 
 class ProductDetailedSerializer(serializers.ModelSerializer):
@@ -23,7 +23,9 @@ class ProductDetailedSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ("id", "sku", "name", "description", "color", "size", "categories", "created_at", "modified_at")
+        fields = (
+        "id", "sku", "name", "description", "color", "size", "categories",
+        "created_at", "modified_at")
 
     @atomic()
     def create(self, validated_data):
@@ -42,13 +44,16 @@ class StockSerializer(serializers.ModelSerializer):
         model = Stock
         fields = ("product", "quantity")
 
+
 class StockDetailedSerializer(StockSerializer):
     product = ProductDetailedSerializer()
+
 
 class PriceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Price
-        fields = ("product", "amount", )
+        fields = ("product", "amount",)
+
 
 class PriceDetailedSerializer(PriceSerializer):
     product = ProductDetailedSerializer()

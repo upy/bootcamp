@@ -14,4 +14,17 @@ class ProductFilter(filters.FilterSet):
 
     def filter_name(self, qs, name, value):
         replaced_value = value.replace("Ş", "ş")
-        return qs.filter(Q(name__icontains=replaced_value) | Q(name__icontains=value))
+        return qs.filter(
+            Q(name__icontains=replaced_value) | Q(name__icontains=value))
+
+
+class CategoryFilter(filters.FilterSet):
+    name = filters.CharFilter(label=_("Category"), lookup_expr="icontains")
+
+
+class StockFilter(filters.FilterSet):
+    quantity = filters.RangeFilter(label=_("Quantity"))
+
+
+class PriceFilter(filters.FilterSet):
+    amount = filters.NumberFilter(label=_("Amount"))
