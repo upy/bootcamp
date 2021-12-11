@@ -7,27 +7,26 @@ from customers.models import Customer, Address, Country, City
 class CustomerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Customer
-        fields = ("id", "first_name", "last_name", "email", "is_staff", "is_superuser")
+        read_only_fields = ['id', 'created_at', 'updated_at']
+        fields = ("first_name", "last_name", "email", "is_staff", "is_superuser")
 
 
 class CountrySerializer(serializers.ModelSerializer):
     class Meta:
         model = Country
-        fields = ("id", "name",)
+        read_only_fields = ['id', 'created_at', 'updated_at']
+        fields = ("name",)
 
 
 class CitySerializer(serializers.ModelSerializer):
     class Meta:
         model = City
-        fields = ("id", "name", "country",)
+        read_only_fields = ['id', 'created_at', 'updated_at']
+        fields = ("name", "country",)
 
 
-class CityDetailedSerializer(serializers.ModelSerializer):
+class CityDetailedSerializer(CitySerializer):
     country = CountrySerializer()
-
-    class Meta:
-        model = City
-        fields = ("id", "name", "country",)
 
     @atomic()
     def create(self, validated_data):
@@ -47,15 +46,9 @@ class AddressSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class AddressDetailedSerializer(serializers.ModelSerializer):
+class AddressDetailedSerializer(AddressSerializer):
     customer = CustomerSerializer()
     city = CityDetailedSerializer()
-
-    class Meta:
-        model = Address
-        fields = ("id", "customer", "name", "full_name",
-                  "line_1", "line_2", "phone", "district", "zipcode",
-                  "city", "is_default")
 
     @atomic()
     def create(self, validated_data):

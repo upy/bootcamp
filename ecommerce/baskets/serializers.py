@@ -10,12 +10,14 @@ from customers.serializers import CustomerSerializer
 class BasketSerializer(serializers.ModelSerializer):
     class Meta:
         model = Basket
+        read_only_fields = ['id', 'created_at', 'updated_at']
         fields = "__all__"
 
 
 class BasketItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = BasketItem
+        read_only_fields = ['id', 'created_at', 'updated_at']
         fields = "__all__"
 
 

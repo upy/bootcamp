@@ -48,11 +48,6 @@ class OrderDetailedSerializer(OrderSerializer):
     billing_address = BillingAddressSerializer()
     shipping_address = ShippingAddressSerializer()
 
-    class Meta:
-        model = Order
-        read_only_fields = ['id', 'created_at', 'updated_at']
-        fields = "__all__"
-
     @atomic()
     def create(self, validated_data, order=None):
         customer = validated_data.pop('customer', None)
@@ -93,13 +88,47 @@ class OrderDetailedSerializer(OrderSerializer):
 class OrderItemDetailedSerializer(OrderItemSerializer):
     order = OrderSerializer()
 
+    @atomic()
+    def create(self, validated_data):
+        order = validated_data.pop("order", None)
+        order_item = super().create(validated_data)
+        if order_item:
+            serializer = OrderSerializer(data=order)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+            order_item.order.add(*serializer.instance)
+
+        return order_item
+
 
 class BillingAddressDetailedSerializer(BillingAddressSerializer):
     city = CitySerializer()
 
+    @atomic()
+    def create(self, validated_data):
+        city = validated_data.pop("city", None)
+        billing_address = super().create(validated_data)
+        if city:
+            serializer = CitySerializer(data=city)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+            billing_address.city.add(*serializer.instance)
+        return billing_address
+
 
 class ShippingAddressDetailedSerializer(ShippingAddressSerializer):
     city = CitySerializer()
+
+    @atomic()
+    def create(self, validated_data):
+        city = validated_data.pop("city", None)
+        shipping_address = super().create(validated_data)
+        if city:
+            serializer = CitySerializer(data=city,)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+            shipping_address.city.add(*serializer.instance)
+        return shipping_address
 
 
 class OrderBankAccountDetailedSerializer(OrderBankAccountSerializer):
