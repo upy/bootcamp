@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 from baskets.views import BasketItemViewSet, BasketViewSet
+from customers.views import CustomerViewSet, AddressViewSet, CityViewSet, CountryViewSet
 from ecommerce.router import router
 from products.views import ProductViewSet, CategoryViewSet
 
@@ -24,6 +25,10 @@ router.register("products", ProductViewSet)
 router.register("categories", CategoryViewSet)
 router.register("basket_items", BasketItemViewSet)
 router.register("baskets", BasketViewSet)
+router.register("customers", CustomerViewSet)
+router.register("addresses", AddressViewSet)
+router.register("cities", CityViewSet)
+router.register("countries", CountryViewSet)
 
 urlpatterns = [
     path("api/", include(router.urls)),
