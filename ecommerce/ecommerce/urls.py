@@ -26,23 +26,23 @@ from payments.views import BankViewSet, BankAccountViewSet
 from products.views import ProductViewSet, CategoryViewSet, StockViewSet, \
     PriceViewSet
 
-router.register("products", ProductViewSet)
-router.register("categories", CategoryViewSet)
-router.register("baskets", BasketViewSet)
+router.register("adresses", AddressViewSet)
+router.register("bank-accounts", BankAccountViewSet)
+router.register("banks", BankViewSet)
 router.register("basket-items", BasketItemViewSet)
-router.register("customers", CustomerViewSet)
+router.register("baskets", BasketViewSet)
+router.register("billing-addresses", BillingAddressViewSet)
+router.register("categories", CategoryViewSet)
 router.register("cities", CityViewSet)
 router.register("countries", CountryViewSet)
-router.register("adresses", AddressViewSet)
-router.register("billing-addresses", BillingAddressViewSet)
-router.register("shipping-addresses", ShippingAddressViewSet)
-router.register("orders", OrderViewSet)
-router.register("order-items", OrderItemViewSet)
+router.register("customers", CustomerViewSet)
 router.register("order-bank-accounts", OrderBankAccountViewSet)
-router.register("banks", BankViewSet)
-router.register("bank-accounts", BankAccountViewSet)
-router.register("stocks", StockViewSet)
+router.register("order-items", OrderItemViewSet)
+router.register("orders", OrderViewSet)
 router.register("prices", PriceViewSet)
+router.register("products", ProductViewSet)
+router.register("shipping-addresses", ShippingAddressViewSet)
+router.register("stocks", StockViewSet)
 
 urlpatterns = [
     path("api/", include(router.urls)),
