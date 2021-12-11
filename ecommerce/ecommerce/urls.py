@@ -17,10 +17,49 @@ from django.contrib import admin
 from django.urls import path, include
 
 from ecommerce.router import router
-from products.views import ProductViewSet, CategoryViewSet
-
+from products.views import ProductViewSet, CategoryViewSet, ProductDetailedViewSet
+from customers.views import CustomerViewSet, AddressViewSet, AddressDetailedViewSet, CityViewSet, CountryViewSet
+from baskets.views import BasketViewSet, BasketItemViewSet, BasketItemDetailedViewSet
+from payments.views import BankViewSet, BankAccountViewSet, BankAccountDetailedViewSet
+from orders.views import OrderViewSet, OrderItemViewSet, OrderBankAccountViewSet, ShippingAddressViewSet, BillingAddressViewSet, OrderDetailedViewSet
+"""
+    ## these routers was designed for showing all details about Product and Product's Category Details
+"""
+# Product Routers
 router.register("products", ProductViewSet)
+router.register("products-detailed", ProductDetailedViewSet, basename="product-detailed")
 router.register("categories", CategoryViewSet)
+"""
+    ## these routers was designed for showing all details about Customer and Full Address Details
+"""
+#Customer Routers
+router.register("customers", CustomerViewSet)
+router.register("addresses", AddressViewSet)
+router.register("cities", CityViewSet)
+router.register("countries", CountryViewSet)
+router.register("addresses-detailed", AddressDetailedViewSet, basename="address-detailed")
+
+"""
+    ## these routers was designed for showing all details about Basket and Basket Items
+"""
+#Basket Routers
+router.register("baskets", BasketViewSet)
+router.register("basketitems", BasketItemViewSet)
+router.register("basketitems-detailed", BasketItemDetailedViewSet, basename="basket-detailed")
+
+#Payments Routers
+router.register("banks", BankViewSet )
+router.register("bankaccounts", BankAccountViewSet)
+router.register("bankaccounts-detailed", BankAccountDetailedViewSet, basename="payment-detailed")
+
+#Order Routers
+router.register("order", OrderViewSet )
+router.register("orderitems", OrderItemViewSet )
+router.register("orderbankaccount", OrderBankAccountViewSet )
+router.register("shippingaddress", ShippingAddressViewSet )
+router.register("billingaddress", BillingAddressViewSet )
+router.register("order-detailed", OrderDetailedViewSet, basename="order-detailed")
+
 
 urlpatterns = [
     path("api/", include(router.urls)),

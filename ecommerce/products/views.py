@@ -20,3 +20,8 @@ class ProductViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+
+class ProductDetailedViewSet(viewsets.ModelViewSet):
+    queryset = Product.objects.all()
+    serializer_class = ProductDetailedSerializer
+    http_method_names = ["get"]

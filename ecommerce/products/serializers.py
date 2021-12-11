@@ -18,12 +18,8 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = ("id", "name", )
 
 
-class ProductDetailedSerializer(serializers.ModelSerializer):
+class ProductDetailedSerializer(ProductSerializer):
     categories = CategorySerializer(many=True)
-
-    class Meta:
-        model = Product
-        fields = ("id", "sku", "name", "description", "color", "size", "categories", "created_at", "modified_at")
 
     @atomic()
     def create(self, validated_data):

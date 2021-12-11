@@ -6,7 +6,7 @@ from products.models import Product
 
 
 class ProductFilter(filters.FilterSet):
-    name = filters.CharFilter(label=_("Name"), method="filter_name")
+    name = filters.CharFilter(label=_("Name"), method="")
 
     class Meta:
         model = Product
