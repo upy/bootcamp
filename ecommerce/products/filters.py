@@ -14,4 +14,5 @@ class ProductFilter(filters.FilterSet):
 
     def filter_name(self, qs, name, value):
         replaced_value = value.replace("Ş", "ş")
+        breakpoint()
         return qs.filter(Q(name__icontains=replaced_value) | Q(name__icontains=value))

@@ -36,5 +36,3 @@ class ProductDetailedSerializer(serializers.ModelSerializer):
             product.categories.add(*serializer.instance)
         return product
 
-
-
