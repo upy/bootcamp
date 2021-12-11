@@ -1,10 +1,10 @@
 from rest_framework import viewsets
 
 from core.mixins import DetailedViewSetMixin
-from products.filters import ProductFilter
-from products.models import Product, Category
+from products.filters import ProductFilter, CategoryFilter, StockFilter, PriceFilter
+from products.models import Product, Category, Stock, Price
 from products.serializers import ProductSerializer, CategorySerializer, \
-    ProductDetailedSerializer
+    ProductDetailedSerializer, StockSerializer, StockDetailedSerializer, PriceSerializer, PriceDetailedSerializer
 
 
 class ProductViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
@@ -20,3 +20,24 @@ class ProductViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+    filterset_class = CategoryFilter
+
+# Stock ViewSet
+class StockViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
+    queryset = Stock.objects.all()
+    serializer_class = StockSerializer
+    filterset_class = StockFilter
+    serializer_action_classes = {
+        "detailed_list": StockDetailedSerializer,
+        "detailed": StockDetailedSerializer,
+    }
+
+# Price ViewSet
+class PriceViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
+    queryset = Price.objects.all()
+    serializer_class = PriceSerializer
+    filterset_class = PriceFilter
+    serializer_action_classes = {
+        "detailed_list": PriceDetailedSerializer,
+        "detailed": PriceDetailedSerializer,
+    }

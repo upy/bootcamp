@@ -17,10 +17,31 @@ from django.contrib import admin
 from django.urls import path, include
 
 from ecommerce.router import router
-from products.views import ProductViewSet, CategoryViewSet
+from products.views import ProductViewSet, CategoryViewSet, StockViewSet, PriceViewSet
+from baskets.views import BasketViewSet, BasketItemViewSet
+from customers.views import CityViewSet, CountryViewSet, CustomerViewSet, AddressViewSet
+from orders.views import ShippingAddressViewSet, BillingAddressViewSet, OrderBankAccountViewSet, OrderViewSet, \
+    OrderItemViewSet
+from payments.views import BankViewSet, BankAccountViewSet
 
+# Router Registrations for Each End Point
 router.register("products", ProductViewSet)
 router.register("categories", CategoryViewSet)
+router.register("stocks", StockViewSet)
+router.register("prices", PriceViewSet)
+router.register("baskets", BasketViewSet)
+router.register("basket-items", BasketItemViewSet)
+router.register("cities", CityViewSet)
+router.register("countries", CountryViewSet)
+router.register("customers", CustomerViewSet)
+router.register("addresses", AddressViewSet)
+router.register("shipping-addresses", ShippingAddressViewSet)
+router.register("billing-addresses", BillingAddressViewSet)
+router.register("order-bank-accounts", OrderBankAccountViewSet)
+router.register("orders", OrderViewSet)
+router.register("order-items", OrderItemViewSet)
+router.register("banks", BankViewSet)
+router.register("bank-accounts", BankAccountViewSet)
 
 urlpatterns = [
     path("api/", include(router.urls)),
