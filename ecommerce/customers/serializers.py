@@ -52,7 +52,6 @@ class AddressDetailedSerializer(AddressSerializer):
     def create(self, validated_data):
         customer = validated_data.pop("customer", None)
         address = super().create(validated_data)
-
         if customer:
             serializer = CustomerSerializer(data=customer, many=False)
             serializer.is_valid(raise_exception=True)
