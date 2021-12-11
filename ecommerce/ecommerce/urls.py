@@ -19,6 +19,8 @@ from django.urls import path, include
 from baskets.views import BasketItemViewSet, BasketViewSet
 from customers.views import CustomerViewSet, AddressViewSet, CityViewSet, CountryViewSet
 from ecommerce.router import router
+from orders.views import OrderItemViewSet, OrderViewSet, BillingAddressViewSet, ShippingAddressViewSet, \
+    OrderBankAccountViewSet
 from products.views import ProductViewSet, CategoryViewSet
 
 router.register("products", ProductViewSet)
@@ -29,6 +31,12 @@ router.register("customers", CustomerViewSet)
 router.register("addresses", AddressViewSet)
 router.register("cities", CityViewSet)
 router.register("countries", CountryViewSet)
+router.register("order_items", OrderItemViewSet)
+router.register("orders", OrderViewSet)
+router.register("billing_address", BillingAddressViewSet)
+router.register("shipping_address", ShippingAddressViewSet)
+router.register("order_bank_account", OrderBankAccountViewSet)
+
 
 urlpatterns = [
     path("api/", include(router.urls)),
