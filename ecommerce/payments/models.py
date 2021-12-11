@@ -19,6 +19,10 @@ class Bank(BaseAbstractModel):
         return self.name
 
 
+def get_all_bank_attrs():
+    return ("name",)
+
+
 class BankAccount(BaseAbstractModel):
     """
     Bank Account model
@@ -31,6 +35,10 @@ class BankAccount(BaseAbstractModel):
     class Meta:
         verbose_name = _("Bank Account")
         verbose_name_plural = _("Bank Accounts")
-    
+
     def __str__(self):
         return f"{self.name} - {self.iban}"
+
+
+def get_all_bank_account_attrs():
+    return "bank", "name", "iban"
