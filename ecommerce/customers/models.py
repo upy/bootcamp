@@ -33,7 +33,6 @@ class Country(BaseAbstractModel):
     Country model
     """
     name = models.CharField(max_length=255, verbose_name=_("Country"))
-
     class Meta:
         verbose_name = _("country")
         verbose_name_plural = _("countries")
