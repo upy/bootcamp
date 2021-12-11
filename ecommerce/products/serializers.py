@@ -38,3 +38,5 @@ class ProductDetailedSerializer(serializers.ModelSerializer):
 
 
 
+
+
