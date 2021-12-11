@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import gettext_lazy as _
 from customers.models import Customer, Address, City, Country
+from orders.models import BillingAddress, ShippingAddress
 
 
 class CityInline(admin.TabularInline):
@@ -16,6 +17,20 @@ class CountryInline(admin.TabularInline):
     Inline class for Country
     """
     model = Country
+
+
+class BillingAddressInline(admin.TabularInline):
+    """
+    Inline for Order Item
+    """
+    model = BillingAddress
+
+
+class ShippingAddressInline(admin.TabularInline):
+    """
+    Inline for Order Item
+    """
+    model = ShippingAddress
 
 
 @admin.register(Customer)
@@ -74,7 +89,7 @@ class CityAdmin(admin.ModelAdmin):
     list_display = ("name", "country")
     list_filter = ("country",)
     search_fields = ("city",)
-    # inlines = (CountryInline,) #TODO: Add inlines
+    inlines = (BillingAddressInline, ShippingAddressInline)
 
 
 @admin.register(Country)
