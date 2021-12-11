@@ -117,7 +117,8 @@ class Address(BaseAbstractModel):
     line_1 = models.CharField(max_length=255, verbose_name=_("Address Line 1"))
     line_2 = models.CharField(max_length=255, verbose_name=_("Address Line 2"), null=True, blank=True)
     phone = models.CharField(
-        max_length=20, verbose_name=_("Phone Number"), validators=[phonenumber_validator], help_text=_("Phone number must be entered in the format: +901234567890. "))
+        max_length=20, verbose_name=_("Phone Number"), validators=[phonenumber_validator],
+        help_text=_("Phone number must be entered in the format: +901234567890. "))
     district = models.CharField(max_length=255, verbose_name=_("District"))
     zipcode = models.CharField(max_length=20, verbose_name=_("Zip Code"))
     city = models.ForeignKey(City, verbose_name=_("City"), on_delete=models.PROTECT)

@@ -6,6 +6,9 @@ from django.contrib.auth.hashers import make_password
 class CustomerManager(BaseUserManager):
     use_in_migrations = True
 
+    def non_staff_users(self):
+        return self.filter(is_staff=False)
+
     def _create_user(self, email, password, **extra_fields):
         """
         Create and save a user with the given username, email, and password.
