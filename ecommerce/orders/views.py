@@ -10,6 +10,7 @@ from orders.serializers import ShippingAddressSerializer, BillingAddressSerializ
     OrderBankAccountDetailedSerializer, OrderItemDetailedSerializer
 
 
+# Shipping Address ViewSet
 class ShippingAddressViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
     queryset = ShippingAddress.objects.all()
     serializer_class = ShippingAddressSerializer
@@ -20,6 +21,7 @@ class ShippingAddressViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
     }
 
 
+# Billing Address ViewSet
 class BillingAddressViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
     queryset = BillingAddress.objects.all()
     serializer_class = BillingAddressSerializer
@@ -30,6 +32,7 @@ class BillingAddressViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
     }
 
 
+# Order Bank Account ViewSet
 class OrderBankAccountViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
     queryset = OrderBankAccount.objects.all()
     serializer_class = OrderBankAccountSerializer
@@ -40,6 +43,7 @@ class OrderBankAccountViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
     }
 
 
+# Order ViewSet
 class OrderViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
@@ -50,6 +54,7 @@ class OrderViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
     }
 
 
+# Order Item ViewSet
 class OrderItemViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
     queryset = OrderItem.objects.all()
     serializer_class = OrderItemSerializer

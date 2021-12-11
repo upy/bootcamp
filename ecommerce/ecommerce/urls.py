@@ -20,14 +20,16 @@ from ecommerce.router import router
 from products.views import ProductViewSet, CategoryViewSet, StockViewSet, PriceViewSet
 from baskets.views import BasketViewSet, BasketItemViewSet
 from customers.views import CityViewSet, CountryViewSet, CustomerViewSet, AddressViewSet
-from orders.views import ShippingAddressViewSet, BillingAddressViewSet, OrderBankAccountViewSet,OrderViewSet, OrderItemViewSet
+from orders.views import ShippingAddressViewSet, BillingAddressViewSet, OrderBankAccountViewSet, OrderViewSet, \
+    OrderItemViewSet
 from payments.views import BankViewSet, BankAccountViewSet
 
+# Router Registrations for Each End Point
 router.register("products", ProductViewSet)
 router.register("categories", CategoryViewSet)
 router.register("stocks", StockViewSet)
 router.register("prices", PriceViewSet)
-router.register("baskets",BasketViewSet)
+router.register("baskets", BasketViewSet)
 router.register("basket-items", BasketItemViewSet)
 router.register("cities", CityViewSet)
 router.register("countries", CountryViewSet)

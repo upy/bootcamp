@@ -7,7 +7,8 @@ from baskets.serializers import BasketSerializer, BasketItemSerializer, BasketDe
 from core.mixins import DetailedViewSetMixin
 
 
-class BasketViewSet(DetailedViewSetMixin,viewsets.ModelViewSet):
+# Basket ViewSet
+class BasketViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
     queryset = Basket.objects.all()
     serializer_class = BasketSerializer
     filterset_class = BasketFilter
@@ -17,7 +18,8 @@ class BasketViewSet(DetailedViewSetMixin,viewsets.ModelViewSet):
     }
 
 
-class BasketItemViewSet(DetailedViewSetMixin,viewsets.ModelViewSet):
+# Basket Item ViewSet
+class BasketItemViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
     queryset = BasketItem.objects.all()
     serializer_class = BasketItemSerializer
     filterset_class = BasketItemFilter

@@ -35,21 +35,25 @@ class ProductDetailedSerializer(serializers.ModelSerializer):
         return product
 
 
+# Stock Serializer
 class StockSerializer(serializers.ModelSerializer):
     class Meta:
         model = Stock
         fields = ('id', 'product', 'quantity')
 
 
+# Stock Detailed Serializer - nested serializer
 class StockDetailedSerializer(StockSerializer):
     products = ProductSerializer()
 
 
+# Price Serializer
 class PriceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Price
         fields = ("product", "amount")
 
 
+# Price Detailed Serializer - nested serializer
 class PriceDetailedSerializer(PriceSerializer):
     products = ProductSerializer()

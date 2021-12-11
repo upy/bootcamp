@@ -23,12 +23,14 @@ class CountryViewSet(viewsets.ModelViewSet):
     filterset_class = CountryFilter
 
 
+# Customer ViewSet
 class CustomerViewSet(viewsets.ModelViewSet):
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
     filterset_class = CustomerFilter
 
 
+# Address ViewSet
 class AddressViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
     queryset = Address.objects.all()
     serializer_class = AddressSerializer
@@ -37,4 +39,3 @@ class AddressViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
         "detailed_list": AddressDetailedSerializer,
         "detailed": AddressDetailedSerializer,
     }
-

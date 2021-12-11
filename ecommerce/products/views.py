@@ -22,7 +22,7 @@ class CategoryViewSet(viewsets.ModelViewSet):
     serializer_class = CategorySerializer
     filterset_class = CategoryFilter
 
-
+# Stock ViewSet
 class StockViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
     queryset = Stock.objects.all()
     serializer_class = StockSerializer
@@ -32,7 +32,7 @@ class StockViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
         "detailed": StockDetailedSerializer,
     }
 
-
+# Price ViewSet
 class PriceViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
     queryset = Price.objects.all()
     serializer_class = PriceSerializer

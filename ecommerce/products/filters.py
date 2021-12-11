@@ -25,6 +25,7 @@ class CategoryFilter(filters.FilterSet):
         fields = ("name",)
 
 
+# Stock Filter
 class StockFilter(filters.FilterSet):
     quantity = filters.RangeFilter(label=_("Stock Quantity"))
 
@@ -33,6 +34,7 @@ class StockFilter(filters.FilterSet):
         fields = ("product", "quantity")
 
 
+# Price Filter
 class PriceFilter(filters.FilterSet):
     amount = filters.NumberFilter(label=_("Price Amount"))
 

@@ -1,12 +1,12 @@
 from django.utils.translation import gettext_lazy as _
 from django_filters import rest_framework as filters
 
-from orders import enums
 from customers.filters import CityFilter
 from orders.models import BillingAddress, ShippingAddress, Order, OrderItem, \
     OrderBankAccount
 
 
+# Billing Address Filter
 class BillingAddressFilter(filters.FilterSet):
     full_name = filters.CharFilter(label=_("Full Name"),
                                    lookup_expr="icontains")
@@ -20,9 +20,10 @@ class BillingAddressFilter(filters.FilterSet):
     class Meta:
         model = BillingAddress
         fields = (
-        "full_name", "line_1", "line_2", "phone", "district", "zipcode", "city")
+            "full_name", "line_1", "line_2", "phone", "district", "zipcode", "city")
 
 
+# Shipping Address Filter
 class ShippingAddressFilter(filters.FilterSet):
     full_name = filters.CharFilter(label=_("Full Name"),
                                    lookup_expr="icontains")
@@ -36,20 +37,21 @@ class ShippingAddressFilter(filters.FilterSet):
     class Meta:
         model = ShippingAddress
         fields = (
-        "full_name", "line_1", "line_2", "phone", "district", "zipcode", "city")
+            "full_name", "line_1", "line_2", "phone", "district", "zipcode", "city")
 
 
+# Order Filter
 class OrderFilter(filters.FilterSet):
-    #status = filters.ChoiceFilter(choices=enums.OrderStatus.choices)
     total_price = filters.NumberFilter(label=_("Total Price"))
 
     class Meta:
         model = Order
         fields = (
-        "customer", "basket", "status", "billing_address", "shipping_address",
-        "total_price")
+            "customer", "basket", "status", "billing_address", "shipping_address",
+            "total_price")
 
 
+# Order Item Filter
 class OrderItemFilter(filters.FilterSet):
     product = filters.CharFilter(label=_("Product"), lookup_expr="icontains")
     price = filters.NumberFilter()
@@ -59,6 +61,7 @@ class OrderItemFilter(filters.FilterSet):
         fields = ("order", "product", "price")
 
 
+# Order Bank Account Filter
 class OrderBankAccountFilter(filters.FilterSet):
     name = filters.CharFilter(label=_("Order Bank Account Name"),
                               lookup_expr="icontains")
