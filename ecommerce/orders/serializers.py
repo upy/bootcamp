@@ -42,6 +42,15 @@ class OrderBankAccountSerializer(serializers.ModelSerializer):
         fields = ["name", "iban", "bank_name", "order"]
 
 
+class OrderItemSerializer(serializers.ModelSerializer):
+    """
+    Order Item Serializer
+    """
+    class Meta:
+        model = OrderItem
+        fields = ["order", "product", "price"]
+
+
 class BillingAddressDetailedSerializer(serializers.ModelSerializer):
     """
     Detailed Billing Address Serializer
@@ -87,3 +96,14 @@ class OrderBankAccountDetailedSerializer(serializers.ModelSerializer):
     class Meta:
         model = OrderBankAccount
         fields = ["name", "iban", "bank_name", "order"]
+
+
+class OrderItemDetailedSerializer(serializers.ModelSerializer):
+    """
+    Detailed Order Item Serializer
+    """
+    order = OrderSerializer
+
+    class Meta:
+        model = OrderItem
+        fields = ["order", "product", "price"]

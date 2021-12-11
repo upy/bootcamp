@@ -12,8 +12,9 @@ class BasketFilter(filters.FilterSet):
         model = Basket
         fields = ("customer", "status")
 
-    def filter_name(self, name, qs, value):
-        return qs.filter(Q(customer__first_name__icontains=replaced_value) | Q(customer__first_name__icontains=value))
+    @staticmethod
+    def filter_name(self, qs, name, value):
+        return qs.filter(customer__first_name__icontains=value)
 
 
 class BasketItemFilter(filters.FilterSet):
