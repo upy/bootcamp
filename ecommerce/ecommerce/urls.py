@@ -16,11 +16,40 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from baskets.views import BasketItemViewSet, BasketViewSet
+from customers.views import CountryViewSet, CityViewSet, AddressViewSet, CustomerViewSet
 from ecommerce.router import router
-from products.views import ProductViewSet, CategoryViewSet
+from products.views import ProductViewSet, CategoryViewSet, StockViewSet, PriceViewSet
+from payments.views import BankViewSet, BankAccountViewSet
+from orders.views import ShippingAddressViewSet, BillingAddressViewSet, OrderBankAccountViewSet, OrderViewSet, \
+    OrderItemViewSet
 
+# API endpoints of products app
 router.register("products", ProductViewSet)
 router.register("categories", CategoryViewSet)
+router.register("stocks", StockViewSet)
+router.register("prices", PriceViewSet)
+
+# API endpoints of customers app
+router.register("countries", CountryViewSet)
+router.register("cities", CityViewSet)
+router.register("addresses", AddressViewSet)
+router.register("customers", CustomerViewSet)
+
+# API endpoints of baskets app
+router.register("basket-items", BasketItemViewSet)
+router.register("baskets", BasketViewSet)
+
+# API endpoints of orders app
+router.register("billing-addresses", BillingAddressViewSet)
+router.register("shipping-addresses", ShippingAddressViewSet)
+router.register("order-bank-accounts", OrderBankAccountViewSet)
+router.register("orders", OrderViewSet)
+router.register("order-items", OrderItemViewSet)
+
+# API endpoints of payments app
+router.register("banks", BankViewSet)
+router.register("bank-accounts", BankAccountViewSet)
 
 urlpatterns = [
     path("api/", include(router.urls)),
