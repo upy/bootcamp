@@ -39,8 +39,8 @@ router.register("city", CityViewSet)
 router.register("country", CountryViewSet)
 router.register("customer", CustomerViewSet)
 router.register("address", AddressViewSet)
-router.register("basket", BasketViewSet)
-router.register("basket-item", BasketItemViewSet)
+router.register("baskets", BasketViewSet)
+router.register("basket-items", BasketItemViewSet)
 
 urlpatterns = [
     path("api/", include(router.urls)),
