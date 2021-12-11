@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from baskets.models import BasketItem, Basket
+from customers.serializers import CustomerSerializer
 from products.serializers import ProductSerializer
 
 
@@ -22,4 +23,6 @@ class BasketItemDetailedSerializer(BasketItemSerializer):
     basket = BasketSerializer()
     product = ProductSerializer()
 
-#BasketDetailedSerializer will be created after CustomerSerializer is created
+
+class BasketDetailedSerializer(BasketSerializer):
+    customer = CustomerSerializer()
