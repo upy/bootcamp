@@ -15,14 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework_simplejwt.views import TokenRefreshView
 
 from baskets.views import BasketItemViewSet, BasketViewSet
+from core.views import APITokenObtainPairView
 from customers.views import CustomerViewSet, AddressViewSet, CityViewSet, CountryViewSet
 from ecommerce.router import router
 from orders.views import OrderItemViewSet, OrderViewSet, BillingAddressViewSet, ShippingAddressViewSet, \
     OrderBankAccountViewSet
 from payments.views import BankAccountViewSet, BankViewSet
-from products.views import ProductViewSet, CategoryViewSet
+from products.views import ProductViewSet, CategoryViewSet, AdminProductViewSet
 
 router.register("products", ProductViewSet)
 router.register("categories", CategoryViewSet)
@@ -39,9 +41,12 @@ router.register("shipping_addresses", ShippingAddressViewSet)
 router.register("order_bank_accounts", OrderBankAccountViewSet)
 router.register("bank_accounts", BankAccountViewSet)
 router.register("banks", BankViewSet)
+router.register("admin-products", AdminProductViewSet, basename="admin-product")
 
 
 urlpatterns = [
     path("api/", include(router.urls)),
     path('admin/', admin.site.urls),
+    path('api/token/', APITokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
