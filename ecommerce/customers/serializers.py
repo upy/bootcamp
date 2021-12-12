@@ -10,6 +10,13 @@ class CustomerSerializer(serializers.ModelSerializer):
         fields = ("id", "first_name", "last_name", "email", "is_staff", "is_active", "date_joined")
 
 
+class ProfileSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Customer
+        fields = ("first_name", "last_name", "email")
+
+
 class CountrySerializer(serializers.ModelSerializer):
     class Meta:
         model = Country

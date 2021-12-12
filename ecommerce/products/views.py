@@ -3,10 +3,10 @@ from rest_framework.viewsets import GenericViewSet
 
 from core.mixins import DetailedViewSetMixin
 from core.utils import IsStaffUserAuthenticated
-from products.filters import ProductFilter
-from products.models import Product, Category
+from products.filters import ProductFilter, PriceFilter
+from products.models import Product, Category, Price
 from products.serializers import ProductSerializer, CategorySerializer, \
-    ProductDetailedSerializer
+    ProductDetailedSerializer, PriceSerializer
 
 
 class ProductViewSet(DetailedViewSetMixin,
@@ -39,3 +39,9 @@ class AdminProductViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+
+
+class PriceViewSet(viewsets.ModelViewSet):
+    queryset = Price.objects.all()
+    filterset_class = PriceFilter
+    serializer_class = PriceSerializer
