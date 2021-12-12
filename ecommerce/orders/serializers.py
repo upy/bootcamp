@@ -62,6 +62,3 @@ class BillingAddressDetailedSerializer(BillingAddressSerializer):
 class ShippingAddressDetailedSerializer(ShippingAddressSerializer):
     city = CitySerializer()
 
-
-class OrderBankAccountDetailedSerializer(OrderBankAccountSerializer):
-    order = OrderSerializer()
