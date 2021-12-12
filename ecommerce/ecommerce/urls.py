@@ -20,7 +20,7 @@ from rest_framework_simplejwt.views import TokenRefreshView
 
 from baskets.views import BasketItemViewSet, BasketViewSet
 from core.views import APITokenObtainPairView
-from customers.views import CustomerViewSet, AddressViewSet, CityViewSet, \
+from customers.views import AddressViewSet, CityViewSet, \
     CountryViewSet, AdminCustomerViewSet, MyProfileViewSet
 from ecommerce.router import router
 from orders.views import OrderItemViewSet, OrderViewSet, BillingAddressViewSet, ShippingAddressViewSet, \
@@ -34,7 +34,6 @@ router.register("prices", PriceViewSet)
 router.register("categories", CategoryViewSet)
 router.register("basket_items", BasketItemViewSet)
 router.register("baskets", BasketViewSet)
-router.register("customers", CustomerViewSet)
 router.register("addresses", AddressViewSet)
 router.register("cities", CityViewSet)
 router.register("countries", CountryViewSet)

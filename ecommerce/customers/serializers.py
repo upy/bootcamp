@@ -1,4 +1,7 @@
+from django.utils.translation import gettext_lazy as _
+from django.db.transaction import atomic
 from rest_framework import serializers
+from rest_framework.exceptions import ValidationError
 
 from customers.models import Customer, Address, City, Country
 
@@ -31,14 +34,35 @@ class CitySerializer(serializers.ModelSerializer):
 
 
 class AddressSerializer(serializers.ModelSerializer):
+    customer = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
     class Meta:
         model = Address
-        fields = ("id", "customer", "name", "full_name", "line_1", "line_2", "phone", "district", "zipcode", "city", "is_default")
+        fields = ("id", "customer", "name", "full_name", "line_1", "line_2", "phone",
+                  "district", "zipcode", "city", "is_default")
+
+    def validate(self, attrs):
+        validated_data = super().validate(attrs=attrs)
+        instance = self.instance
+        customer = validated_data.get("customer") or (self.instance and self.instance.customer)
+        is_default = validated_data.get("is_default")
+        with atomic():
+            if is_default:
+                if instance:
+                    customer.addresses.exclude(id=instance.id).filter(is_default=True).update(is_default=False)
+                else:
+                    customer.addresses.filter(is_default=True).update(is_default=False)
+
+        return validated_data
+
+    def validate_full_name(self, value):
+        if len(value) < 10:
+            raise ValidationError(detail=_("Full name length must be bigger than 10"))
+        return value
 
 
 class AddressDetailedSerializer(AddressSerializer):
-    customer = CustomerSerializer()
+    customer = ProfileSerializer()
     city = CitySerializer()
 
 

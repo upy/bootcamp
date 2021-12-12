@@ -21,18 +21,6 @@ class AdminCustomerViewSet(viewsets.ModelViewSet):
     filterset_class = CustomerFilter
 
 
-class CustomerViewSet(viewsets.ModelViewSet):
-    http_method_names = ["get", "put"]
-    queryset = Customer.objects.all()
-    serializer_class = CustomerSerializer
-    filterset_class = CustomerFilter
-
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        user = self.request.user
-        return queryset.filter(id=user.id)
-
-
 class MyProfileViewSet(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, GenericViewSet):
     queryset = Customer.objects.all()
     serializer_class = ProfileSerializer
@@ -45,12 +33,14 @@ class MyProfileViewSet(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, Gener
 
 
 class CountryViewSet(viewsets.ModelViewSet):
+    permission_classes = ()
     queryset = Country.objects.all()
     serializer_class = CountrySerializer
     filterset_class = CountryFilter
 
 
 class CityViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
+    permission_classes = ()
     queryset = City.objects.all()
     serializer_class = CitySerializer
     filterset_class = CityFilter
@@ -68,5 +58,11 @@ class AddressViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
         "detailed_list": AddressDetailedSerializer,
         "detailed": AddressDetailedSerializer,
     }
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        user = self.request.user
+        return queryset.filter(customer=user)
+
 
 
