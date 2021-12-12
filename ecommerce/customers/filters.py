@@ -15,7 +15,7 @@ class CustomerFilter(filters.FilterSet):
 
 
 class CountryFilter(filters.FilterSet):
-    name = filters.CharFilter(label=_("Countrt Name"), lookup_expr="icontains")
+    name = filters.CharFilter(label=_("Country Name"), lookup_expr="icontains")
 
     class Meta:
         model = Country
