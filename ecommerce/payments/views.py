@@ -18,5 +18,5 @@ class BankAccountViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
     filterset_class = BankAccountFilter
     serializer_action_classes = {
         "detailed_list": BankAccountDetailedSerializer,
-        "detail": BankAccountDetailedSerializer,
+        "detailed": BankAccountDetailedSerializer,
     }

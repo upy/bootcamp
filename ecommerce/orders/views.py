@@ -18,7 +18,7 @@ class BillingAddressViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
     filterset_class = BillingAddressFilter
     serializer_action_classes = {
         "detailed_list": BillingAddressDetailedSerializer,
-        "detail": BillingAddressDetailedSerializer,
+        "detailed": BillingAddressDetailedSerializer,
     }
 
 class ShippingAddressViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
@@ -27,7 +27,7 @@ class ShippingAddressViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
     filterset_class = ShippingAddressFilter
     serializer_action_classes = {
         "detailed_list": ShippingAddressDetailedSerializer,
-        "detail": ShippingAddressDetailedSerializer,
+        "detailed": ShippingAddressDetailedSerializer,
     }
 
 
@@ -37,7 +37,7 @@ class OrderViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
     filterset_class = OrderFilter
     serializer_action_classes = {
         "detailed_list": OrderDetailedSerializer,
-        "detail": OrderDetailedSerializer,
+        "detailed": OrderDetailedSerializer,
     }
 
 
@@ -47,7 +47,7 @@ class OrderItemViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
     filterset_class = OrderItemFilter
     serializer_action_classes = {
         "detailed_list": OrderItemDetailedSerializer,
-        "detail": OrderItemDetailedSerializer,
+        "detailed": OrderItemDetailedSerializer,
     }
 
 
@@ -57,5 +57,5 @@ class OrderBankAccountViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
     filterset_class = OrderBankAccountFilter
     serializer_action_classes = {
         "detailed_list": OrderBankAccountDetailedSerializer,
-        "detail": OrderBankAccountDetailedSerializer,
+        "detailed": OrderBankAccountDetailedSerializer,
     }

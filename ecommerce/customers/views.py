@@ -27,7 +27,7 @@ class CityViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
     filterset_class = CityFilter
     serializer_action_classes = {
         "detailed_list": CityDetailedSerializer,
-        "detail": CityDetailedSerializer,
+        "detailed": CityDetailedSerializer,
     }
 
 
@@ -37,5 +37,5 @@ class AddressViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
     filterset_class = AddressFilter
     serializer_action_classes = {
         "detailed_list": AddressDetailedSerializer,
-        "detail": AddressDetailedSerializer,
+        "detailed": AddressDetailedSerializer,
     }

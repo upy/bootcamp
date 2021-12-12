@@ -31,7 +31,7 @@ class StockViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
     filterset_class = StockFilter
     serializer_action_classes = {
         "detailed_list": StockDetailedSerializer,
-        "detail": StockDetailedSerializer,
+        "detailed": StockDetailedSerializer,
     }
 
 class PriceViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
@@ -40,5 +40,5 @@ class PriceViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
     filterset_class = PriceFilter
     serializer_action_classes = {
         "detailed_list": PriceDetailedSerializer,
-        "detail": PriceDetailedSerializer,
+        "detailed": PriceDetailedSerializer,
     }

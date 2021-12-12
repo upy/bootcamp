@@ -1,5 +1,3 @@
-from django.shortcuts import render
-
 from rest_framework import viewsets
 
 from baskets.filters import BasketFilter, BasketItemFilter
@@ -15,7 +13,7 @@ class BasketViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
     filterset_class = BasketFilter
     serializer_action_classes = {
         "detailed_list": BasketDetailedSerializer,
-        "detail": BasketDetailedSerializer,
+        "detailed": BasketDetailedSerializer,
     }
 
 
@@ -25,5 +23,5 @@ class BasketItemViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
     filterset_class = BasketItemFilter
     serializer_action_classes = {
         "detailed_list": BasketItemDetailedSerializer,
-        "detail": BasketItemDetailedSerializer,
+        "detailed": BasketItemDetailedSerializer,
     }
