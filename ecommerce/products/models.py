@@ -20,6 +20,10 @@ class Category(BaseAbstractModel):
         return f"{self.name}"
 
 
+def get_all_category_attrs():
+    return ("name",)
+
+
 class Product(BaseAbstractModel):
     """
     Product model
@@ -58,6 +62,10 @@ class Stock(BaseAbstractModel):
         return f"{self.quantity}"
 
 
+def get_all_stock_attrs():
+    return "product", "quantity"
+
+
 class Price(BaseAbstractModel):
     """
     Price model
@@ -73,3 +81,7 @@ class Price(BaseAbstractModel):
 
     def __str__(self):
         return f"{self.amount}"
+
+
+def get_all_price_attrs():
+    return "product", "amount"

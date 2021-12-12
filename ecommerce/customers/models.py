@@ -104,6 +104,10 @@ class Customer(AbstractBaseUser, PermissionsMixin):
         return f"{self.first_name} - {self.last_name}"
 
 
+def get_all_customer_attrs():
+    return "first_name", "last_name", "email", "is_staff", "is_active", "date_joined"
+
+
 class Address(BaseAbstractModel):
     """
     Address model
@@ -117,7 +121,8 @@ class Address(BaseAbstractModel):
     line_1 = models.CharField(max_length=255, verbose_name=_("Address Line 1"))
     line_2 = models.CharField(max_length=255, verbose_name=_("Address Line 2"), null=True, blank=True)
     phone = models.CharField(
-        max_length=20, verbose_name=_("Phone Number"), validators=[phonenumber_validator], help_text=_("Phone number must be entered in the format: +901234567890. "))
+        max_length=20, verbose_name=_("Phone Number"), validators=[phonenumber_validator],
+        help_text=_("Phone number must be entered in the format: +901234567890. "))
     district = models.CharField(max_length=255, verbose_name=_("District"))
     zipcode = models.CharField(max_length=20, verbose_name=_("Zip Code"))
     city = models.ForeignKey(City, verbose_name=_("City"), on_delete=models.PROTECT)
@@ -129,3 +134,7 @@ class Address(BaseAbstractModel):
 
     def __str__(self):
         return f"{self.name} - {self.line_1} - {self.line_2} - {self.district} - {self.city}"
+
+
+def get_all_address_attrs():
+    return "customer", "name", "full_name", "line_1", "line_2", "phone", "district", "zipcode", "city", "is_default"
