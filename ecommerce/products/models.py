@@ -3,7 +3,7 @@ from django.utils.translation import gettext_lazy as _
 
 from core.models import BaseAbstractModel
 from products import enums
-from products.managers import ProductQuerySet
+from products.managers import ProductQuerySet, ProductManager
 
 
 class Category(BaseAbstractModel):
@@ -32,7 +32,7 @@ class Product(BaseAbstractModel):
     size = models.CharField(max_length=30, verbose_name=_("Size"))
     categories = models.ManyToManyField(Category, verbose_name=_("Categories"))
 
-    objects = ProductQuerySet.as_manager()
+    objects = ProductManager.from_queryset(ProductQuerySet)()
 
     class Meta:
         verbose_name = _("product")
