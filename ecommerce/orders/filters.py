@@ -30,7 +30,7 @@ class OrderFilter(filters.FilterSet):
         fields = get_all_order_attrs()
 
 
-class OrderItem(filters.FilterSet):
+class OrderItemFilter(filters.FilterSet):
     class Meta:
         model = OrderItem
         fields = get_all_order_item_attrs()

@@ -11,3 +11,7 @@ class BaseAbstractModel(models.Model):
 
     class Meta:
         abstract = True
+
+
+def get_all_base_abstract_model_attrs():
+    return "created_at", "modified_att"
