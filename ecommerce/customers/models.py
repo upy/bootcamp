@@ -111,7 +111,7 @@ class Address(BaseAbstractModel):
     phonenumber_validator = PhoneNumberValidator()
 
     customer = models.ForeignKey(
-        Customer, verbose_name=_("Customer"), on_delete=models.PROTECT)
+        Customer, verbose_name=_("Customer"), on_delete=models.PROTECT, related_name="addresses")
     name = models.CharField(max_length=255, verbose_name=_("Name"))
     full_name = models.CharField(max_length=255, verbose_name=_("Full Name"))
     line_1 = models.CharField(max_length=255, verbose_name=_("Address Line 1"))
