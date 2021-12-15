@@ -2,7 +2,7 @@ from rest_framework import serializers
 from django.db.transaction import atomic
 from baskets.models import Basket, BasketItem
 from customers.serializers import CustomerSerializer
-
+from products.serializers import ProductSerializer
 
 
 class BasketSerializer(serializers.ModelSerializer):
@@ -16,6 +16,7 @@ class BasketSerializer(serializers.ModelSerializer):
 
 
 class BasketItemSerializer(serializers.ModelSerializer):
+    product = ProductSerializer
 
     class Meta:
         model = BasketItem
@@ -28,22 +29,6 @@ class BasketItemDetailedSerializer(BasketItemSerializer):
     """
     basket = BasketSerializer(many=False)
 
-    class Meta:
-        model = BasketItem
-        fields = ("id", "basket", "product", "quantity", "price")
-
-    @atomic()
-    def create(self, validated_data):
-        basket = validated_data.pop("basket", None)
-        basket_item = super().create(validated_data)
-
-        if basket:
-            serializer = BasketSerializer(data=basket, many=False)
-            serializer.is_valid(raise_exception=True)
-            serializer.save()
-            basket_item.basket.add(*serializer.instance)
-        return basket_item
-
 
 class BasketDetailedSerializer(BasketSerializer):
     """
@@ -51,18 +36,3 @@ class BasketDetailedSerializer(BasketSerializer):
     """
     customer = CustomerSerializer(many=False)
 
-    class Meta:
-        model = Basket
-        fields = ("id", "customer", "status", "created_at", "modified_at")
-
-    @atomic()
-    def create(self, validated_data):
-        customer = validated_data.pop("customer", None)
-        basket = super().create(validated_data)
-
-        if basket:
-            serializer = CustomerSerializer(data=customer, many=False)
-            serializer.is_valid(raise_exception=True)
-            serializer.save()
-            basket.customer.add(*serializer.instance)
-        return basket
