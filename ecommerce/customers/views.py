@@ -1,14 +1,15 @@
 from django.shortcuts import get_object_or_404
-from rest_framework import viewsets, permissions, mixins
+from rest_framework import viewsets, permissions, mixins, status
 from rest_framework.viewsets import GenericViewSet
-
+from rest_framework.views import APIView
+from rest_framework.response import Response
 from core.mixins import DetailedViewSetMixin
 from core.utils import IsStaffUserAuthenticated
 from customers.filters import CustomerFilter, AddressFilter, CountryFilter, CityFilter
 from customers.models import Customer, Address, City, Country
 from customers.serializers import CustomerSerializer, AddressSerializer, CitySerializer, \
     CountrySerializer, \
-    AddressDetailedSerializer, CityDetailedSerializer, ProfileSerializer
+    AddressDetailedSerializer, CityDetailedSerializer, ProfileSerializer,RegisterSerializer
 
 
 class AdminCustomerViewSet(viewsets.ModelViewSet):
@@ -65,4 +66,13 @@ class AddressViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
         return queryset.filter(customer=user)
 
 
+class CustomerRegistration(APIView):
+    permission_classes = [permissions.AllowAny]
 
+    def post(self, request):
+        serializer = RegisterSerializer(data=request.data)
+        if serializer.is_valid():
+            new_costumer = serializer.save()
+            if new_costumer:
+                return Response(status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

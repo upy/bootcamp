@@ -7,14 +7,12 @@ from customers.models import Customer, Address, City, Country
 
 
 class CustomerSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Customer
         fields = ("id", "first_name", "last_name", "email", "is_staff", "is_active", "date_joined")
 
 
 class ProfileSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Customer
         fields = ("first_name", "last_name", "email")
@@ -27,7 +25,6 @@ class CountrySerializer(serializers.ModelSerializer):
 
 
 class CitySerializer(serializers.ModelSerializer):
-
     class Meta:
         model = City
         fields = ("id", "name", "country")
@@ -68,3 +65,18 @@ class AddressDetailedSerializer(AddressSerializer):
 
 class CityDetailedSerializer(CitySerializer):
     country = CountrySerializer()
+
+
+class RegisterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Customer
+        fields = ("email", "password")
+        extra_kwargs = {"password": {"write_only": True}}
+
+    def create(self, validated_data):
+        password = validated_data.pop("password", None)
+        instance = self.Meta.model(**validated_data)
+        if instance is not None:
+            instance.set_password(password)
+        instance.save()
+        return instance
