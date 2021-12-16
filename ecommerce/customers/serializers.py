@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.utils.translation import gettext_lazy as _
 from django.db.transaction import atomic
 from rest_framework import serializers
@@ -7,14 +8,38 @@ from customers.models import Customer, Address, City, Country
 
 
 class CustomerSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Customer
         fields = ("id", "first_name", "last_name", "email", "is_staff", "is_active", "date_joined")
 
 
-class ProfileSerializer(serializers.ModelSerializer):
+class RegisterSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(
+        write_only=True,
+        required=True,
+        help_text='Minimum 8 characters with numbers and letters',
+        style={'input_type': 'password', 'placeholder': 'Password'}
+    )
 
+    def create(self, validated_data):
+        user = Customer.objects.create(
+            email=validated_data['email'],
+            first_name=validated_data['first_name'],
+            last_name=validated_data['last_name'],
+            date_joined=datetime.now()
+        )
+
+        user.set_password(validated_data['password'])
+        user.save()
+
+        return user
+
+    class Meta:
+        model = Customer
+        fields = ("id", "first_name", "last_name", "password", "email", "is_staff", "is_active")
+
+
+class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Customer
         fields = ("first_name", "last_name", "email")
@@ -27,7 +52,6 @@ class CountrySerializer(serializers.ModelSerializer):
 
 
 class CitySerializer(serializers.ModelSerializer):
-
     class Meta:
         model = City
         fields = ("id", "name", "country")
