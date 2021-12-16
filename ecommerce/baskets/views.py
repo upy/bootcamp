@@ -15,6 +15,11 @@ class BasketItemViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
         "detailed": BasketItemDetailedSerializer,
     }
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        user = self.request.user
+        return queryset.filter(customer=user)
+
 
 class BasketViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
     queryset = Basket.objects.all()
@@ -24,3 +29,8 @@ class BasketViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
         "detailed_list": BasketDetailedSerializer,
         "detailed": BasketDetailedSerializer,
     }
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        user = self.request.user
+        return queryset.filter(customer=user)

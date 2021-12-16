@@ -15,8 +15,14 @@ class BankAccountViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
         "detailed": BankAccountDetailedSerializer,
     }
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        user = self.request.user
+        return queryset.filter(customer=user)
+
 
 class BankViewSet(viewsets.ModelViewSet):
+    http_method_names = ["get"]
     queryset = Bank.objects.all()
     serializer_class = BankSerializer
     filterset_class = BankFilter
