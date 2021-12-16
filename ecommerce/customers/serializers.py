@@ -20,6 +20,13 @@ class ProfileSerializer(serializers.ModelSerializer):
         fields = ("first_name", "last_name", "email")
 
 
+class RegisterSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Customer
+        fields = ("first_name", "last_name", "email")
+
+
 class CountrySerializer(serializers.ModelSerializer):
     class Meta:
         model = Country
@@ -55,7 +62,8 @@ class AddressSerializer(serializers.ModelSerializer):
 
         return validated_data
 
-    def validate_full_name(self, value):
+    @staticmethod
+    def validate_full_name(value):
         if len(value) < 10:
             raise ValidationError(detail=_("Full name length must be bigger than 10"))
         return value

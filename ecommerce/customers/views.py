@@ -1,3 +1,4 @@
+from django.contrib.auth import logout
 from django.shortcuts import get_object_or_404
 from rest_framework import viewsets, permissions, mixins
 from rest_framework.viewsets import GenericViewSet
@@ -8,7 +9,7 @@ from customers.filters import CustomerFilter, AddressFilter, CountryFilter, City
 from customers.models import Customer, Address, City, Country
 from customers.serializers import CustomerSerializer, AddressSerializer, CitySerializer, \
     CountrySerializer, \
-    AddressDetailedSerializer, CityDetailedSerializer, ProfileSerializer
+    AddressDetailedSerializer, CityDetailedSerializer, ProfileSerializer, RegisterSerializer
 
 
 class AdminCustomerViewSet(viewsets.ModelViewSet):
@@ -65,4 +66,21 @@ class AddressViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
         return queryset.filter(customer=user)
 
 
+class RegisterViewSet(mixins.CreateModelMixin, mixins.RetrieveModelMixin, GenericViewSet):
+    """
+    Register new customer endpoint
+    """
+    queryset = Customer.objects.all()
+    serializer_class = RegisterSerializer
+    permission_classes = ()
+    http_method_names = ["get", "put"]
 
+    def get_object(self):
+        """
+        Each customer must see own profile
+        :return: Customer Object
+        """
+        queryset = self.get_queryset()
+        filter_kwargs = {"id": self.request.user.id}
+        obj = get_object_or_404(queryset, **filter_kwargs)
+        return obj
