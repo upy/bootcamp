@@ -8,7 +8,7 @@ from orders.models import *
 class BillingAddressSerializer(serializers.ModelSerializer):
     class Meta:
         model = BillingAddress
-        fields = get_all_billing_address_attrs() + get_all_base_abstract_model_attrs() + "id"
+        fields = get_all_billing_address_attrs() + get_all_base_abstract_model_attrs() + ("id",)
 
 
 class ShippingAddressSerializer(serializers.ModelSerializer):
