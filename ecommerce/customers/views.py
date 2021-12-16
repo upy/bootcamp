@@ -84,3 +84,4 @@ class RegisterViewSet(mixins.CreateModelMixin, mixins.RetrieveModelMixin, Generi
         filter_kwargs = {"id": self.request.user.id}
         obj = get_object_or_404(queryset, **filter_kwargs)
         return obj
+

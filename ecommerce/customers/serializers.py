@@ -1,9 +1,11 @@
+from django.contrib.auth.password_validation import validate_password
 from django.utils.translation import gettext_lazy as _
 from django.db.transaction import atomic
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
 from customers.models import Customer, Address, City, Country
+
 
 
 class CustomerSerializer(serializers.ModelSerializer):
@@ -21,10 +23,30 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 
 class RegisterSerializer(serializers.ModelSerializer):
+    """
+    Register Serializer for create new user
+    """
+    password = serializers.CharField(
+        write_only=True, required=True, style={'input_type': 'password', 'placeholder': 'Password'},
+        validators=[validate_password])
+    password2 = serializers.CharField(write_only=True, required=True)
+
+    def create(self, validated_data):
+
+        customer = Customer.objects.create(
+            first_name=validated_data['first_name'],
+            last_name=validated_data['last_name'],
+            email=validated_data['email'],
+        )
+        customer.set_password(validated_data['password'])
+        customer.save()
+
+        return customer
 
     class Meta:
         model = Customer
-        fields = ("first_name", "last_name", "email")
+        fields = ("first_name", "last_name", "email", "password", "password2")
+
 
 
 class CountrySerializer(serializers.ModelSerializer):
@@ -76,3 +98,4 @@ class AddressDetailedSerializer(AddressSerializer):
 
 class CityDetailedSerializer(CitySerializer):
     country = CountrySerializer()
+
