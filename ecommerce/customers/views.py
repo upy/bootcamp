@@ -7,8 +7,15 @@ from core.utils import IsStaffUserAuthenticated
 from customers.filters import CustomerFilter, AddressFilter, CountryFilter, CityFilter
 from customers.models import Customer, Address, City, Country
 from customers.serializers import CustomerSerializer, AddressSerializer, CitySerializer, \
-    CountrySerializer, \
-    AddressDetailedSerializer, CityDetailedSerializer, ProfileSerializer
+    CountrySerializer, AddressDetailedSerializer, CityDetailedSerializer, \
+    ProfileSerializer, RegisterSerializer
+
+
+class RegisterViewSet(viewsets.ModelViewSet, mixins.CreateModelMixin):
+    permission_classes = ()
+    http_method_names = ['post']
+    queryset = Customer.objects.all()
+    serializer_class = RegisterSerializer
 
 
 class AdminCustomerViewSet(viewsets.ModelViewSet):
