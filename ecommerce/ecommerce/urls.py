@@ -27,7 +27,7 @@ from orders.views import OrderItemViewSet, OrderViewSet, BillingAddressViewSet, 
     OrderBankAccountViewSet
 from payments.views import BankAccountViewSet, BankViewSet
 from products.views import ProductViewSet, CategoryViewSet, AdminProductViewSet, \
-    PriceViewSet
+    PriceViewSet, ProductCreateViewSet
 
 router.register("products", ProductViewSet)
 router.register("prices", PriceViewSet)
@@ -47,7 +47,7 @@ router.register("banks", BankViewSet)
 router.register("admin-products", AdminProductViewSet, basename="admin-product")
 router.register("admin-customers", AdminCustomerViewSet, basename="admin-customer")
 router.register("register", RegisterViewSet)
-
+router.register("product-create",ProductCreateViewSet, basename= "Product-Create" )
 
 urlpatterns = [
     path("api/", include(router.urls)),

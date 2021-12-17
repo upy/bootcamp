@@ -20,7 +20,13 @@ class ProductViewSet(DetailedViewSetMixin,
         "detailed_list": ProductDetailedSerializer,
         "detailed": ProductDetailedSerializer,
     }
-
+class ProductCreateViewSet(viewsets.ModelViewSet):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    serializer_action_classes = {
+        "detailed_list": ProductDetailedSerializer,
+        "detailed": ProductDetailedSerializer,
+    }
 
 class AdminProductViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
     permission_classes = (
