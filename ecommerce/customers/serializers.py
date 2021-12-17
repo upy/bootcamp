@@ -7,16 +7,13 @@ from rest_framework.exceptions import ValidationError
 from customers.models import Customer, Address, City, Country
 
 
-
 class CustomerSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Customer
         fields = ("id", "first_name", "last_name", "email", "is_staff", "is_active", "date_joined")
 
 
 class ProfileSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Customer
         fields = ("first_name", "last_name", "email")
@@ -32,10 +29,9 @@ class RegisterSerializer(serializers.ModelSerializer):
     password2 = serializers.CharField(write_only=True, required=True)
 
     def create(self, validated_data):
-
         customer = Customer.objects.create(
-            first_name=validated_data['first_name'],
-            last_name=validated_data['last_name'],
+            first_name=validated_data.get('first_name'),
+            last_name=validated_data.get('last_name'),
             email=validated_data['email'],
         )
         customer.set_password(validated_data['password'])
@@ -43,10 +39,16 @@ class RegisterSerializer(serializers.ModelSerializer):
 
         return customer
 
+    def update(self, instance, validated_data):
+        instance.first_name = validated_data.get('first_name', instance.first_name)
+        instance.last_name = validated_data.get('last_name', instance.last_name)
+        instance.email = validated_data.get('email', instance.email)
+        instance.save()
+        return instance
+
     class Meta:
         model = Customer
         fields = ("first_name", "last_name", "email", "password", "password2")
-
 
 
 class CountrySerializer(serializers.ModelSerializer):
@@ -56,7 +58,6 @@ class CountrySerializer(serializers.ModelSerializer):
 
 
 class CitySerializer(serializers.ModelSerializer):
-
     class Meta:
         model = City
         fields = ("id", "name", "country")
@@ -98,4 +99,3 @@ class AddressDetailedSerializer(AddressSerializer):
 
 class CityDetailedSerializer(CitySerializer):
     country = CountrySerializer()
-

@@ -52,6 +52,7 @@ class CityViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
 
 
 class AddressViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
+    permission_classes = (permissions.IsAuthenticated,)
     queryset = Address.objects.all()
     serializer_class = AddressSerializer
     filterset_class = AddressFilter
@@ -73,7 +74,7 @@ class RegisterViewSet(mixins.CreateModelMixin, mixins.RetrieveModelMixin, Generi
     queryset = Customer.objects.all()
     serializer_class = RegisterSerializer
     permission_classes = ()
-    http_method_names = ["get", "put"]
+    http_method_names = ["get", "put", "patch", "options"]
 
     def get_object(self):
         """

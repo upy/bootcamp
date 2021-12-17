@@ -1,9 +1,12 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, permissions
+from rest_framework.generics import get_object_or_404
 
 from baskets.filters import BasketItemFilter, BasketFilter
 from baskets.models import BasketItem, Basket
-from baskets.serializers import BasketItemSerializer, BasketSerializer, BasketItemDetailedSerializer, BasketDetailedSerializer
+from baskets.serializers import BasketItemSerializer, BasketSerializer, BasketItemDetailedSerializer, \
+    BasketDetailedSerializer
 from core.mixins import DetailedViewSetMixin
+from rest_framework.decorators import action
 
 
 class BasketItemViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
@@ -17,6 +20,7 @@ class BasketItemViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
 
 
 class BasketViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
+    permission_classes = ()
     queryset = Basket.objects.all()
     serializer_class = BasketSerializer
     filterset_class = BasketFilter
@@ -24,3 +28,13 @@ class BasketViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
         "detailed_list": BasketDetailedSerializer,
         "detailed": BasketDetailedSerializer,
     }
+
+    def get_object(self):
+        """
+        Each customer must see own Basket
+        :return: Basket Object
+        """
+        queryset = self.get_queryset()
+        filter_kwargs = {"id": self.request.user.id}
+        obj = get_object_or_404(queryset, **filter_kwargs)
+        return obj
