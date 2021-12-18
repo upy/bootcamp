@@ -13,6 +13,24 @@ class CustomerSerializer(serializers.ModelSerializer):
         fields = ("id", "first_name", "last_name", "email", "is_staff", "is_active", "date_joined")
 
 
+class RegisterSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(write_only=True)
+
+    def create(self, validated_data):
+        customer = Customer.objects.create_user(
+            email=validated_data['email'],
+            first_name=validated_data['first_name'],
+            last_name=validated_data["last_name"],
+            password=validated_data["password"]
+        )
+        customer.save()
+        return customer
+
+    class Meta:
+        model = Customer
+        fields = ("id", "email", "first_name", "last_name", "password",)
+
+
 class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:

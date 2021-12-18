@@ -1,6 +1,7 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, permissions
 
 from core.mixins import DetailedViewSetMixin
+from core.utils import IsStaffUserAuthenticated
 from orders.filters import OrderItemFilter, OrderFilter, BillingAddressFilter, ShippingAddressFilter, \
     OrderBankAccountFilter
 from orders.models import OrderItem, Order, BillingAddress, ShippingAddress, OrderBankAccount
@@ -18,6 +19,25 @@ class OrderItemViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
         "detailed": OrderItemDetailedSerializer,
     }
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        user_id = self.request.user.id
+        return queryset.filter(order__customer__id=user_id)
+
+
+class AdminOrderViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
+    permission_classes = (
+        permissions.IsAuthenticated,
+        IsStaffUserAuthenticated
+    )
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+    filterset_class = OrderFilter
+    serializer_action_classes = {
+        "detailed_list": OrderDetailedSerializer,
+        "detailed": OrderDetailedSerializer,
+    }
+
 
 class OrderViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
     queryset = Order.objects.all()
@@ -27,6 +47,11 @@ class OrderViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
         "detailed_list": OrderDetailedSerializer,
         "detailed": OrderDetailedSerializer,
     }
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        user = self.request.user
+        return queryset.filter(customer=user)
 
 
 class BillingAddressViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
@@ -57,3 +82,8 @@ class OrderBankAccountViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
         "detailed_list": OrderBankAccountDetailedSerializer,
         "detailed": OrderBankAccountDetailedSerializer,
     }
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        user_id = self.request.user.id
+        return queryset.filter(order__customer__id=user_id)

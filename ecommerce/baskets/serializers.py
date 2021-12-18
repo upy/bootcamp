@@ -10,6 +10,7 @@ class BasketItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = BasketItem
         fields = ("id", "basket", "product", "quantity", "price")
+        read_only_fields = ["basket", "price"]
 
 
 class BasketSerializer(serializers.ModelSerializer):
