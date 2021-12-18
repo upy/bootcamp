@@ -1,12 +1,14 @@
+from django.contrib.sessions.backends.db import SessionStore
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from rest_framework import status
 
 from baskets.filters import BasketItemFilter
 from baskets.models import BasketItem, Basket
 from baskets.serializers import BasketItemSerializer, BasketItemDetailedSerializer
 from core.mixins import DetailedViewSetMixin
-from products.models import Product
+
 
 
 class BasketItemViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
@@ -35,6 +37,7 @@ class BasketViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
     filterset_class = BasketItemFilter
     serializer_action_classes = {
         "add_to_cart": BasketItemSerializer,
+        "add_to_cart_with_pk": BasketItemSerializer,
     }
 
     def get_queryset(self):
@@ -42,23 +45,33 @@ class BasketViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
         user_id = self.request.user.id
         return queryset.filter(basket__customer__id=user_id)
 
-    @action(detail=False, methods=["post"], http_method_names=["post"])
+    @action(detail=False, methods=["get", "post"], http_method_names=["get", "post"])
     def add_to_cart(self, request, pk=None):
-        user_id = self.request.user.id
-        product = Product.objects.get(id=request.data["product"])
-        quantity = request.data["quantity"]
-        price = product.price
-        basket = Basket.objects.filter(customer__id=user_id, status="open").first()
-        if not basket:
-            basket = Basket.objects.create(customer_id=user_id, status="open")
-        basket_item = BasketItem.objects.filter(
-            basket__customer__id=user_id, product=product, price=float(str(price))).first()
-        if not basket_item:
-            basket_item = BasketItem.objects.create(
-                basket=basket, product=product, quantity=quantity, price=float(str(price))
-            )
-        else:
-            basket_item.quantity += float(quantity)
-            basket_item.save()
-        serializer_detailed_data = BasketItemDetailedSerializer(basket_item).data
-        return Response(dict(serializer_detailed_data))
+        if self.request.method == 'GET':
+            data = [
+                BasketItemDetailedSerializer(model).data
+                for model in self.get_queryset()
+            ]
+            return Response(data, status=status.HTTP_200_OK)
+        elif self.request.method == 'POST':
+            serializer = BasketItemSerializer(data=self.request.data)
+            if not serializer.is_valid():
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            user_id = self.request.user.id
+            product = serializer.validated_data.get("product")
+            quantity = request.data["quantity"]
+            price = product.price
+            basket = Basket.objects.filter(customer__id=user_id, status="open").first()
+            if not basket:
+                basket = Basket.objects.create(customer_id=user_id, status="open")
+            basket_item = BasketItem.objects.filter(
+                basket__customer__id=user_id, product=product, price=float(str(price))).first()
+            if not basket_item:
+                basket_item = BasketItem.objects.create(
+                    basket=basket, product=product, quantity=quantity, price=float(str(price))
+                )
+            else:
+                basket_item.quantity += float(quantity)
+                basket_item.save()
+            serializer_detailed_data = BasketItemDetailedSerializer(basket_item).data
+            return Response(dict(serializer_detailed_data))
