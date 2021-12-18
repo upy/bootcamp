@@ -68,15 +68,20 @@ class CityDetailedSerializer(CitySerializer):
 
 
 class RegisterSerializer(serializers.ModelSerializer):
+    password_repeat = serializers.CharField(required=True)
+
     class Meta:
         model = Customer
-        fields = ("email", "password")
-        extra_kwargs = {"password": {"write_only": True}}
+        fields = ("email", "password", "password_repeat")
+        extra_kwargs = {"password": {"write_only": True}, "password_repeat": {"write_only": True}}
 
     def create(self, validated_data):
         password = validated_data.pop("password", None)
+        password_repeat = validated_data.pop("password_repeat", None)
         instance = self.Meta.model(**validated_data)
         if instance is not None:
-            instance.set_password(password)
-        instance.save()
-        return instance
+            if password == password_repeat:
+                instance.set_password(password)
+                instance.save()
+                return instance
+        raise ValidationError("Passwords do not match")
