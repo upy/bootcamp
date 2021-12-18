@@ -23,6 +23,11 @@ class PriceSerializer(serializers.ModelSerializer):
         model = Price
         fields = ("id", "product", "amount")
 
+class ProductCreateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Product
+        fields = ("id", "sku", "name", "description", "color", "size", "categories", "created_at", "modified_at", "price")
 
 class ProductDetailedSerializer(serializers.ModelSerializer):
     categories = CategorySerializer(many=True)

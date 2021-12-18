@@ -30,6 +30,10 @@ class MyProfileViewSet(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, Gener
         filter_kwargs = {"id": self.request.user.id}
         obj = get_object_or_404(queryset, **filter_kwargs)
         return obj
+class RegisterViewSet(mixins.CreateModelMixin,GenericViewSet ):
+    queryset = Customer.objects.all()
+    serializer_class = ProfileSerializer
+
 
 
 class CountryViewSet(viewsets.ModelViewSet):
