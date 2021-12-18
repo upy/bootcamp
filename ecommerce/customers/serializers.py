@@ -1,4 +1,3 @@
-from django.core import validators
 from django.utils.translation import gettext_lazy as _
 from django.db.transaction import atomic
 from django.core.validators import EmailValidator
@@ -8,7 +7,6 @@ from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
 
 from customers.models import Customer, Address, City, Country
-from ecommerce.settings import AUTH_PASSWORD_VALIDATORS
 
 
 class CustomerSerializer(serializers.ModelSerializer):

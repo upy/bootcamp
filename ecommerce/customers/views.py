@@ -34,7 +34,6 @@ class MyProfileViewSet(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, Gener
 
 class CustomerRegisterViewSet(mixins.CreateModelMixin, GenericViewSet):
     permission_classes = (IsNotLoginOrIsStaff,)
-    # import pdb; pdb.set_trace()
     queryset = Customer.objects.all()
     serializer_class = CustomerRegisterSerializer
 

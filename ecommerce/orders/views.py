@@ -5,8 +5,9 @@ from orders.filters import OrderItemFilter, OrderFilter, BillingAddressFilter, S
     OrderBankAccountFilter
 from orders.models import OrderItem, Order, BillingAddress, ShippingAddress, OrderBankAccount
 from orders.serializers import OrderItemSerializer, OrderSerializer, OrderItemDetailedSerializer, \
-    OrderDetailedSerializer, BillingAddressSerializer, ShippingAddressSerializer, BillingAddressDetailedSerializer, \
-    ShippingAddressDetailedSerializer, OrderBankAccountSerializer, OrderBankAccountDetailedSerializer
+    OrderDetailedSerializer, BillingAddressSerializer, ShippingAddressSerializer, \
+        BillingAddressDetailedSerializer, ShippingAddressDetailedSerializer, \
+            OrderBankAccountSerializer, OrderBankAccountDetailedSerializer
 
 
 class OrderItemViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
