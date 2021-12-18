@@ -29,6 +29,21 @@ iban_validator = IBANValidator()
 
 
 class IsStaffUserAuthenticated(BasePermission):
-
+    # check is current authenticated user (if exists) staff or not
     def has_permission(self, request, view):
         return bool(request.user and request.user.is_authenticated and request.user.is_staff)
+
+
+class IsLoggedIn(BasePermission):
+    # check whether user has logged in
+    def has_permission(self, request, view):
+        return bool(request.user and request.user.is_authenticated)
+
+
+class CanCreateUser(BasePermission):
+    # two types of users can create accounts:
+    # guest (not logged in) user
+    # staff user
+    def has_permission(self, request, view):
+        return IsStaffUserAuthenticated.has_permission(self, request, view) \
+            or not (IsLoggedIn.has_permission(self, request, view))
