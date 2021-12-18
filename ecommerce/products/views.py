@@ -37,12 +37,14 @@ class AdminProductViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
+    permission_classes = ()
     http_method_names = ["get"]
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
 
 class PriceViewSet(viewsets.ModelViewSet):
+    permission_classes = ()
     http_method_names = ["get"]
     queryset = Price.objects.all()
     filterset_class = PriceFilter
