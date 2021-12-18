@@ -22,7 +22,7 @@ class AdminCustomerViewSet(viewsets.ModelViewSet):
     filterset_class = CustomerFilter
 
 
-class MyProfileViewSet(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin, GenericViewSet):
+class MyProfileViewSet(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, GenericViewSet):
     queryset = Customer.objects.all()
     serializer_class = ProfileSerializer
 
