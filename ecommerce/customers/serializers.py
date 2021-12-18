@@ -2,19 +2,19 @@ from django.utils.translation import gettext_lazy as _
 from django.db.transaction import atomic
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
+from rest_framework.validators import UniqueValidator
+from django.contrib.auth.password_validation import validate_password
 
 from customers.models import Customer, Address, City, Country
 
 
 class CustomerSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Customer
         fields = ("id", "first_name", "last_name", "email", "is_staff", "is_active", "date_joined")
 
 
 class ProfileSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Customer
         fields = ("first_name", "last_name", "email")
@@ -27,7 +27,6 @@ class CountrySerializer(serializers.ModelSerializer):
 
 
 class CitySerializer(serializers.ModelSerializer):
-
     class Meta:
         model = City
         fields = ("id", "name", "country")
@@ -68,3 +67,43 @@ class AddressDetailedSerializer(AddressSerializer):
 
 class CityDetailedSerializer(CitySerializer):
     country = CountrySerializer()
+
+
+class RegisterSerializer(serializers.ModelSerializer):
+    """
+     Registration Serializer. We can create new attributes for changing model validations.
+    """
+
+    email = serializers.EmailField(required=True, validators=[UniqueValidator(queryset=Customer.objects.all())])
+    password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
+    password2 = serializers.CharField(write_only=True, required=True)
+
+    class Meta:
+        model = Customer
+        fields = ("first_name", "last_name", "email", "password", "password2")
+        extra_kwargs = {
+            'first_name': {'required': True},
+            'last_name': {'required': True},
+            'password': {'write_only': True}
+        }
+
+    """
+        Password fields must be same.
+    """
+    def validate(self, attrs):
+        if attrs['password'] != attrs['password2']:
+            raise serializers.ValidationError({"password": "Password fields didn't match"})
+
+        return attrs
+
+    def create(self, validated_data):
+        user = Customer.objects.create(
+            email=validated_data['email'],
+            first_name=validated_data['first_name'],
+            last_name=validated_data['last_name']
+        )
+
+        user.set_password(validated_data['password'])
+        user.save()
+
+        return user

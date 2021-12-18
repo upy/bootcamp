@@ -21,7 +21,7 @@ from rest_framework_simplejwt.views import TokenRefreshView
 from baskets.views import BasketItemViewSet, BasketViewSet
 from core.views import APITokenObtainPairView
 from customers.views import AddressViewSet, CityViewSet, \
-    CountryViewSet, AdminCustomerViewSet, MyProfileViewSet
+    CountryViewSet, AdminCustomerViewSet, MyProfileViewSet, RegisterView
 from ecommerce.router import router
 from orders.views import OrderItemViewSet, OrderViewSet, BillingAddressViewSet, ShippingAddressViewSet, \
     OrderBankAccountViewSet
@@ -32,7 +32,7 @@ from products.views import ProductViewSet, CategoryViewSet, AdminProductViewSet,
 router.register("products", ProductViewSet)
 router.register("prices", PriceViewSet)
 router.register("categories", CategoryViewSet)
-router.register("basket_items", BasketItemViewSet)
+router.register("basket-items", BasketItemViewSet)
 router.register("baskets", BasketViewSet)
 router.register("addresses", AddressViewSet)
 router.register("cities", CityViewSet)
@@ -48,13 +48,16 @@ router.register("admin-products", AdminProductViewSet, basename="admin-product")
 router.register("admin-customers", AdminCustomerViewSet, basename="admin-customer")
 
 
+
 urlpatterns = [
     path("api/", include(router.urls)),
     path('admin/', admin.site.urls),
     path('api/token/', APITokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/register/', RegisterView.as_view(),name='auth_register'),
     path('api/profile/', MyProfileViewSet.as_view(
         {"get": "retrieve", "put": "update", "patch": "partial_update"}), name='profile'),
+   # path('api/baskets/', BasketViewSet.as_view(), name='baskets')
 ]
 
 if settings.DEBUG:
