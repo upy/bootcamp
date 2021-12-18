@@ -21,3 +21,25 @@ It contains billing address model, shipping address model, order bank account mo
 ### Payments
 
 It contains bank model and bank account model.
+
+## Rest Framework Endpoint List
+
+- /api/profile/
+- /api/register/
+- /api/products
+- /api/prices
+- /api/categories
+- /api/basket_items
+- /api/baskets
+- /api/addresses
+- /api/cities
+- /api/countries
+- /api/order_items
+- /api/orders
+- /api/billing_addresses
+- /api/shipping_addresses
+- /api/order_bank_accounts
+- /api/bank_accounts
+- /api/banks
+- /api/admin-products
+- /api/admin-customers
