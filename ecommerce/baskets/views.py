@@ -17,8 +17,8 @@ class BasketItemViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        user = self.request.user
-        return queryset.filter(customer=user)
+        user_id = self.request.user.id
+        return queryset.filter(basket__customer__id=user_id)
 
 
 class BasketViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):

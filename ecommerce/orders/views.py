@@ -21,8 +21,8 @@ class OrderItemViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        user = self.request.user
-        return queryset.filter(customer=user)
+        user_id = self.request.user.id
+        return queryset.filter(order__customer__id=user_id)
 
 
 class AdminOrderViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
@@ -63,11 +63,6 @@ class BillingAddressViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
         "detailed": BillingAddressDetailedSerializer,
     }
 
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        user = self.request.user
-        return queryset.filter(customer=user)
-
 
 class ShippingAddressViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
     queryset = ShippingAddress.objects.all()
@@ -77,11 +72,6 @@ class ShippingAddressViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
         "detailed_list": ShippingAddressDetailedSerializer,
         "detailed": ShippingAddressDetailedSerializer,
     }
-
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        user = self.request.user
-        return queryset.filter(customer=user)
 
 
 class OrderBankAccountViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
@@ -95,5 +85,5 @@ class OrderBankAccountViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        user = self.request.user
-        return queryset.filter(customer=user)
+        user_id = self.request.user.id
+        return queryset.filter(order__customer__id=user_id)
