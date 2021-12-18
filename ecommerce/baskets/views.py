@@ -37,7 +37,7 @@ class BasketViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
     @action(detail=True, methods=['post'])
     def add_item(self, request, pk=None):
         serializer = BasketItemSerializer(data=request.data)
-        print("DATA: ", request.data)
+        
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
