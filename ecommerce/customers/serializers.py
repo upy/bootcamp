@@ -1,9 +1,14 @@
+from django.core import validators
 from django.utils.translation import gettext_lazy as _
 from django.db.transaction import atomic
+from django.core.validators import EmailValidator
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
+from rest_framework.validators import UniqueValidator
+from django.contrib.auth.password_validation import validate_password
 
 from customers.models import Customer, Address, City, Country
+from ecommerce.settings import AUTH_PASSWORD_VALIDATORS
 
 
 class CustomerSerializer(serializers.ModelSerializer):
@@ -17,7 +22,33 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Customer
-        fields = ("first_name", "last_name", "email")
+        fields = ("id", "first_name", "last_name", "email")
+
+
+"""Create CustomerRegistrationSerializer"""
+class CustomerRegisterSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField(label=_("Email"), write_only=True, required=True, validators=[
+        EmailValidator, UniqueValidator(queryset=Customer.objects.all())])
+    password = serializers.CharField(label=_("Password"), write_only=True, required=True, style={
+        "input_type": "password"}, validators=[validate_password])
+    password_repeat = serializers.CharField(label=_("Repeat Password"), write_only=True, 
+        required=True, style={"input_type": "password"})
+    class Meta:
+        model = Customer
+        fields = ("id", "first_name", "last_name", "email", "password", "password_repeat")
+
+    def validate(self, data):
+        """
+        Check that the password is valid.
+        """
+        if data["password"] != data["password_repeat"]:
+            raise ValidationError("Passwords do not match")
+        return data
+    
+    def create(self, validated_data):
+        validated_data.pop("password_repeat")
+        new_customer = Customer.objects.create_user(**validated_data)
+        return new_customer
 
 
 class CountrySerializer(serializers.ModelSerializer):
