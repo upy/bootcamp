@@ -1,11 +1,10 @@
 from django.shortcuts import get_object_or_404
-from rest_framework import viewsets, permissions, mixins, status
+from rest_framework import viewsets, permissions, mixins
 from rest_framework.viewsets import GenericViewSet
-from rest_framework.generics import GenericAPIView
-from rest_framework.response import Response
 
 from core.mixins import DetailedViewSetMixin
 from core.utils import IsStaffUserAuthenticated
+
 from customers.filters import CustomerFilter, AddressFilter, CountryFilter, CityFilter
 from customers.models import Customer, Address, City, Country
 from customers.serializers import CustomerSerializer, AddressSerializer, CitySerializer, \
@@ -23,7 +22,7 @@ class AdminCustomerViewSet(viewsets.ModelViewSet):
     filterset_class = CustomerFilter
 
 
-class MyProfileViewSet(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, GenericViewSet):
+class MyProfileViewSet(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin, GenericViewSet):
     queryset = Customer.objects.all()
     serializer_class = ProfileSerializer
 
@@ -34,7 +33,7 @@ class MyProfileViewSet(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, Gener
         return obj
 
 
-class RegisterCustomerViewSet(mixins.CreateModelMixin, GenericViewSet):
+class RegisterCustomerViewSet(mixins.CreateModelMixin, GenericViewSet, ):
     queryset = Customer.objects.all()
     permission_classes = (permissions.AllowAny,)
     serializer_class = CustomerRegisterSerializer

@@ -3,6 +3,7 @@ from django.db.transaction import atomic
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
+
 from customers.models import Customer, Address, City, Country
 
 
@@ -13,10 +14,6 @@ class CustomerSerializer(serializers.ModelSerializer):
 
 
 class CustomerRegisterSerializer(serializers.ModelSerializer):
-    """
-    email, password and password2 fields are required
-    """
-
     password2 = serializers.CharField(write_only=True, required=True, min_length=8)
 
     class Meta:
@@ -47,6 +44,13 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Customer
         fields = ("first_name", "last_name", "email")
+
+    def update(self, instance, validated_data):
+        instance.first_name = validated_data.get('first_name', instance.first_name)
+        instance.last_name = validated_data.get('last_name', instance.last_name)
+        instance.email = validated_data.get('email', instance.email)
+        instance.save()
+        return instance
 
 
 class CountrySerializer(serializers.ModelSerializer):
