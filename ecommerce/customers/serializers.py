@@ -1,3 +1,4 @@
+from django.contrib.auth.password_validation import validate_password
 from django.utils.translation import gettext_lazy as _
 from django.db.transaction import atomic
 from rest_framework import serializers
@@ -7,17 +8,47 @@ from customers.models import Customer, Address, City, Country
 
 
 class CustomerSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Customer
         fields = ("id", "first_name", "last_name", "email", "is_staff", "is_active", "date_joined")
 
 
 class ProfileSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Customer
         fields = ("first_name", "last_name", "email")
+
+
+class RegisterSerializer(serializers.ModelSerializer):
+    """
+    Register Serializer for create new user
+    """
+    password = serializers.CharField(
+        write_only=True, required=True, style={'input_type': 'password', 'placeholder': 'Password'},
+        validators=[validate_password])
+    password2 = serializers.CharField(write_only=True, required=True)
+
+    def create(self, validated_data):
+        customer = Customer.objects.create(
+            first_name=validated_data.get('first_name'),
+            last_name=validated_data.get('last_name'),
+            email=validated_data['email'],
+        )
+        customer.set_password(validated_data['password'])
+        customer.save()
+
+        return customer
+
+    def update(self, instance, validated_data):
+        instance.first_name = validated_data.get('first_name', instance.first_name)
+        instance.last_name = validated_data.get('last_name', instance.last_name)
+        instance.email = validated_data.get('email', instance.email)
+        instance.save()
+        return instance
+
+    class Meta:
+        model = Customer
+        fields = ("first_name", "last_name", "email", "password", "password2")
 
 
 class CountrySerializer(serializers.ModelSerializer):
@@ -27,7 +58,6 @@ class CountrySerializer(serializers.ModelSerializer):
 
 
 class CitySerializer(serializers.ModelSerializer):
-
     class Meta:
         model = City
         fields = ("id", "name", "country")
@@ -55,7 +85,8 @@ class AddressSerializer(serializers.ModelSerializer):
 
         return validated_data
 
-    def validate_full_name(self, value):
+    @staticmethod
+    def validate_full_name(value):
         if len(value) < 10:
             raise ValidationError(detail=_("Full name length must be bigger than 10"))
         return value
