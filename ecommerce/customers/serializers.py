@@ -1,7 +1,10 @@
+from django.contrib.auth.password_validation import validate_password
+from django.core.validators import EmailValidator
 from django.utils.translation import gettext_lazy as _
 from django.db.transaction import atomic
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
+from rest_framework.validators import UniqueValidator
 
 from customers.models import Customer, Address, City, Country
 
@@ -68,3 +71,39 @@ class AddressDetailedSerializer(AddressSerializer):
 
 class CityDetailedSerializer(CitySerializer):
     country = CountrySerializer()
+
+
+
+class CustomerRegisterSerializer(serializers.ModelSerializer):
+    """
+    To allow fast register, First Name and Last Name fields are not required.
+    """
+    email = serializers.EmailField(required=True,
+                                   validators=[EmailValidator(),
+                                               UniqueValidator(
+                                                   queryset=Customer.objects.all())])
+    password = serializers.CharField(write_only=True,
+                                     required=True,
+                                     validators=[validate_password])
+    password_repeat = serializers.CharField(write_only=True, required=True, )
+
+    class Meta:
+        model = Customer
+        fields = ("id", "email", "password", "password_repeat", "first_name", "last_name")
+
+    def validate(self, attrs):
+        if attrs["password"] != attrs["password_repeat"]:
+            raise serializers.ValidationError(detail=_("Passwords must be identical"))
+        return attrs
+
+    def create(self, validated_data):
+        customer = Customer.objects.create_user(
+            email=validated_data['email'],
+            first_name=validated_data.get('first_name', ""),
+            last_name=validated_data.get('last_name', ""),
+        )
+
+        customer.set_password(validated_data["password"])
+        customer.save()
+
+        return customer

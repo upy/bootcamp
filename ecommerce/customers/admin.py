@@ -62,7 +62,7 @@ class AddressAdmin(admin.ModelAdmin):
     """
     list_display = ("customer", "name", "city")
     list_filter = ("city",)
-    search_fields = ("line_1", "line_2", "city")
+    search_fields = ("line_1", "line_2", "city__name")
     # inlines = (CityInline, CountryInline) #TODO: Add inlines
 
 
