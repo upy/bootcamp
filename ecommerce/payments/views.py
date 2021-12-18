@@ -1,4 +1,4 @@
-from rest_framework import viewsets
+from rest_framework import permissions, viewsets
 
 from core.mixins import DetailedViewSetMixin
 from payments.filters import BankAccountFilter, BankFilter
@@ -7,6 +7,9 @@ from payments.serializers import BankAccountSerializer, BankSerializer, BankAcco
 
 
 class BankAccountViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
+    permission_classes = (
+        permissions.IsAuthenticated,
+    )
     queryset = BankAccount.objects.all()
     serializer_class = BankAccountSerializer
     filterset_class = BankAccountFilter
@@ -17,6 +20,9 @@ class BankAccountViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
 
 
 class BankViewSet(viewsets.ModelViewSet):
+    permission_classes = (
+        permissions.IsAuthenticated,
+    )
     queryset = Bank.objects.all()
     serializer_class = BankSerializer
     filterset_class = BankFilter

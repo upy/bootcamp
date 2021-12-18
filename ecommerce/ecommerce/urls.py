@@ -16,12 +16,13 @@ Including another URLconf
 from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework import permissions
 from rest_framework_simplejwt.views import TokenRefreshView
 
 from baskets.views import BasketItemViewSet, BasketViewSet
 from core.views import APITokenObtainPairView
 from customers.views import AddressViewSet, CityViewSet, \
-    CountryViewSet, AdminCustomerViewSet, MyProfileViewSet
+    CountryViewSet, AdminCustomerViewSet, CustomerRegisterViewSet, MyProfileViewSet
 from ecommerce.router import router
 from orders.views import OrderItemViewSet, OrderViewSet, BillingAddressViewSet, ShippingAddressViewSet, \
     OrderBankAccountViewSet
@@ -33,7 +34,7 @@ router.register("products", ProductViewSet)
 router.register("prices", PriceViewSet)
 router.register("categories", CategoryViewSet)
 router.register("basket_items", BasketItemViewSet)
-router.register("baskets", BasketViewSet)
+router.register("baskets", BasketViewSet, basename="baskets")
 router.register("addresses", AddressViewSet)
 router.register("cities", CityViewSet)
 router.register("countries", CountryViewSet)
@@ -55,6 +56,8 @@ urlpatterns = [
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/profile/', MyProfileViewSet.as_view(
         {"get": "retrieve", "put": "update", "patch": "partial_update"}), name='profile'),
+    path('api/register/', CustomerRegisterViewSet.as_view(
+        {"post": "create"}), name='register_customer'),
 ]
 
 if settings.DEBUG:

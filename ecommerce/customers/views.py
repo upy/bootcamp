@@ -3,12 +3,12 @@ from rest_framework import viewsets, permissions, mixins
 from rest_framework.viewsets import GenericViewSet
 
 from core.mixins import DetailedViewSetMixin
-from core.utils import IsStaffUserAuthenticated
+from core.utils import IsNotLoginOrIsStaff, IsStaffUserAuthenticated
 from customers.filters import CustomerFilter, AddressFilter, CountryFilter, CityFilter
 from customers.models import Customer, Address, City, Country
 from customers.serializers import CustomerSerializer, AddressSerializer, CitySerializer, \
-    CountrySerializer, \
-    AddressDetailedSerializer, CityDetailedSerializer, ProfileSerializer
+    CountrySerializer, AddressDetailedSerializer, CityDetailedSerializer, ProfileSerializer, \
+        CustomerRegisterSerializer
 
 
 class AdminCustomerViewSet(viewsets.ModelViewSet):
@@ -32,15 +32,25 @@ class MyProfileViewSet(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, Gener
         return obj
 
 
+class CustomerRegisterViewSet(mixins.CreateModelMixin, GenericViewSet):
+    permission_classes = (IsNotLoginOrIsStaff,)
+    queryset = Customer.objects.all()
+    serializer_class = CustomerRegisterSerializer
+
+
 class CountryViewSet(viewsets.ModelViewSet):
-    permission_classes = ()
+    permission_classes = (
+        permissions.IsAuthenticated,
+    )
     queryset = Country.objects.all()
     serializer_class = CountrySerializer
     filterset_class = CountryFilter
 
 
 class CityViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
-    permission_classes = ()
+    permission_classes = (
+        permissions.IsAuthenticated,
+    )
     queryset = City.objects.all()
     serializer_class = CitySerializer
     filterset_class = CityFilter
@@ -51,6 +61,9 @@ class CityViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
 
 
 class AddressViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
+    permission_classes = (
+        permissions.IsAuthenticated,
+    )
     queryset = Address.objects.all()
     serializer_class = AddressSerializer
     filterset_class = AddressFilter
