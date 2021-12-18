@@ -7,14 +7,43 @@ from customers.models import Customer, Address, City, Country
 
 
 class CustomerSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Customer
         fields = ("id", "first_name", "last_name", "email", "is_staff", "is_active", "date_joined")
 
 
-class ProfileSerializer(serializers.ModelSerializer):
+class CustomerRegisterSerializer(serializers.ModelSerializer):
+    """
+    email, password and password2 fields are required
+    """
 
+    password2 = serializers.CharField(write_only=True, required=True, min_length=8)
+
+    class Meta:
+        model = Customer
+        extra_kwargs = {'password': {'write_only': True, 'min_length': 8}}
+        fields = ("first_name", "last_name", "email", "password", "password2")
+
+    def validate(self, attrs):
+        if attrs['password'] != attrs['password2']:
+            raise ValidationError({'password': 'Passwords must match'})
+
+        return super().validate(attrs)
+
+    def create(self, validated_data):
+        user = Customer(
+            email=validated_data['email'],
+            first_name=validated_data['first_name'],
+            last_name=validated_data['last_name'],
+        )
+
+        user.set_password(validated_data['password'])
+        user.save()
+
+        return user
+
+
+class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Customer
         fields = ("first_name", "last_name", "email")
@@ -27,7 +56,6 @@ class CountrySerializer(serializers.ModelSerializer):
 
 
 class CitySerializer(serializers.ModelSerializer):
-
     class Meta:
         model = City
         fields = ("id", "name", "country")
