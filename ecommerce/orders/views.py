@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
 
 from core.mixins import DetailedViewSetMixin
@@ -27,6 +28,17 @@ class OrderViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
         "detailed_list": OrderDetailedSerializer,
         "detailed": OrderDetailedSerializer,
     }
+
+    def get_object(self):
+        queryset = self.get_queryset()
+        filter_kwargs = {"customer": self.request.user}
+        obj = get_object_or_404(queryset, **filter_kwargs)
+        return obj
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        user = self.request.user
+        return queryset.filter(customer=user)
 
 
 class BillingAddressViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):

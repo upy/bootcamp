@@ -14,6 +14,8 @@ class OrderItemSerializer(serializers.ModelSerializer):
 
 class OrderSerializer(serializers.ModelSerializer):
 
+    customer = serializers.HiddenField(default=serializers.CurrentUserDefault())
+
     class Meta:
         model = Order
         fields = ("id", "customer", "basket", "status", "billing_address", "shipping_address", "total_price")

@@ -19,7 +19,7 @@ from django.urls import path, include
 from rest_framework_simplejwt.views import TokenRefreshView
 
 from baskets.views import BasketItemViewSet, BasketViewSet
-from core.views import APITokenObtainPairView
+from core.views import APITokenObtainPairView, RegisterCustomerView
 from customers.views import AddressViewSet, CityViewSet, \
     CountryViewSet, AdminCustomerViewSet, MyProfileViewSet
 from ecommerce.router import router
@@ -55,6 +55,7 @@ urlpatterns = [
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/profile/', MyProfileViewSet.as_view(
         {"get": "retrieve", "put": "update", "patch": "partial_update"}), name='profile'),
+    path('register/', RegisterCustomerView.as_view(), name='auth_register'),
 ]
 
 if settings.DEBUG:
