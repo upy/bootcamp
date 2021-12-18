@@ -57,6 +57,7 @@ class CityViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
 
 
 class AddressViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
+    permission_classes = (permissions.IsAuthenticated,)
     queryset = Address.objects.all()
     serializer_class = AddressSerializer
     filterset_class = AddressFilter
