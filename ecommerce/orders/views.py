@@ -1,4 +1,4 @@
-from rest_framework import viewsets
+from rest_framework import permissions, viewsets
 
 from core.mixins import DetailedViewSetMixin
 from orders.filters import OrderItemFilter, OrderFilter, BillingAddressFilter, ShippingAddressFilter, \
@@ -10,6 +10,10 @@ from orders.serializers import OrderItemSerializer, OrderSerializer, OrderItemDe
 
 
 class OrderItemViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
+    permission_classes = (
+        permissions.IsAuthenticated,
+    )
+    http_method_names = ["get"]
     queryset = OrderItem.objects.all()
     serializer_class = OrderItemSerializer
     filterset_class = OrderItemFilter
@@ -18,8 +22,17 @@ class OrderItemViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
         "detailed": OrderItemDetailedSerializer,
     }
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        user = self.request.user
+        return queryset.filter(order__customer=user)
+
 
 class OrderViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
+    permission_classes = (
+        permissions.IsAuthenticated,
+    )
+    http_method_names = ["get"]
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
     filterset_class = OrderFilter
@@ -27,9 +40,16 @@ class OrderViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
         "detailed_list": OrderDetailedSerializer,
         "detailed": OrderDetailedSerializer,
     }
-
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        user = self.request.user
+        return queryset.filter(customer=user)
 
 class BillingAddressViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
+    permission_classes = (
+        permissions.IsAuthenticated,
+    )
+    http_method_names = ["get"]
     queryset = BillingAddress.objects.all()
     serializer_class = BillingAddressSerializer
     filterset_class = BillingAddressFilter
@@ -40,6 +60,10 @@ class BillingAddressViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
 
 
 class ShippingAddressViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
+    permission_classes = (
+        permissions.IsAuthenticated,
+    )
+    http_method_names = ["get"]
     queryset = ShippingAddress.objects.all()
     serializer_class = ShippingAddressSerializer
     filterset_class = ShippingAddressFilter
@@ -50,6 +74,10 @@ class ShippingAddressViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
 
 
 class OrderBankAccountViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
+    permission_classes = (
+        permissions.IsAuthenticated,
+    )
+    http_method_names = ["get"]
     queryset = OrderBankAccount.objects.all()
     serializer_class = OrderBankAccountSerializer
     filterset_class = OrderBankAccountFilter
@@ -57,3 +85,8 @@ class OrderBankAccountViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
         "detailed_list": OrderBankAccountDetailedSerializer,
         "detailed": OrderBankAccountDetailedSerializer,
     }
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        user = self.request.user
+        return queryset.filter(order__customer=user)

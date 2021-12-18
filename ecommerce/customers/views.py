@@ -39,18 +39,19 @@ class CustomerRegisterViewSet(mixins.CreateModelMixin, GenericViewSet):
     serializer_class = CustomerRegisterSerializer
 
 
-
-
-
 class CountryViewSet(viewsets.ModelViewSet):
-    permission_classes = ()
+    permission_classes = (
+        permissions.IsAuthenticated,
+    )
     queryset = Country.objects.all()
     serializer_class = CountrySerializer
     filterset_class = CountryFilter
 
 
 class CityViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
-    permission_classes = ()
+    permission_classes = (
+        permissions.IsAuthenticated,
+    )
     queryset = City.objects.all()
     serializer_class = CitySerializer
     filterset_class = CityFilter
@@ -61,6 +62,9 @@ class CityViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
 
 
 class AddressViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
+    permission_classes = (
+        permissions.IsAuthenticated,
+    )
     queryset = Address.objects.all()
     serializer_class = AddressSerializer
     filterset_class = AddressFilter
