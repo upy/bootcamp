@@ -40,7 +40,7 @@ class BasketViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
     def get_queryset(self):
         queryset = super().get_queryset()
         user_id = self.request.user.id
-        return queryset.filter(basket__customer__id=user_id)
+        return queryset.filter(basket__customer__id=user_id).order_by('id')
 
     @action(detail=False, methods=["get", "post", "delete"], http_method_names=["get", "post", "delete"])
     def add_to_cart(self, request):
@@ -63,6 +63,8 @@ class BasketViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
                 basket = Basket.objects.create(customer__id=user_id, status="open")
             basket_item = BasketItem.objects.filter(
                 basket__customer__id=user_id, product=product, price=float(str(price))).first()
+            if quantity > product.stock.quantity:
+                return Response({"detail": "Not enough product"}, status=status.HTTP_400_BAD_REQUEST)
             if not basket_item:
                 basket_item = BasketItem.objects.create(
                     basket=basket, product=product, quantity=quantity, price=float(str(price))
@@ -80,4 +82,3 @@ class BasketViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
             basket_item = BasketItem.objects.filter(basket__customer__id=user_id).first()
             basket_item.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
-            
