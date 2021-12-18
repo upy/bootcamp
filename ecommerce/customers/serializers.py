@@ -1,3 +1,5 @@
+from django.contrib.auth.password_validation import validate_password
+from django.core.validators import EmailValidator
 from django.utils.translation import gettext_lazy as _
 from django.db.transaction import atomic
 from rest_framework import serializers
@@ -11,6 +13,31 @@ class CustomerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Customer
         fields = ("id", "first_name", "last_name", "email", "is_staff", "is_active", "date_joined")
+
+
+class RegisterSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField(required=True, validators=[EmailValidator()])
+    password = serializers.CharField(required=True, validators=[validate_password])
+    password_repeat = serializers.CharField(required=True)
+
+    class Meta:
+        model = Customer
+        fields = fields = ("id", "first_name", "last_name", "email", "password", "password_repeat",)
+
+    def validate(self, attrs):
+        if attrs["password"] != attrs["password_repeat"]:
+            raise ValidationError(_("Passwords are not same"))
+        return attrs
+
+    def create(self, validated_data):
+        customer = Customer.objects.create_user(
+            first_name=validated_data["first_name"],
+            last_name=validated_data["last_name"],
+            email=validated_data["email"],
+            password=validated_data["password"]
+        )
+        customer.save()
+        return customer
 
 
 class ProfileSerializer(serializers.ModelSerializer):
