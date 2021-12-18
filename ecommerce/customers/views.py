@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404
-from rest_framework import viewsets, permissions, mixins
+from rest_framework import viewsets, permissions, mixins, generics
 from rest_framework.viewsets import GenericViewSet
 
 from core.mixins import DetailedViewSetMixin
@@ -8,7 +8,7 @@ from customers.filters import CustomerFilter, AddressFilter, CountryFilter, City
 from customers.models import Customer, Address, City, Country
 from customers.serializers import CustomerSerializer, AddressSerializer, CitySerializer, \
     CountrySerializer, \
-    AddressDetailedSerializer, CityDetailedSerializer, ProfileSerializer
+    AddressDetailedSerializer, CityDetailedSerializer, ProfileSerializer, RegisterSerializer
 
 
 class AdminCustomerViewSet(viewsets.ModelViewSet):
@@ -65,4 +65,7 @@ class AddressViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
         return queryset.filter(customer=user)
 
 
+class RegisterViewSet(generics.CreateAPIView):
+    queryset = Customer.objects.all()
+    serializer_class = RegisterSerializer
 
