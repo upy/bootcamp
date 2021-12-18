@@ -21,7 +21,7 @@ from rest_framework_simplejwt.views import TokenRefreshView
 from baskets.views import BasketItemViewSet, BasketViewSet
 from core.views import APITokenObtainPairView
 from customers.views import AddressViewSet, CityViewSet, \
-    CountryViewSet, AdminCustomerViewSet, MyProfileViewSet
+    CountryViewSet, AdminCustomerViewSet, MyProfileViewSet, RegisterViewSet
 from ecommerce.router import router
 from orders.views import OrderItemViewSet, OrderViewSet, BillingAddressViewSet, ShippingAddressViewSet, \
     OrderBankAccountViewSet
@@ -46,7 +46,7 @@ router.register("bank_accounts", BankAccountViewSet)
 router.register("banks", BankViewSet)
 router.register("admin-products", AdminProductViewSet, basename="admin-product")
 router.register("admin-customers", AdminCustomerViewSet, basename="admin-customer")
-
+router.register("register", RegisterViewSet)
 
 urlpatterns = [
     path("api/", include(router.urls)),
