@@ -26,3 +26,10 @@ class BasketItemDetailedSerializer(BasketItemSerializer):
 
 class BasketDetailedSerializer(BasketSerializer):
     customer = CustomerSerializer()
+
+class BasketPostSerializer(serializers.ModelSerializer):
+    customer = CustomerSerializer()
+    items = BasketItemSerializer(many=True)
+    class Meta:
+        model = Basket
+        fields = ('id', 'customer', 'items')
