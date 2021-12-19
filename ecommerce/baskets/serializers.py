@@ -2,7 +2,7 @@ from rest_framework import serializers
 
 from baskets.models import BasketItem, Basket
 from customers.serializers import CustomerSerializer
-from products.serializers import ProductSerializer
+from products.serializers import ProductSerializer, ProductDetailedSerializer
 
 
 class BasketItemSerializer(serializers.ModelSerializer):
@@ -20,9 +20,11 @@ class BasketSerializer(serializers.ModelSerializer):
 
 
 class BasketItemDetailedSerializer(BasketItemSerializer):
-    basket = BasketSerializer()
-    product = ProductSerializer()
+    product = ProductDetailedSerializer()
 
 
 class BasketDetailedSerializer(BasketSerializer):
-    customer = CustomerSerializer()
+    basketitem_set = BasketItemDetailedSerializer(many=True)
+
+    class Meta(BasketSerializer.Meta):
+        fields = BasketSerializer.Meta.fields + ("basketitem_set", )
