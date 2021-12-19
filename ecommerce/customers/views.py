@@ -1,14 +1,16 @@
 from django.shortcuts import get_object_or_404
-from rest_framework import viewsets, permissions, mixins
+from rest_framework import viewsets, permissions, mixins, status
+from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
 from core.mixins import DetailedViewSetMixin
-from core.utils import IsStaffUserAuthenticated
+from core.utils import IsStaffUserAuthenticated, IsNotAuthenticated
 from customers.filters import CustomerFilter, AddressFilter, CountryFilter, CityFilter
 from customers.models import Customer, Address, City, Country
 from customers.serializers import CustomerSerializer, AddressSerializer, CitySerializer, \
     CountrySerializer, \
-    AddressDetailedSerializer, CityDetailedSerializer, ProfileSerializer
+    AddressDetailedSerializer, CityDetailedSerializer, ProfileSerializer, \
+    CustomerCreateSerializer
 
 
 class AdminCustomerViewSet(viewsets.ModelViewSet):
@@ -21,7 +23,8 @@ class AdminCustomerViewSet(viewsets.ModelViewSet):
     filterset_class = CustomerFilter
 
 
-class MyProfileViewSet(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, GenericViewSet):
+class MyProfileViewSet(mixins.RetrieveModelMixin, mixins.UpdateModelMixin,
+                       GenericViewSet):
     queryset = Customer.objects.all()
     serializer_class = ProfileSerializer
 
@@ -40,7 +43,7 @@ class CountryViewSet(viewsets.ModelViewSet):
 
 
 class CityViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
-    permission_classes = ()
+    permission_classes = (permissions.AllowAny,)
     queryset = City.objects.all()
     serializer_class = CitySerializer
     filterset_class = CityFilter
@@ -65,4 +68,7 @@ class AddressViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
         return queryset.filter(customer=user)
 
 
-
+class CustomerRegisterViewSet(mixins.CreateModelMixin, GenericViewSet):
+    permission_classes = (IsNotAuthenticated,)
+    queryset = Customer.objects.all()
+    serializer_class = CustomerCreateSerializer

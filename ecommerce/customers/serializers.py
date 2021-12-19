@@ -1,3 +1,4 @@
+from django.contrib.auth.password_validation import validate_password
 from django.utils.translation import gettext_lazy as _
 from django.db.transaction import atomic
 from rest_framework import serializers
@@ -7,17 +8,46 @@ from customers.models import Customer, Address, City, Country
 
 
 class CustomerSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Customer
-        fields = ("id", "first_name", "last_name", "email", "is_staff", "is_active", "date_joined")
+        fields = ("id", "first_name", "last_name", "email", "is_staff", "is_active",
+                  "date_joined")
 
 
 class ProfileSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Customer
         fields = ("first_name", "last_name", "email")
+
+
+class CustomerCreateSerializer(serializers.ModelSerializer):
+    password2 = serializers.CharField(label=_("Password repeat"), max_length=128,
+                                      write_only=True, style={"input_type": "password"})
+    password = serializers.CharField(label=_("Password"), max_length=128,
+                                     write_only=True, validators=[validate_password],
+                                     style={"input_type": "password"})
+
+    class Meta:
+        model = Customer
+        fields = ("first_name", "last_name", "email", "password", "password2")
+        extra_kwargs = {
+            "first_name": {"required": True, "allow_blank": False},
+            "last_name": {"required": True, "allow_blank": False},
+        }
+
+    def validate(self, attrs):
+        attrs = super().validate(attrs)
+        password = attrs["password"]
+        password2 = attrs["password2"]
+        if password != password2:
+            raise ValidationError(
+                detail={"password2": _("Your passwords must be same")})
+        return attrs
+
+    def create(self, validated_data):
+        validated_data.pop("password2", None)
+        instance = Customer.objects.create_user(**validated_data)
+        return instance
 
 
 class CountrySerializer(serializers.ModelSerializer):
@@ -27,7 +57,6 @@ class CountrySerializer(serializers.ModelSerializer):
 
 
 class CitySerializer(serializers.ModelSerializer):
-
     class Meta:
         model = City
         fields = ("id", "name", "country")
@@ -44,12 +73,14 @@ class AddressSerializer(serializers.ModelSerializer):
     def validate(self, attrs):
         validated_data = super().validate(attrs=attrs)
         instance = self.instance
-        customer = validated_data.get("customer") or (self.instance and self.instance.customer)
+        customer = validated_data.get("customer") or (
+                self.instance and self.instance.customer)
         is_default = validated_data.get("is_default")
         with atomic():
             if is_default:
                 if instance:
-                    customer.addresses.exclude(id=instance.id).filter(is_default=True).update(is_default=False)
+                    customer.addresses.exclude(id=instance.id).filter(
+                        is_default=True).update(is_default=False)
                 else:
                     customer.addresses.filter(is_default=True).update(is_default=False)
 
