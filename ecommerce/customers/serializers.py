@@ -1,20 +1,22 @@
+import django.core.validators as EmailValidator
+from django.contrib.auth.password_validation import validate_password
+
 from django.utils.translation import gettext_lazy as _
 from django.db.transaction import atomic
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
 from customers.models import Customer, Address, City, Country
+from rest_framework.validators import UniqueValidator
 
 
 class CustomerSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Customer
         fields = ("id", "first_name", "last_name", "email", "is_staff", "is_active", "date_joined")
 
 
 class ProfileSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Customer
         fields = ("first_name", "last_name", "email")
@@ -27,7 +29,6 @@ class CountrySerializer(serializers.ModelSerializer):
 
 
 class CitySerializer(serializers.ModelSerializer):
-
     class Meta:
         model = City
         fields = ("id", "name", "country")
@@ -55,7 +56,8 @@ class AddressSerializer(serializers.ModelSerializer):
 
         return validated_data
 
-    def validate_full_name(self, value):
+    @staticmethod
+    def validate_full_name(value):
         if len(value) < 10:
             raise ValidationError(detail=_("Full name length must be bigger than 10"))
         return value
@@ -68,3 +70,31 @@ class AddressDetailedSerializer(AddressSerializer):
 
 class CityDetailedSerializer(CitySerializer):
     country = CountrySerializer()
+
+
+class CustomerRegisterSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField(label=_("email"),
+                                   write_only=True,
+                                   required=True,
+                                   validators=[EmailValidator, UniqueValidator(queryset=Customer.objects.all())])
+    password = serializers.CharField(label=_("Password"),
+                                     write_only=True,
+                                     required=True,
+                                     validators=[validate_password])
+    password_confirm = serializers.CharField(label=_("Confirm Password"),
+                                             write_only=True,
+                                             required=True)
+
+    class Meta:
+        model = Customer
+        fields = ("id", "email", "password", "password_confirm", "first_name", "last_name")
+
+    def validate(self, attrs):
+        if attrs["password"] != attrs["password_confirm"]:
+            raise ValidationError(_("Passwords don't match."))
+        return attrs
+
+    def create(self, validated_data):
+        validated_data.pop("password_confirm")
+        new_customer = Customer.objects.create_user(**validated_data)
+        return new_customer

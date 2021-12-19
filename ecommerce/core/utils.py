@@ -32,3 +32,16 @@ class IsStaffUserAuthenticated(BasePermission):
 
     def has_permission(self, request, view):
         return bool(request.user and request.user.is_authenticated and request.user.is_staff)
+
+
+class IsAuthenticated(BasePermission):
+    # checks whether the user auth or not
+    def has_permission(self, request, view):
+        return bool(request.user and request.user.is_authenticated)
+
+
+class CanCreateUser(BasePermission):
+    # users who create account are either new user or staff user
+    def has_permission(self, request, view):
+        return IsStaffUserAuthenticated.has_permission(self, request, view) \
+            or not (IsAuthenticated.has_permission(self, request, view))

@@ -13,6 +13,7 @@ class BasketItemSerializer(serializers.ModelSerializer):
 
 
 class BasketSerializer(serializers.ModelSerializer):
+    customer = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
     class Meta:
         model = Basket
