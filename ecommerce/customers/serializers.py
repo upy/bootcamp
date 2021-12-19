@@ -1,23 +1,38 @@
+from django.contrib.auth.password_validation import validate_password
+from django.core.validators import EmailValidator
 from django.utils.translation import gettext_lazy as _
 from django.db.transaction import atomic
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
+from rest_framework.validators import UniqueValidator
 
 from customers.models import Customer, Address, City, Country
 
 
 class CustomerSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Customer
         fields = ("id", "first_name", "last_name", "email", "is_staff", "is_active", "date_joined")
 
 
 class ProfileSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Customer
         fields = ("first_name", "last_name", "email")
+
+# Serializer used for customer registration purposes. Does email and password validation
+class RegisterSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField(label=_("Email"), write_only=True, required=True, validators=[
+        EmailValidator, UniqueValidator(queryset=Customer.objects.all())])
+    password = serializers.CharField(label=_("Password"), write_only=True, required=True, validators=[validate_password])
+
+    class Meta:
+        model = Customer
+        fields = ("first_name", "last_name", "email", "password")
+
+    def create(self, validated_data):
+        new_customer = Customer.objects.create_user(**validated_data)
+        return new_customer
 
 
 class CountrySerializer(serializers.ModelSerializer):
@@ -27,7 +42,6 @@ class CountrySerializer(serializers.ModelSerializer):
 
 
 class CitySerializer(serializers.ModelSerializer):
-
     class Meta:
         model = City
         fields = ("id", "name", "country")

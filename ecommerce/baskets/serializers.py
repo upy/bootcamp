@@ -6,14 +6,12 @@ from products.serializers import ProductSerializer
 
 
 class BasketItemSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = BasketItem
         fields = ("id", "basket", "product", "quantity", "price")
 
 
 class BasketSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Basket
         fields = ("id", "customer", "status")

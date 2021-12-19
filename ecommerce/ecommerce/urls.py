@@ -21,7 +21,7 @@ from rest_framework_simplejwt.views import TokenRefreshView
 from baskets.views import BasketItemViewSet, BasketViewSet
 from core.views import APITokenObtainPairView
 from customers.views import AddressViewSet, CityViewSet, \
-    CountryViewSet, AdminCustomerViewSet, MyProfileViewSet
+    CountryViewSet, AdminCustomerViewSet, MyProfileViewSet, RegisterCustomerViewSet
 from ecommerce.router import router
 from orders.views import OrderItemViewSet, OrderViewSet, BillingAddressViewSet, ShippingAddressViewSet, \
     OrderBankAccountViewSet
@@ -47,7 +47,6 @@ router.register("banks", BankViewSet)
 router.register("admin-products", AdminProductViewSet, basename="admin-product")
 router.register("admin-customers", AdminCustomerViewSet, basename="admin-customer")
 
-
 urlpatterns = [
     path("api/", include(router.urls)),
     path('admin/', admin.site.urls),
@@ -55,6 +54,7 @@ urlpatterns = [
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/profile/', MyProfileViewSet.as_view(
         {"get": "retrieve", "put": "update", "patch": "partial_update"}), name='profile'),
+    path('api/register/', RegisterCustomerViewSet.as_view({"post": "create"}), name='register_customer'),
 ]
 
 if settings.DEBUG:
