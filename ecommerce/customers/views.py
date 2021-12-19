@@ -3,11 +3,11 @@ from rest_framework import viewsets, permissions, mixins
 from rest_framework.viewsets import GenericViewSet
 
 from core.mixins import DetailedViewSetMixin
-from core.utils import IsStaffUserAuthenticated
+from core.utils import IsStaffUserAuthenticated, CanCreateUser
 from customers.filters import CustomerFilter, AddressFilter, CountryFilter, CityFilter
 from customers.models import Customer, Address, City, Country
 from customers.serializers import CustomerSerializer, AddressSerializer, CitySerializer, \
-    CountrySerializer, \
+    CountrySerializer, CustomerRegisterSerializer, \
     AddressDetailedSerializer, CityDetailedSerializer, ProfileSerializer
 
 
@@ -65,4 +65,7 @@ class AddressViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
         return queryset.filter(customer=user)
 
 
-
+class CustomerRegisterViewSet(mixins.CreateModelMixin, GenericViewSet):
+    permission_classes = (CanCreateUser,)
+    queryset = Customer.objects.all()
+    serializer_class = CustomerRegisterSerializer
