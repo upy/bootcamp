@@ -43,10 +43,9 @@ class BasketViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
         return queryset.filter(customer=user)
 
     @action(detail=True, methods=['post'])
-    def create_product(self, request, pk=None):
+    def add_product(self, request, pk=None):
         serializer = BasketItemSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
