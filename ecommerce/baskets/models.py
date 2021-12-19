@@ -1,3 +1,6 @@
+import json
+from datetime import datetime
+
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -11,9 +14,9 @@ class Basket(BaseAbstractModel):
     """
     Basket model
     """
-    customer = models.ForeignKey(Customer, verbose_name=_("Customer"), 
+    customer = models.ForeignKey(Customer, verbose_name=_("Customer"),
                                  on_delete=models.PROTECT, null=True, blank=True)
-    status = models.CharField(choices=enums.BasketStatus.choices, max_length=10, 
+    status = models.CharField(choices=enums.BasketStatus.choices, max_length=10,
                               verbose_name=_("Basket Status"), default=enums.BasketStatus.OPEN)
 
     class Meta:
@@ -32,6 +35,12 @@ class BasketItem(BaseAbstractModel):
     product = models.ForeignKey(Product, verbose_name=_("Product"), on_delete=models.PROTECT)
     quantity = models.PositiveIntegerField(verbose_name=_("Quantity"))
     price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name=_("Price"))
+
+    @classmethod
+    def create(clsk, data):
+        basketItem = clsk(basket=data["basket"], product=data["product"], quantity=data["quantity"],
+                          price=data["price"])
+        return basketItem
 
     class Meta:
         verbose_name = _("Basket item")
