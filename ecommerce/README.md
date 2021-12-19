@@ -21,3 +21,13 @@ It contains billing address model, shipping address model, order bank account mo
 ### Payments
 
 It contains bank model and bank account model.
+
+## Customer Registration
+To register a new customer go to endpoint at 
+
+    /api/register/
+
+## Add to Basket
+To add a product into your basket go to endpoint at
+    
+    api/baskets/add_to_basket/
