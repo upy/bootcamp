@@ -47,3 +47,19 @@ Run `python manage.py runserver ip_you_want:port_you_want` and go to [`http://ip
 Ex.: Run `python manage.py runserver 0.0.0.0:5252` and go to [`http://0.0.0.0:5252`](http://0.0.0.0:5252) from the browser.
 
 > Note: If ip and port are not specified, it will work on the default ip(127.0.0.1) and port(8000). Make sure that the ip address entered in "ip_you_want" is in ALLOWED_HOSTS variable in the [`.env`](ecommerce/.env) file.
+
+# DOCKER & HEROKU
+>docker build -t web:latest .
+>docker build -t registry.heroku.com/APP_NAME/web .
+>heroku login
+>heroku create APP_NAME
+>heroku config:set SECRET_KEY='secret_key' ALLOWED_HOSTS='APP_NAME.herokuapp.com' TIME_ZONE='UTC' -a APP_NAME
+>heroku container:login
+>docker push registry.heroku.com/APP_NAME/web
+>heroku container:release -a APP_NAME web
+>heroku run python manage.py migrate -a APP_NAME
+>heroku run python manage.py compilemessages -a APP_NAME
+>heroku run python manage.py createsuperuser --email=your@email.com --no-input -a APP_NAME
+
+### Log
+>heroku logs --tail
