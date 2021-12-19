@@ -8,7 +8,7 @@ from customers.filters import CustomerFilter, AddressFilter, CountryFilter, City
 from customers.models import Customer, Address, City, Country
 from customers.serializers import CustomerSerializer, AddressSerializer, CitySerializer, \
     CountrySerializer, \
-    AddressDetailedSerializer, CityDetailedSerializer, ProfileSerializer
+    AddressDetailedSerializer, CityDetailedSerializer, ProfileSerializer, RegisterSerializer
 
 
 class AdminCustomerViewSet(viewsets.ModelViewSet):
@@ -19,6 +19,13 @@ class AdminCustomerViewSet(viewsets.ModelViewSet):
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
     filterset_class = CustomerFilter
+
+
+class RegisterViewSet(viewsets.ModelViewSet, mixins.CreateModelMixin):
+    http_method_names = ['post']
+    permission_classes = ()
+    queryset = Customer.objects.all()
+    serializer_class = RegisterSerializer
 
 
 class MyProfileViewSet(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, GenericViewSet):
@@ -63,6 +70,3 @@ class AddressViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
         queryset = super().get_queryset()
         user = self.request.user
         return queryset.filter(customer=user)
-
-
-
