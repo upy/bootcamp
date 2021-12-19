@@ -54,35 +54,4 @@ class BasketViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    """
-    @action(detail=False, methods=['post', 'get'], http_method_names = ['get', 'post'])
-    def add_basket_item(self, request):
-        
-        if self.request.method == 'GET':
-            return self.list(request)
-        elif self.request.method == 'POST':
-            serializer = BasketItemSerializer(data=request.data)
-            if serializer.is_valid():
-                user_id = self.request.user.id
-                product = serializer.validated_data.get("product")
-                quantity = serializer.validated_data.get("quantity")
-                price = serializer.validated_data.get("price")
-                basket = Basket.objects.filter(customer__id=user_id, status="open").first()
 
-                if not basket:
-                    basket = Basket.objects.create(customer__id=user_id, status="open")
-
-                basket_item = BasketItem.objects.filter(basket__customer__id=user__id, product=product,
-                                                        price=float(str(price))).first()
-                if not basket_item:
-                    basket_item = BasketItem.objects.create(
-                        basket=basket, product=product, quantity=quantity, price=float(str(price))
-                    )
-                else:
-                    basket_item.quantity += float(quantity)
-                    basket.item.save()
-                serializer_detailed_data = BasketItemDetailedSerializer(basket_item).data
-                return Response(dict(serializer_detailed_data))
-
-
-"""

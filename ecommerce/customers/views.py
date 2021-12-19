@@ -32,6 +32,7 @@ class MyProfileViewSet(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, Gener
         obj = get_object_or_404(queryset, **filter_kwargs)
         return obj
 
+
 # End point for customer registration
 class RegisterCustomerViewSet(viewsets.ModelViewSet):
     permission_classes = ()
