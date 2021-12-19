@@ -8,7 +8,14 @@ from customers.filters import CustomerFilter, AddressFilter, CountryFilter, City
 from customers.models import Customer, Address, City, Country
 from customers.serializers import CustomerSerializer, AddressSerializer, CitySerializer, \
     CountrySerializer, \
-    AddressDetailedSerializer, CityDetailedSerializer, ProfileSerializer
+    AddressDetailedSerializer, CityDetailedSerializer, ProfileSerializer,  CustomerRegisterSerializer
+
+
+class CustomerRegisterViewSet(viewsets.ModelViewSet, mixins.CreateModelMixin):
+    permission_classes = ()
+    http_method_names = ['post']
+    queryset = Customer.objects.all()
+    serializer_class = CustomerRegisterSerializer
 
 
 class AdminCustomerViewSet(viewsets.ModelViewSet):
