@@ -17,3 +17,5 @@ coverage.xml
 *.mo
 *.pot
 *.log
+.env
+venv/
