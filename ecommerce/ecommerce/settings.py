@@ -66,6 +66,8 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 100
 }
 
+STATIC_ROOT = BASE_DIR / 'static'
+
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
 }
@@ -80,6 +82,11 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+if not DEBUG:
+    MIDDLEWARE = MIDDLEWARE + [
+        'whitenoise.middleware.WhiteNoiseMiddleware',
+    ]
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 ROOT_URLCONF = 'ecommerce.urls'
 
