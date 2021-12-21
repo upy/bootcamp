@@ -47,3 +47,7 @@ Run `python manage.py runserver ip_you_want:port_you_want` and go to [`http://ip
 Ex.: Run `python manage.py runserver 0.0.0.0:5252` and go to [`http://0.0.0.0:5252`](http://0.0.0.0:5252) from the browser.
 
 > Note: If ip and port are not specified, it will work on the default ip(127.0.0.1) and port(8000). Make sure that the ip address entered in "ip_you_want" is in ALLOWED_HOSTS variable in the [`.env`](ecommerce/.env) file.
+
+## API
+-register endpoint is created
+- items cann add to the basket with /add_basket_item url
