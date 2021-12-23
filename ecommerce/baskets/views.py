@@ -1,29 +1,21 @@
-from rest_framework import viewsets, status
+from rest_framework import viewsets, status, mixins
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from rest_framework.viewsets import GenericViewSet
 
 from baskets.enums import BasketStatus
 from baskets.filters import BasketItemFilter, BasketFilter
 from baskets.models import BasketItem, Basket
 from baskets.serializers import BasketItemSerializer, BasketSerializer, \
-    BasketItemDetailedSerializer, BasketDetailedSerializer
+    BasketItemDetailedSerializer, BasketDetailedSerializer, BasketItemValidateSerializer
 from core.mixins import DetailedViewSetMixin
+from products.models import Product
 
 
-class BasketItemViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
-    queryset = BasketItem.objects.all()
-    serializer_class = BasketItemSerializer
-    filterset_class = BasketItemFilter
-    serializer_action_classes = {
-        "detailed_list": BasketItemDetailedSerializer,
-        "detailed": BasketItemDetailedSerializer,
-    }
-
-
-class BasketViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
+class BasketViewSet(DetailedViewSetMixin, mixins.RetrieveModelMixin,
+                    mixins.ListModelMixin, GenericViewSet):
     permission_classes = ()
-    http_method_names = ["get",]
-
+    lookup_field = "slug"
     queryset = Basket.objects.all()
     serializer_class = BasketSerializer
     filterset_class = BasketFilter
@@ -61,3 +53,48 @@ class BasketViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
         else:
             serializer = self.get_serializer(basket)
             return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @action(methods=["post"], detail=True)
+    def add_basket_item(self, *args, **kwargs):
+        basket = self.get_object()
+        add_basket_item_serializer = BasketItemValidateSerializer(
+            data=self.request.data)
+        add_basket_item_serializer.is_valid(raise_exception=True)
+
+        product = add_basket_item_serializer.validated_data["product"]
+        quantity = add_basket_item_serializer.validated_data["quantity"]
+        basket_item = basket.basketitem_set.filter(product_id=product.id).first()
+        if quantity > 0:
+            if basket_item:
+                quantity = quantity + basket_item.quantity
+            item_serializer = BasketItemSerializer(instance=basket_item, data={
+                "basket": basket.id, "product": product.id, "quantity": quantity,
+                "price": product.price.amount})
+            item_serializer.is_valid(raise_exception=True)
+            item_serializer.save()
+
+        serializer = BasketDetailedSerializer(instance=basket)
+        return Response(serializer.data)
+
+    @action(methods=["patch"], detail=True)
+    def basket_item(self, *args, **kwargs):
+        basket = self.get_object()
+        add_basket_item_serializer = BasketItemValidateSerializer(
+            data=self.request.data)
+        add_basket_item_serializer.is_valid(raise_exception=True)
+
+        product = add_basket_item_serializer.validated_data["product"]
+        quantity = add_basket_item_serializer.validated_data["quantity"]
+
+        basket_item = basket.basketitem_set.filter(product_id=product.id).first()
+        if quantity > 0:
+            item_serializer = BasketItemSerializer(instance=basket_item, data={
+                "basket": basket.id, "product": product.id, "quantity": quantity,
+                "price": product.price.amount})
+            item_serializer.is_valid(raise_exception=True)
+            item_serializer.save()
+        elif basket_item:
+            basket_item.delete()
+
+        serializer = BasketDetailedSerializer(instance=basket)
+        return Response(serializer.data)

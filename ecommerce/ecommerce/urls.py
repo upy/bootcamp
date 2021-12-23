@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework_simplejwt.views import TokenRefreshView
 
-from baskets.views import BasketItemViewSet, BasketViewSet
+from baskets.views import BasketViewSet
 from core.views import APITokenObtainPairView
 from customers.views import AddressViewSet, CityViewSet, \
     CountryViewSet, AdminCustomerViewSet, MyProfileViewSet, CustomerRegisterViewSet
@@ -32,7 +32,6 @@ from products.views import ProductViewSet, CategoryViewSet, AdminProductViewSet,
 router.register("products", ProductViewSet)
 router.register("prices", PriceViewSet)
 router.register("categories", CategoryViewSet)
-router.register("basket_items", BasketItemViewSet)
 router.register("baskets", BasketViewSet)
 router.register("addresses", AddressViewSet)
 router.register("cities", CityViewSet)
