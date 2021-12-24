@@ -45,10 +45,7 @@ class BasketViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
     @action(detail=False, methods=["get", "post", "delete"], http_method_names=["get", "post", "delete"])
     def add_to_cart(self, request):
         if self.request.method == 'GET':
-            data = [
-                BasketItemDetailedSerializer(model).data
-                for model in self.get_queryset()
-            ]
+            data = BasketItemDetailedSerializer(self.queryset.filter(basket__customer__id=self.request.user.id).first()).data
             return Response(data, status=status.HTTP_200_OK)
         elif self.request.method == 'POST':
             serializer = BasketItemSerializer(data=self.request.data)
