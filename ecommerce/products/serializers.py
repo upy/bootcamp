@@ -1,21 +1,32 @@
 from django.db.transaction import atomic
 from rest_framework import serializers
 
-from products.models import Product, Category, Price
+from products.models import Category, Price, Product
 
 
 class ProductSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Product
-        fields = ("id", "sku", "name", "description", "color", "size", "categories", "created_at", "modified_at")
+        fields = (
+            "id",
+            "sku",
+            "name",
+            "description",
+            "color",
+            "size",
+            "categories",
+            "created_at",
+            "modified_at",
+        )
 
 
 class CategorySerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Category
-        fields = ("id", "name", )
+        fields = (
+            "id",
+            "name",
+        )
 
 
 class PriceSerializer(serializers.ModelSerializer):
@@ -30,7 +41,18 @@ class ProductDetailedSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ("id", "sku", "name", "description", "color", "size", "categories", "created_at", "modified_at", "price")
+        fields = (
+            "id",
+            "sku",
+            "name",
+            "description",
+            "color",
+            "size",
+            "categories",
+            "created_at",
+            "modified_at",
+            "price",
+        )
 
     @atomic()
     def create(self, validated_data):

@@ -7,6 +7,7 @@ class BankAccountInline(admin.TabularInline):
     """
     Inline for BankAccounts
     """
+
     model = BankAccount
     extra = 1
 
@@ -16,8 +17,11 @@ class BankAdmin(admin.ModelAdmin):
     """
     Admin View for Bank
     """
-    list_display = ('name', )
-    inlines = [BankAccountInline, ]
+
+    list_display = ("name",)
+    inlines = [
+        BankAccountInline,
+    ]
 
 
 @admin.register(BankAccount)
@@ -25,4 +29,5 @@ class BankAccountAdmin(admin.ModelAdmin):
     """
     Admin View for BankAccount
     """
-    list_display = ('name', 'iban')
+
+    list_display = ("name", "iban")

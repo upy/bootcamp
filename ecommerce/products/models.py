@@ -10,6 +10,7 @@ class Category(BaseAbstractModel):
     """
     Category model
     """
+
     name = models.CharField(max_length=255, verbose_name=_("Category Name"))
 
     class Meta:
@@ -24,11 +25,13 @@ class Product(BaseAbstractModel):
     """
     Product model
     """
+
     sku = models.CharField(verbose_name=_("SKU"), max_length=100, unique=True)
     name = models.CharField(max_length=255, verbose_name=_("Name"))
     description = models.TextField(max_length=2000, verbose_name=_("Description"))
     color = models.CharField(
-        choices=enums.Colors.choices, verbose_name=_("Color"), max_length=20)
+        choices=enums.Colors.choices, verbose_name=_("Color"), max_length=20
+    )
     size = models.CharField(max_length=30, verbose_name=_("Size"))
     categories = models.ManyToManyField(Category, verbose_name=_("Categories"))
 
@@ -46,8 +49,10 @@ class Stock(BaseAbstractModel):
     """
     Stock model
     """
-    product = models.OneToOneField(Product, verbose_name=_("Product"),
-                                   on_delete=models.PROTECT)
+
+    product = models.OneToOneField(
+        Product, verbose_name=_("Product"), on_delete=models.PROTECT
+    )
     quantity = models.PositiveIntegerField(verbose_name=_("Quantity"))
 
     class Meta:
@@ -62,10 +67,13 @@ class Price(BaseAbstractModel):
     """
     Price model
     """
-    product = models.OneToOneField(Product, verbose_name=_("Product"),
-                                   on_delete=models.PROTECT)
-    amount = models.DecimalField(verbose_name=_("Amount"),
-                                 max_digits=10, decimal_places=2)
+
+    product = models.OneToOneField(
+        Product, verbose_name=_("Product"), on_delete=models.PROTECT
+    )
+    amount = models.DecimalField(
+        verbose_name=_("Amount"), max_digits=10, decimal_places=2
+    )
 
     class Meta:
         verbose_name = _("price")

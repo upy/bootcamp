@@ -9,6 +9,7 @@ class Bank(BaseAbstractModel):
     """
     Bank model
     """
+
     name = models.CharField(max_length=100, verbose_name=_("Bank Name"))
 
     class Meta:
@@ -23,14 +24,19 @@ class BankAccount(BaseAbstractModel):
     """
     Bank Account model
     """
+
     iban_validator = IBANValidator()
-    bank = models.ForeignKey(Bank, verbose_name=_("Bank Name"), on_delete=models.PROTECT)
+    bank = models.ForeignKey(
+        Bank, verbose_name=_("Bank Name"), on_delete=models.PROTECT
+    )
     name = models.CharField(max_length=100, verbose_name=_("Bank Account Name"))
-    iban = models.CharField(max_length=100, verbose_name=_("IBAN"), validators=[iban_validator])
+    iban = models.CharField(
+        max_length=100, verbose_name=_("IBAN"), validators=[iban_validator]
+    )
 
     class Meta:
         verbose_name = _("Bank Account")
         verbose_name_plural = _("Bank Accounts")
-    
+
     def __str__(self):
         return f"{self.name} - {self.iban}"

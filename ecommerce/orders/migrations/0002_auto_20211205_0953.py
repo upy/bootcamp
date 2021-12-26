@@ -6,33 +6,37 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('orders', '0001_initial'),
+        ("orders", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='billingaddress',
-            name='full_name',
-            field=models.CharField(max_length=255, verbose_name='Full Name'),
+            model_name="billingaddress",
+            name="full_name",
+            field=models.CharField(max_length=255, verbose_name="Full Name"),
         ),
         migrations.AlterField(
-            model_name='billingaddress',
-            name='line_2',
-            field=models.CharField(blank=True, max_length=255, null=True, verbose_name='Address Line 2'),
+            model_name="billingaddress",
+            name="line_2",
+            field=models.CharField(
+                blank=True, max_length=255, null=True, verbose_name="Address Line 2"
+            ),
         ),
         migrations.AlterField(
-            model_name='billingaddress',
-            name='zipcode',
-            field=models.CharField(max_length=20, verbose_name='Zip Code'),
+            model_name="billingaddress",
+            name="zipcode",
+            field=models.CharField(max_length=20, verbose_name="Zip Code"),
         ),
         migrations.AlterField(
-            model_name='shippingaddress',
-            name='full_name',
-            field=models.CharField(max_length=255, verbose_name='Full Name'),
+            model_name="shippingaddress",
+            name="full_name",
+            field=models.CharField(max_length=255, verbose_name="Full Name"),
         ),
         migrations.AlterField(
-            model_name='shippingaddress',
-            name='line_2',
-            field=models.CharField(blank=True, max_length=255, null=True, verbose_name='Address Line 2'),
+            model_name="shippingaddress",
+            name="line_2",
+            field=models.CharField(
+                blank=True, max_length=255, null=True, verbose_name="Address Line 2"
+            ),
         ),
     ]

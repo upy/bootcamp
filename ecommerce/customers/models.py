@@ -2,23 +2,24 @@ from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.core.mail import send_mail
+from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
-from django.db import models
-
-from customers.managers import CustomerManager
 from core.models import BaseAbstractModel
 from core.utils import PhoneNumberValidator
+from customers.managers import CustomerManager
 
 
 class City(BaseAbstractModel):
     """
     City model
     """
+
     name = models.CharField(max_length=255)
     country = models.ForeignKey(
-        "customers.Country", verbose_name=_("Country"), on_delete=models.PROTECT)
+        "customers.Country", verbose_name=_("Country"), on_delete=models.PROTECT
+    )
 
     class Meta:
         verbose_name = _("city")
@@ -32,6 +33,7 @@ class Country(BaseAbstractModel):
     """
     Country model
     """
+
     name = models.CharField(max_length=255, verbose_name=_("Country"))
 
     class Meta:
@@ -108,16 +110,27 @@ class Address(BaseAbstractModel):
     """
     Address model
     """
+
     phonenumber_validator = PhoneNumberValidator()
 
     customer = models.ForeignKey(
-        Customer, verbose_name=_("Customer"), on_delete=models.PROTECT, related_name="addresses")
+        Customer,
+        verbose_name=_("Customer"),
+        on_delete=models.PROTECT,
+        related_name="addresses",
+    )
     name = models.CharField(max_length=255, verbose_name=_("Name"))
     full_name = models.CharField(max_length=255, verbose_name=_("Full Name"))
     line_1 = models.CharField(max_length=255, verbose_name=_("Address Line 1"))
-    line_2 = models.CharField(max_length=255, verbose_name=_("Address Line 2"), null=True, blank=True)
+    line_2 = models.CharField(
+        max_length=255, verbose_name=_("Address Line 2"), null=True, blank=True
+    )
     phone = models.CharField(
-        max_length=20, verbose_name=_("Phone Number"), validators=[phonenumber_validator], help_text=_("Phone number must be entered in the format: +901234567890. "))
+        max_length=20,
+        verbose_name=_("Phone Number"),
+        validators=[phonenumber_validator],
+        help_text=_("Phone number must be entered in the format: +901234567890. "),
+    )
     district = models.CharField(max_length=255, verbose_name=_("District"))
     zipcode = models.CharField(max_length=20, verbose_name=_("Zip Code"))
     city = models.ForeignKey(City, verbose_name=_("City"), on_delete=models.PROTECT)

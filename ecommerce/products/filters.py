@@ -1,8 +1,8 @@
 from django.db.models import Q
-from django_filters import rest_framework as filters
 from django.utils.translation import gettext_lazy as _
+from django_filters import rest_framework as filters
 
-from products.models import Product, Price
+from products.models import Price, Product
 
 
 class ProductFilter(filters.FilterSet):

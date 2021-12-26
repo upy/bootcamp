@@ -1,23 +1,44 @@
-from rest_framework import viewsets, mixins, status
+from rest_framework import mixins, status, viewsets
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
 from core.mixins import DetailedViewSetMixin
-from orders.filters import OrderItemFilter, OrderFilter, BillingAddressFilter, ShippingAddressFilter, \
-    OrderBankAccountFilter
-from orders.models import OrderItem, Order, BillingAddress, ShippingAddress, OrderBankAccount
-from orders.serializers import OrderItemSerializer, OrderSerializer, \
-    OrderItemDetailedSerializer, \
-    OrderDetailedSerializer, BillingAddressSerializer, ShippingAddressSerializer, \
-    BillingAddressDetailedSerializer, \
-    ShippingAddressDetailedSerializer, OrderBankAccountSerializer, \
-    OrderBankAccountDetailedSerializer, CreateOrderSerializer
+from orders.filters import (
+    BillingAddressFilter,
+    OrderBankAccountFilter,
+    OrderFilter,
+    OrderItemFilter,
+    ShippingAddressFilter,
+)
+from orders.models import (
+    BillingAddress,
+    Order,
+    OrderBankAccount,
+    OrderItem,
+    ShippingAddress,
+)
+from orders.serializers import (
+    BillingAddressDetailedSerializer,
+    BillingAddressSerializer,
+    CreateOrderSerializer,
+    OrderBankAccountDetailedSerializer,
+    OrderBankAccountSerializer,
+    OrderDetailedSerializer,
+    OrderItemDetailedSerializer,
+    OrderItemSerializer,
+    OrderSerializer,
+    ShippingAddressDetailedSerializer,
+    ShippingAddressSerializer,
+)
 
 
-class OrderViewSet(DetailedViewSetMixin, mixins.CreateModelMixin,
-                   mixins.RetrieveModelMixin,
-                   mixins.ListModelMixin,
-                   GenericViewSet):
+class OrderViewSet(
+    DetailedViewSetMixin,
+    mixins.CreateModelMixin,
+    mixins.RetrieveModelMixin,
+    mixins.ListModelMixin,
+    GenericViewSet,
+):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
     filterset_class = OrderFilter

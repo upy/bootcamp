@@ -1,11 +1,12 @@
 from decimal import Decimal
 
+from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
-from django.utils.translation import gettext_lazy as _
-from baskets.models import BasketItem, Basket
+
+from baskets.models import Basket, BasketItem
 from customers.serializers import CustomerSerializer
-from products.serializers import ProductSerializer, ProductDetailedSerializer
+from products.serializers import ProductDetailedSerializer, ProductSerializer
 
 
 class BasketItemSerializer(serializers.ModelSerializer):

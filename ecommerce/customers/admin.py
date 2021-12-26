@@ -1,13 +1,15 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import gettext_lazy as _
-from customers.models import Customer, Address, City, Country
+
+from customers.models import Address, City, Country, Customer
 
 
 class CityInline(admin.TabularInline):
     """
     Inline class for City
     """
+
     model = City
 
 
@@ -15,6 +17,7 @@ class CountryInline(admin.TabularInline):
     """
     Inline class for Country
     """
+
     model = Country
 
 
@@ -23,6 +26,7 @@ class CustomerAdmin(UserAdmin):
     """
     Admin view for Customer
     """
+
     change_user_password_template = None
     fieldsets = (
         (None, {"fields": ("email", "password")}),
@@ -60,6 +64,7 @@ class AddressAdmin(admin.ModelAdmin):
     """
     Admin view for Address
     """
+
     list_display = ("customer", "name", "city")
     list_filter = ("city",)
     search_fields = ("line_1", "line_2", "city")
@@ -71,6 +76,7 @@ class CityAdmin(admin.ModelAdmin):
     """
     Admin view for City
     """
+
     list_display = ("name", "country")
     list_filter = ("country",)
     search_fields = ("city",)
@@ -82,6 +88,7 @@ class CountryAdmin(admin.ModelAdmin):
     """
     Admin view for Country
     """
+
     list_display = ("name",)
     list_filter = ("name",)
     search_fields = ("name",)
