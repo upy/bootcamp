@@ -3,16 +3,12 @@ from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
 from core.mixins import DetailedViewSetMixin
-from orders.filters import (
-    OrderFilter
-)
-from orders.models import (
-    Order
-)
+from orders.filters import OrderFilter
+from orders.models import Order
 from orders.serializers import (
     CreateOrderSerializer,
     OrderDetailedSerializer,
-    OrderSerializer
+    OrderSerializer,
 )
 
 

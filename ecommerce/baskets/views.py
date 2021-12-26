@@ -11,7 +11,7 @@ from baskets.serializers import (
     BasketDetailedSerializer,
     BasketItemSerializer,
     BasketItemValidateSerializer,
-    BasketSerializer
+    BasketSerializer,
 )
 from core.mixins import DetailedViewSetMixin
 
