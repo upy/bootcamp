@@ -73,6 +73,10 @@ if not DEBUG:
         'DEFAULT_PARSER_CLASSES': [
             'rest_framework.parsers.JSONParser',
         ],
+        'DEFAULT_AUTHENTICATION_CLASSES': [
+            'rest_framework_simplejwt.authentication.JWTAuthentication',
+        ],
+
     })
 STATIC_ROOT = BASE_DIR / 'static'
 
@@ -81,6 +85,7 @@ SIMPLE_JWT = {
 }
 
 MIDDLEWARE = [
+    'core.middlewares.CustomMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
