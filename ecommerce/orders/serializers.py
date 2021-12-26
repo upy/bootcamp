@@ -6,9 +6,8 @@ from rest_framework.exceptions import ValidationError
 
 from baskets.enums import BasketStatus
 from baskets.models import Basket
-from baskets.serializers import BasketSerializer
 from customers.models import Address
-from customers.serializers import AddressSerializer, CitySerializer, CustomerSerializer
+from customers.serializers import CitySerializer
 from orders.models import (
     BillingAddress,
     Order,
@@ -18,7 +17,7 @@ from orders.models import (
 )
 from payments.models import BankAccount
 from products.models import Stock
-from products.serializers import ProductDetailedSerializer, ProductSerializer
+from products.serializers import ProductSerializer
 
 
 class OrderItemSerializer(serializers.ModelSerializer):

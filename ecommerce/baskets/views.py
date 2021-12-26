@@ -1,21 +1,19 @@
 from django.db.transaction import atomic
-from rest_framework import mixins, status, viewsets
+from rest_framework import mixins, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
 from baskets.enums import BasketStatus
-from baskets.filters import BasketFilter, BasketItemFilter
-from baskets.models import Basket, BasketItem
+from baskets.filters import BasketFilter
+from baskets.models import Basket
 from baskets.serializers import (
     BasketDetailedSerializer,
-    BasketItemDetailedSerializer,
     BasketItemSerializer,
     BasketItemValidateSerializer,
-    BasketSerializer,
+    BasketSerializer
 )
 from core.mixins import DetailedViewSetMixin
-from products.models import Product
 
 
 class BasketViewSet(

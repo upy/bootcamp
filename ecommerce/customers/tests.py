@@ -2,7 +2,7 @@ from django.test import TestCase
 from rest_framework.test import APIRequestFactory
 
 from customers.factories import AddressFactory, CityFactory, CustomerFactory
-from customers.models import Address, City, Country
+from customers.models import Address
 from customers.serializers import AddressSerializer
 
 
