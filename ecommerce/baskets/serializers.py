@@ -13,6 +13,20 @@ class BasketItemSerializer(serializers.ModelSerializer):
         model = BasketItem
         fields = ("id", "basket", "product", "quantity", "price")
 
+    def validate(self, attrs):
+        attrs = super().validate(attrs)
+        product = attrs.get("product")
+        quantity = attrs.get("quantity")
+        try:
+            stock = product.stock
+        except Exception:
+            raise ValidationError(detail={"product": _("Stock not found")})
+        if stock.quantity < 1:
+            raise ValidationError(detail={"product": _("Stock not found")})
+        if stock.quantity < quantity:
+            raise ValidationError(detail={"product": _("Stock not found")})
+        return attrs
+
 
 class BasketSerializer(serializers.ModelSerializer):
     class Meta:
@@ -65,3 +79,6 @@ class BasketItemValidateSerializer(serializers.ModelSerializer):
             raise ValidationError(detail={"product": _("Stock not found")})
         return attrs
 
+    def to_representation(self, instance):
+        serializer = BasketDetailedSerializer()
+        return serializer.to_representation(instance)

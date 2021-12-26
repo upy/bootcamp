@@ -1,59 +1,40 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, mixins, status
+from rest_framework.response import Response
+from rest_framework.viewsets import GenericViewSet
 
 from core.mixins import DetailedViewSetMixin
 from orders.filters import OrderItemFilter, OrderFilter, BillingAddressFilter, ShippingAddressFilter, \
     OrderBankAccountFilter
 from orders.models import OrderItem, Order, BillingAddress, ShippingAddress, OrderBankAccount
-from orders.serializers import OrderItemSerializer, OrderSerializer, OrderItemDetailedSerializer, \
-    OrderDetailedSerializer, BillingAddressSerializer, ShippingAddressSerializer, BillingAddressDetailedSerializer, \
-    ShippingAddressDetailedSerializer, OrderBankAccountSerializer, OrderBankAccountDetailedSerializer
+from orders.serializers import OrderItemSerializer, OrderSerializer, \
+    OrderItemDetailedSerializer, \
+    OrderDetailedSerializer, BillingAddressSerializer, ShippingAddressSerializer, \
+    BillingAddressDetailedSerializer, \
+    ShippingAddressDetailedSerializer, OrderBankAccountSerializer, \
+    OrderBankAccountDetailedSerializer, CreateOrderSerializer
 
 
-class OrderItemViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
-    queryset = OrderItem.objects.all()
-    serializer_class = OrderItemSerializer
-    filterset_class = OrderItemFilter
-    serializer_action_classes = {
-        "detailed_list": OrderItemDetailedSerializer,
-        "detailed": OrderItemDetailedSerializer,
-    }
-
-
-class OrderViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
+class OrderViewSet(DetailedViewSetMixin, mixins.CreateModelMixin,
+                   mixins.RetrieveModelMixin,
+                   mixins.ListModelMixin,
+                   GenericViewSet):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
     filterset_class = OrderFilter
     serializer_action_classes = {
         "detailed_list": OrderDetailedSerializer,
         "detailed": OrderDetailedSerializer,
+        "create": CreateOrderSerializer,
     }
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        user_id = self.request.user.id
+        return queryset.filter(customer_id=user_id)
 
-class BillingAddressViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
-    queryset = BillingAddress.objects.all()
-    serializer_class = BillingAddressSerializer
-    filterset_class = BillingAddressFilter
-    serializer_action_classes = {
-        "detailed_list": BillingAddressDetailedSerializer,
-        "detailed": BillingAddressDetailedSerializer,
-    }
-
-
-class ShippingAddressViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
-    queryset = ShippingAddress.objects.all()
-    serializer_class = ShippingAddressSerializer
-    filterset_class = ShippingAddressFilter
-    serializer_action_classes = {
-        "detailed_list": ShippingAddressDetailedSerializer,
-        "detailed": ShippingAddressDetailedSerializer,
-    }
-
-
-class OrderBankAccountViewSet(DetailedViewSetMixin, viewsets.ModelViewSet):
-    queryset = OrderBankAccount.objects.all()
-    serializer_class = OrderBankAccountSerializer
-    filterset_class = OrderBankAccountFilter
-    serializer_action_classes = {
-        "detailed_list": OrderBankAccountDetailedSerializer,
-        "detailed": OrderBankAccountDetailedSerializer,
-    }
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        order_serializer = OrderDetailedSerializer(instance=serializer.instance)
+        return Response(order_serializer.data, status=status.HTTP_201_CREATED)

@@ -4,6 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from core.utils import phonenumber_validator, iban_validator
 from core.models import BaseAbstractModel
 from orders import enums
+from products.models import Product
 
 
 class BillingAddress(BaseAbstractModel):
@@ -92,7 +93,7 @@ class OrderItem(BaseAbstractModel):
     Order Item Model
     """
     order = models.ForeignKey("Order", verbose_name=_("Order"), on_delete=models.PROTECT)
-    product = models.CharField(max_length=255, verbose_name=_("Product"))
+    product = models.ForeignKey(Product, verbose_name=_("Product"), on_delete=models.PROTECT)
     price = models.DecimalField(verbose_name=_("Price"), max_digits=10, decimal_places=2)
 
     class Meta:

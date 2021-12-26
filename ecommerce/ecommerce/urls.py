@@ -23,8 +23,7 @@ from core.views import APITokenObtainPairView
 from customers.views import AddressViewSet, CityViewSet, \
     CountryViewSet, AdminCustomerViewSet, MyProfileViewSet, CustomerRegisterViewSet
 from ecommerce.router import router
-from orders.views import OrderItemViewSet, OrderViewSet, BillingAddressViewSet, ShippingAddressViewSet, \
-    OrderBankAccountViewSet
+from orders.views import OrderViewSet
 from payments.views import BankAccountViewSet, BankViewSet
 from products.views import ProductViewSet, CategoryViewSet, AdminProductViewSet, \
     PriceViewSet
@@ -36,11 +35,7 @@ router.register("baskets", BasketViewSet)
 router.register("addresses", AddressViewSet)
 router.register("cities", CityViewSet)
 router.register("countries", CountryViewSet)
-router.register("order_items", OrderItemViewSet)
 router.register("orders", OrderViewSet)
-router.register("billing_addresses", BillingAddressViewSet)
-router.register("shipping_addresses", ShippingAddressViewSet)
-router.register("order_bank_accounts", OrderBankAccountViewSet)
 router.register("bank_accounts", BankAccountViewSet)
 router.register("banks", BankViewSet)
 router.register("admin-products", AdminProductViewSet, basename="admin-product")
