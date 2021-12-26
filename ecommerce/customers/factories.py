@@ -1,7 +1,7 @@
 import factory
 from factory.django import DjangoModelFactory
 
-from customers.models import Customer, Country, City, Address
+from customers.models import Address, City, Country, Customer
 
 
 class CustomerFactory(DjangoModelFactory):
@@ -36,7 +36,7 @@ class AddressFactory(DjangoModelFactory):
     customer = factory.SubFactory(CustomerFactory)
     full_name = factory.Faker("text", max_nb_chars=20)
     line_1 = factory.Faker("text", max_nb_chars=20)
-    phone = factory.Sequence(lambda n: '+901234567890')
+    phone = factory.Sequence(lambda n: "+901234567890")
     district = factory.Faker("text", max_nb_chars=20)
     zipcode = factory.Faker("text", max_nb_chars=20)
     city = factory.SubFactory(CityFactory)

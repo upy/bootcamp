@@ -1,17 +1,31 @@
 from decimal import Decimal
 
+from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
-from django.utils.translation import gettext_lazy as _
-from baskets.models import BasketItem, Basket
-from customers.serializers import CustomerSerializer
-from products.serializers import ProductSerializer, ProductDetailedSerializer
+
+from baskets.models import Basket, BasketItem
+from products.serializers import ProductDetailedSerializer
 
 
 class BasketItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = BasketItem
         fields = ("id", "basket", "product", "quantity", "price")
+
+    def validate(self, attrs):
+        attrs = super().validate(attrs)
+        product = attrs.get("product")
+        quantity = attrs.get("quantity")
+        try:
+            stock = product.stock
+        except Exception:
+            raise ValidationError(detail={"product": _("Stock not found")})
+        if stock.quantity < 1:
+            raise ValidationError(detail={"product": _("Stock not found")})
+        if stock.quantity < quantity:
+            raise ValidationError(detail={"product": _("Stock not found")})
+        return attrs
 
 
 class BasketSerializer(serializers.ModelSerializer):
@@ -65,3 +79,6 @@ class BasketItemValidateSerializer(serializers.ModelSerializer):
             raise ValidationError(detail={"product": _("Stock not found")})
         return attrs
 
+    def to_representation(self, instance):
+        serializer = BasketDetailedSerializer()
+        return serializer.to_representation(instance)

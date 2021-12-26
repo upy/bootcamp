@@ -8,6 +8,7 @@ class OrderItemInline(admin.TabularInline):
     """
     Inline for Order Item
     """
+
     model = OrderItem
 
 
@@ -16,9 +17,10 @@ class OrderAdmin(admin.ModelAdmin):
     """
     Admin View for Order
     """
-    list_display = ('customer', 'basket', 'total_price')
-    list_filter = ('customer', )
-    inlines = (OrderItemInline, )
+
+    list_display = ("customer", "basket", "total_price")
+    list_filter = ("customer",)
+    inlines = (OrderItemInline,)
     form = OrderAdminForm
 
 
@@ -27,4 +29,5 @@ class OrderItemAdmin(admin.ModelAdmin):
     """
     Admin View for OrderItem
     """
-    list_display = ('order', 'product', 'price')
+
+    list_display = ("order", "product", "price")

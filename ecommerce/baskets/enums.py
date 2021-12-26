@@ -6,6 +6,7 @@ class BasketStatus(models.TextChoices):
     """
     Basket status choices.
     """
+
     OPEN = "open", _("Open")
     SUBMITTED = "submitted", _("Submitted")
     MERGED = "merged", _("Merged")
