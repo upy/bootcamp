@@ -1,0 +1,2629 @@
+{
+  "info": {
+    "_postman_id": "bfaefc42-9999-4d45-99b3-78a9dc20c6b8",
+    "name": "Bootcamp",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Register",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept-Charset",
+            "value": "application/json",
+            "type": "default"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"first_name\": \"Test name\",\n    \"last_name\": \"test last name\",\n    \"email\": \"email@email.com\",\n    \"password\": \"password\",\n    \"password2\": \"password\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:8000/api/register/",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "register",
+            ""
+          ],
+          "query": [
+            {
+              "key": "",
+              "value": null,
+              "disabled": true
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Register Success",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept-Charset",
+                "value": "application/json",
+                "type": "default"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"first_name\": \"Test name\",\n    \"last_name\": \"test last name\",\n    \"email\": \"email@email.com\",\n    \"password\": \"password\",\n    \"password2\": \"password\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8000/api/register/",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "register",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": null,
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Vary",
+              "value": "Accept, Accept-Language, Cookie"
+            },
+            {
+              "key": "Allow",
+              "value": "POST, OPTIONS"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Length",
+              "value": "81"
+            },
+            {
+              "key": "Content-Language",
+              "value": "en"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "Referrer-Policy",
+              "value": "same-origin"
+            },
+            {
+              "key": "Server",
+              "value": "Werkzeug/2.0.2 Python/3.10.1"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 06 Jan 2022 12:58:27 GMT"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"first_name\": \"Test name\",\n    \"last_name\": \"test last name\",\n    \"email\": \"email@email.com\"\n}"
+        },
+        {
+          "name": "Register Error",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept-Charset",
+                "value": "application/json",
+                "type": "default"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"first_name\": \"Test name\",\n    \"last_name\": \"test last name\",\n    \"email\": \"email@email.com\",\n    \"password\": \"password\",\n    \"password2\": \"password\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8000/api/register/",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "register",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": null,
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Vary",
+              "value": "Accept, Accept-Language, Cookie"
+            },
+            {
+              "key": "Allow",
+              "value": "POST, OPTIONS"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Length",
+              "value": "62"
+            },
+            {
+              "key": "Content-Language",
+              "value": "en"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "Referrer-Policy",
+              "value": "same-origin"
+            },
+            {
+              "key": "Server",
+              "value": "Werkzeug/2.0.2 Python/3.10.1"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 06 Jan 2022 12:58:50 GMT"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"email\": [\n        \"customer with this email address already exists.\"\n    ]\n}"
+        }
+      ]
+    },
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept-Charset",
+            "value": "application/json",
+            "type": "default"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"email\": \"email@email.com\",\n    \"password\": \"password\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:8000/api/token/",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "token",
+            ""
+          ],
+          "query": [
+            {
+              "key": "",
+              "value": null,
+              "disabled": true
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Login Success",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept-Charset",
+                "value": "application/json",
+                "type": "default"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"email@email.com\",\n    \"password\": \"password\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8000/api/token/",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "token",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": null,
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Vary",
+              "value": "Accept, Accept-Language"
+            },
+            {
+              "key": "Allow",
+              "value": "POST, OPTIONS"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Length",
+              "value": "697"
+            },
+            {
+              "key": "Content-Language",
+              "value": "en"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "Referrer-Policy",
+              "value": "same-origin"
+            },
+            {
+              "key": "Server",
+              "value": "Werkzeug/2.0.2 Python/3.10.1"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 06 Jan 2022 13:02:10 GMT"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"refresh\": \"REFRESH_TOKEN\"\n}"
+        },
+        {
+          "name": "Login Error",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept-Charset",
+                "value": "application/json",
+                "type": "default"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"email@email.com\",\n    \"password\": \"passworda\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8000/api/token/",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "token",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": null,
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "status": "Unauthorized",
+          "code": 401,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "WWW-Authenticate",
+              "value": "Bearer realm=\"api\""
+            },
+            {
+              "key": "Vary",
+              "value": "Accept, Accept-Language"
+            },
+            {
+              "key": "Allow",
+              "value": "POST, OPTIONS"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Length",
+              "value": "63"
+            },
+            {
+              "key": "Content-Language",
+              "value": "en"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "Referrer-Policy",
+              "value": "same-origin"
+            },
+            {
+              "key": "Server",
+              "value": "Werkzeug/2.0.2 Python/3.10.1"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 06 Jan 2022 13:02:36 GMT"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"detail\": \"No active account found with the given credentials\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Refresh token",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept-Charset",
+            "value": "application/json",
+            "type": "default"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"refresh\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTY0MTU2MDUzMCwiaWF0IjoxNjQxNDc0MTMwLCJqdGkiOiJhZjAxZTA4NjY1ZWU0ZWU4YmY5MjYxZjZjM2M1ZmQwYyIsInVzZXJfaWQiOjQsImZpcnN0X25hbWUiOiJUZXN0IG5hbWUiLCJsYXN0X25hbWUiOiJ0ZXN0IGxhc3QgbmFtZSIsImVtYWlsIjoiZW1haWxAZW1haWwuY29tIn0.YG-_rjSxuWk3TxqbznnGutBvGTyymYuSMCk3fP05wps\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:8000/api/token/refresh/",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "token",
+            "refresh",
+            ""
+          ],
+          "query": [
+            {
+              "key": "",
+              "value": null,
+              "disabled": true
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Refresh token Success",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept-Charset",
+                "value": "application/json",
+                "type": "default"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"refresh\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTY0MTU2MDUzMCwiaWF0IjoxNjQxNDc0MTMwLCJqdGkiOiJhZjAxZTA4NjY1ZWU0ZWU4YmY5MjYxZjZjM2M1ZmQwYyIsInVzZXJfaWQiOjQsImZpcnN0X25hbWUiOiJUZXN0IG5hbWUiLCJsYXN0X25hbWUiOiJ0ZXN0IGxhc3QgbmFtZSIsImVtYWlsIjoiZW1haWxAZW1haWwuY29tIn0.YG-_rjSxuWk3TxqbznnGutBvGTyymYuSMCk3fP05wps\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8000/api/token/refresh/",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "token",
+                "refresh",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": null,
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Vary",
+              "value": "Accept, Accept-Language"
+            },
+            {
+              "key": "Allow",
+              "value": "POST, OPTIONS"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Length",
+              "value": "348"
+            },
+            {
+              "key": "Content-Language",
+              "value": "en"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "Referrer-Policy",
+              "value": "same-origin"
+            },
+            {
+              "key": "Server",
+              "value": "Werkzeug/2.0.2 Python/3.10.1"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 06 Jan 2022 13:14:54 GMT"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"access\": \"ACCESS_TOKEN\"\n}"
+        },
+        {
+          "name": "Refresh token Error",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept-Charset",
+                "value": "application/json",
+                "type": "default"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"refresh\": \"sdfsdf\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8000/api/token/refresh/",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "token",
+                "refresh",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": null,
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "status": "Unauthorized",
+          "code": 401,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "WWW-Authenticate",
+              "value": "Bearer realm=\"api\""
+            },
+            {
+              "key": "Vary",
+              "value": "Accept, Accept-Language"
+            },
+            {
+              "key": "Allow",
+              "value": "POST, OPTIONS"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Length",
+              "value": "65"
+            },
+            {
+              "key": "Content-Language",
+              "value": "en"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "Referrer-Policy",
+              "value": "same-origin"
+            },
+            {
+              "key": "Server",
+              "value": "Werkzeug/2.0.2 Python/3.10.1"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 06 Jan 2022 13:15:17 GMT"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"detail\": \"Token is invalid or expired\",\n    \"code\": \"token_not_valid\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Product List",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept-Charset",
+            "value": "application/json",
+            "type": "default"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer ACCESS_TOKEN",
+            "type": "default",
+            "disabled": true
+          }
+        ],
+        "url": {
+          "raw": "localhost:8000/api/products/",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "products",
+            ""
+          ],
+          "query": [
+            {
+              "key": "",
+              "value": null,
+              "disabled": true
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Product List Success",
+          "originalRequest": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept-Charset",
+                "value": "application/json",
+                "type": "default"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer ACCESS_TOKEN",
+                "type": "default",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "localhost:8000/api/products/",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "products",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": null,
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Vary",
+              "value": "Accept, Accept-Language, Cookie"
+            },
+            {
+              "key": "Allow",
+              "value": "GET, HEAD, OPTIONS"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Length",
+              "value": "470"
+            },
+            {
+              "key": "Content-Language",
+              "value": "en"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "Referrer-Policy",
+              "value": "same-origin"
+            },
+            {
+              "key": "Server",
+              "value": "Werkzeug/2.0.2 Python/3.10.1"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 06 Jan 2022 15:31:20 GMT"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"count\": 2,\n    \"next\": null,\n    \"previous\": null,\n    \"results\": [\n        {\n            \"id\": 1,\n            \"sku\": \"00000001\",\n            \"name\": \"Kazak\",\n            \"description\": \"Kazak sicak tutar\",\n            \"color\": \"red\",\n            \"size\": \"X\",\n            \"categories\": [\n                1\n            ],\n            \"created_at\": \"2021-12-06T11:49:45.161553+03:00\",\n            \"modified_at\": \"2021-12-26T07:57:03.383670+03:00\"\n        },\n        {\n            \"id\": 2,\n            \"sku\": \"0000002\",\n            \"name\": \"gomlek\",\n            \"description\": \"gomlek\",\n            \"color\": \"blue\",\n            \"size\": \"11\",\n            \"categories\": [\n                2\n            ],\n            \"created_at\": \"2021-12-26T07:43:46.535826+03:00\",\n            \"modified_at\": \"2021-12-26T07:57:12.278287+03:00\"\n        }\n    ]\n}"
+        },
+        {
+          "name": "Product Detailed List",
+          "originalRequest": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept-Charset",
+                "value": "application/json",
+                "type": "default"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer ACCESS_TOKEN",
+                "type": "default",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "localhost:8000/api/products/detailed_list",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "products",
+                "detailed_list"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": null,
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Vary",
+              "value": "Accept, Accept-Language, Cookie"
+            },
+            {
+              "key": "Allow",
+              "value": "GET, HEAD, OPTIONS"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Length",
+              "value": "609"
+            },
+            {
+              "key": "Content-Language",
+              "value": "en"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "Referrer-Policy",
+              "value": "same-origin"
+            },
+            {
+              "key": "Server",
+              "value": "Werkzeug/2.0.2 Python/3.10.1"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 06 Jan 2022 15:33:06 GMT"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"count\": 2,\n    \"next\": null,\n    \"previous\": null,\n    \"results\": [\n        {\n            \"id\": 1,\n            \"sku\": \"00000001\",\n            \"name\": \"Kazak\",\n            \"description\": \"Kazak sicak tutar\",\n            \"color\": \"red\",\n            \"size\": \"X\",\n            \"categories\": [\n                {\n                    \"id\": 1,\n                    \"name\": \"Kazak\"\n                }\n            ],\n            \"created_at\": \"2021-12-06T11:49:45.161553+03:00\",\n            \"modified_at\": \"2021-12-26T07:57:03.383670+03:00\",\n            \"price\": {\n                \"id\": 1,\n                \"product\": 1,\n                \"amount\": \"111.00\"\n            }\n        },\n        {\n            \"id\": 2,\n            \"sku\": \"0000002\",\n            \"name\": \"gomlek\",\n            \"description\": \"gomlek\",\n            \"color\": \"blue\",\n            \"size\": \"11\",\n            \"categories\": [\n                {\n                    \"id\": 2,\n                    \"name\": \"gomlek\"\n                }\n            ],\n            \"created_at\": \"2021-12-26T07:43:46.535826+03:00\",\n            \"modified_at\": \"2021-12-26T07:57:12.278287+03:00\",\n            \"price\": {\n                \"id\": 2,\n                \"product\": 2,\n                \"amount\": \"200.00\"\n            }\n        }\n    ]\n}"
+        }
+      ]
+    },
+    {
+      "name": "Bank List",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept-Charset",
+            "value": "application/json",
+            "type": "default"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer ACCESS_TOKEN",
+            "type": "default"
+          }
+        ],
+        "url": {
+          "raw": "localhost:8000/api/bank_accounts/",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "bank_accounts",
+            ""
+          ],
+          "query": [
+            {
+              "key": "",
+              "value": null,
+              "disabled": true
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Bank Account Detailed List",
+          "originalRequest": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept-Charset",
+                "value": "application/json",
+                "type": "default"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer ACCESS_TOKEN",
+                "type": "default"
+              }
+            ],
+            "url": {
+              "raw": "localhost:8000/api/bank_accounts/detailed_list",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "bank_accounts",
+                "detailed_list"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": null,
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Vary",
+              "value": "Accept, Accept-Language, Cookie"
+            },
+            {
+              "key": "Allow",
+              "value": "GET, HEAD, OPTIONS"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Length",
+              "value": "136"
+            },
+            {
+              "key": "Content-Language",
+              "value": "en"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "Referrer-Policy",
+              "value": "same-origin"
+            },
+            {
+              "key": "Server",
+              "value": "Werkzeug/2.0.2 Python/3.10.1"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 06 Jan 2022 15:45:12 GMT"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"count\": 1,\n    \"next\": null,\n    \"previous\": null,\n    \"results\": [\n        {\n            \"id\": 1,\n            \"bank\": {\n                \"id\": 1,\n                \"name\": \"Patika Bank\"\n            },\n            \"name\": \"TL\",\n            \"iban\": \"TR349867387458345\"\n        }\n    ]\n}"
+        }
+      ]
+    },
+    {
+      "name": "Addresses",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept-Charset",
+            "value": "application/json",
+            "type": "default"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer ACCESS_TOKEN",
+            "type": "default"
+          }
+        ],
+        "url": {
+          "raw": "localhost:8000/api/addresses",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "addresses"
+          ],
+          "query": [
+            {
+              "key": "",
+              "value": null,
+              "disabled": true
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Addresses Create Success",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept-Charset",
+                "value": "application/json",
+                "type": "default"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer ACCESS_TOKEN",
+                "type": "default"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"home\",\n    \"full_name\": \"name surname\",\n    \"line_1\": \"mahalle\",\n    \"line_2\": \"\",\n    \"phone\": \"+905322223344\",\n    \"district\": \"ist\",\n    \"zipcode\": \"34000\",\n    \"city\": 1,\n    \"is_default\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8000/api/addresses/",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "addresses",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": null,
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Vary",
+              "value": "Accept, Accept-Language, Cookie"
+            },
+            {
+              "key": "Allow",
+              "value": "GET, POST, HEAD, OPTIONS"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Length",
+              "value": "165"
+            },
+            {
+              "key": "Content-Language",
+              "value": "en"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "Referrer-Policy",
+              "value": "same-origin"
+            },
+            {
+              "key": "Server",
+              "value": "Werkzeug/2.0.2 Python/3.10.1"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 06 Jan 2022 15:40:12 GMT"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 1,\n    \"name\": \"home\",\n    \"full_name\": \"name surname\",\n    \"line_1\": \"mahalle\",\n    \"line_2\": \"\",\n    \"phone\": \"+905322223344\",\n    \"district\": \"ist\",\n    \"zipcode\": \"34000\",\n    \"city\": 1,\n    \"is_default\": false\n}"
+        },
+        {
+          "name": "Addresses Detailed List",
+          "originalRequest": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept-Charset",
+                "value": "application/json",
+                "type": "default"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer ACCESS_TOKEN",
+                "type": "default"
+              }
+            ],
+            "url": {
+              "raw": "localhost:8000/api/addresses/detailed_list",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "addresses",
+                "detailed_list"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": null,
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Vary",
+              "value": "Accept, Accept-Language, Cookie"
+            },
+            {
+              "key": "Allow",
+              "value": "GET, HEAD, OPTIONS"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Length",
+              "value": "348"
+            },
+            {
+              "key": "Content-Language",
+              "value": "en"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "Referrer-Policy",
+              "value": "same-origin"
+            },
+            {
+              "key": "Server",
+              "value": "Werkzeug/2.0.2 Python/3.10.1"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 06 Jan 2022 15:41:50 GMT"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"count\": 1,\n    \"next\": null,\n    \"previous\": null,\n    \"results\": [\n        {\n            \"id\": 1,\n            \"customer\": {\n                \"first_name\": \"Test name2\",\n                \"last_name\": \"test last name\",\n                \"email\": \"email@email.com\"\n            },\n            \"name\": \"home\",\n            \"full_name\": \"name surname\",\n            \"line_1\": \"mahalle\",\n            \"line_2\": \"\",\n            \"phone\": \"+905322223344\",\n            \"district\": \"ist\",\n            \"zipcode\": \"34000\",\n            \"city\": {\n                \"id\": 1,\n                \"name\": \"Istanbul\",\n                \"country\": 1\n            },\n            \"is_default\": false\n        }\n    ]\n}"
+        }
+      ]
+    },
+    {
+      "name": "Product",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept-Charset",
+            "value": "application/json",
+            "type": "default"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer ACCESS_TOKEN",
+            "type": "default",
+            "disabled": true
+          }
+        ],
+        "url": {
+          "raw": "localhost:8000/api/products/1",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "products",
+            "1"
+          ],
+          "query": [
+            {
+              "key": "",
+              "value": null,
+              "disabled": true
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Product Success",
+          "originalRequest": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept-Charset",
+                "value": "application/json",
+                "type": "default"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer ACCESS_TOKEN",
+                "type": "default",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "localhost:8000/api/products/1",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "products",
+                "1"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": null,
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Vary",
+              "value": "Accept, Accept-Language, Cookie"
+            },
+            {
+              "key": "Allow",
+              "value": "GET, HEAD, OPTIONS"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Length",
+              "value": "213"
+            },
+            {
+              "key": "Content-Language",
+              "value": "en"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "Referrer-Policy",
+              "value": "same-origin"
+            },
+            {
+              "key": "Server",
+              "value": "Werkzeug/2.0.2 Python/3.10.1"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 06 Jan 2022 15:32:33 GMT"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 1,\n    \"sku\": \"00000001\",\n    \"name\": \"Kazak\",\n    \"description\": \"Kazak sicak tutar\",\n    \"color\": \"red\",\n    \"size\": \"X\",\n    \"categories\": [\n        1\n    ],\n    \"created_at\": \"2021-12-06T11:49:45.161553+03:00\",\n    \"modified_at\": \"2021-12-26T07:57:03.383670+03:00\"\n}"
+        },
+        {
+          "name": "Product Detailed",
+          "originalRequest": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept-Charset",
+                "value": "application/json",
+                "type": "default"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer ACCESS_TOKEN",
+                "type": "default",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "localhost:8000/api/products/1/detailed",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "products",
+                "1",
+                "detailed"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": null,
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Vary",
+              "value": "Accept, Accept-Language, Cookie"
+            },
+            {
+              "key": "Allow",
+              "value": "GET, HEAD, OPTIONS"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Length",
+              "value": "282"
+            },
+            {
+              "key": "Content-Language",
+              "value": "en"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "Referrer-Policy",
+              "value": "same-origin"
+            },
+            {
+              "key": "Server",
+              "value": "Werkzeug/2.0.2 Python/3.10.1"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 06 Jan 2022 15:33:58 GMT"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 1,\n    \"sku\": \"00000001\",\n    \"name\": \"Kazak\",\n    \"description\": \"Kazak sicak tutar\",\n    \"color\": \"red\",\n    \"size\": \"X\",\n    \"categories\": [\n        {\n            \"id\": 1,\n            \"name\": \"Kazak\"\n        }\n    ],\n    \"created_at\": \"2021-12-06T11:49:45.161553+03:00\",\n    \"modified_at\": \"2021-12-26T07:57:03.383670+03:00\",\n    \"price\": {\n        \"id\": 1,\n        \"product\": 1,\n        \"amount\": \"111.00\"\n    }\n}"
+        }
+      ]
+    },
+    {
+      "name": "Profile",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept-Charset",
+            "value": "application/json",
+            "type": "default"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer ACCESS_TOKEN",
+            "type": "default"
+          }
+        ],
+        "url": {
+          "raw": "localhost:8000/api/profile",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "profile"
+          ],
+          "query": [
+            {
+              "key": "",
+              "value": null,
+              "disabled": true
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Profile Success",
+          "originalRequest": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept-Charset",
+                "value": "application/json",
+                "type": "default"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer ACCESS_TOKEN",
+                "type": "default"
+              }
+            ],
+            "url": {
+              "raw": "localhost:8000/api/profile",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "profile"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": null,
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Vary",
+              "value": "Accept, Accept-Language, Cookie"
+            },
+            {
+              "key": "Allow",
+              "value": "GET, PUT, PATCH, HEAD, OPTIONS"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Length",
+              "value": "81"
+            },
+            {
+              "key": "Content-Language",
+              "value": "en"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "Referrer-Policy",
+              "value": "same-origin"
+            },
+            {
+              "key": "Server",
+              "value": "Werkzeug/2.0.2 Python/3.10.1"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 06 Jan 2022 13:20:25 GMT"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"first_name\": \"Test name\",\n    \"last_name\": \"test last name\",\n    \"email\": \"email@email.com\"\n}"
+        },
+        {
+          "name": "Profile Error",
+          "originalRequest": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept-Charset",
+                "value": "application/json",
+                "type": "default"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer ACCESS_TOKEN",
+                "type": "default",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "localhost:8000/api/profile",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "profile"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": null,
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "status": "Forbidden",
+          "code": 403,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Vary",
+              "value": "Accept, Accept-Language, Cookie"
+            },
+            {
+              "key": "Allow",
+              "value": "GET, PUT, PATCH, HEAD, OPTIONS"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Length",
+              "value": "58"
+            },
+            {
+              "key": "Content-Language",
+              "value": "en"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "Referrer-Policy",
+              "value": "same-origin"
+            },
+            {
+              "key": "Server",
+              "value": "Werkzeug/2.0.2 Python/3.10.1"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 06 Jan 2022 13:20:46 GMT"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"detail\": \"Authentication credentials were not provided.\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Baskets",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept-Charset",
+            "value": "application/json",
+            "type": "default"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer ACCESS_TOKEN",
+            "type": "default"
+          }
+        ],
+        "url": {
+          "raw": "localhost:8000/api/baskets/",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "baskets",
+            ""
+          ],
+          "query": [
+            {
+              "key": "",
+              "value": null,
+              "disabled": true
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Basket Item Add/Change",
+          "originalRequest": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Accept-Charset",
+                "value": "application/json",
+                "type": "default"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer ACCESS_TOKEN",
+                "type": "default"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"product\":1, \"quantity\":1}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8000/api/baskets/142e1b71-d62c-4d52-9a5d-ec910637e4c5/basket_item/",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "baskets",
+                "142e1b71-d62c-4d52-9a5d-ec910637e4c5",
+                "basket_item",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": null,
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Vary",
+              "value": "Accept, Accept-Language, Cookie"
+            },
+            {
+              "key": "Allow",
+              "value": "PATCH, OPTIONS"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Length",
+              "value": "468"
+            },
+            {
+              "key": "Content-Language",
+              "value": "en"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "Referrer-Policy",
+              "value": "same-origin"
+            },
+            {
+              "key": "Server",
+              "value": "Werkzeug/2.0.2 Python/3.10.1"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 06 Jan 2022 15:48:51 GMT"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"customer\": 4,\n    \"status\": \"open\",\n    \"slug\": \"142e1b71-d62c-4d52-9a5d-ec910637e4c5\",\n    \"basketitem_set\": [\n        {\n            \"id\": 24,\n            \"basket\": 56,\n            \"product\": {\n                \"id\": 1,\n                \"sku\": \"00000001\",\n                \"name\": \"Kazak\",\n                \"description\": \"Kazak sicak tutar\",\n                \"color\": \"red\",\n                \"size\": \"X\",\n                \"categories\": [\n                    {\n                        \"id\": 1,\n                        \"name\": \"Kazak\"\n                    }\n                ],\n                \"created_at\": \"2021-12-06T11:49:45.161553+03:00\",\n                \"modified_at\": \"2021-12-26T07:57:03.383670+03:00\",\n                \"price\": {\n                    \"id\": 1,\n                    \"product\": 1,\n                    \"amount\": \"111.00\"\n                }\n            },\n            \"quantity\": 1,\n            \"price\": \"111.00\",\n            \"total\": 111\n        }\n    ],\n    \"total\": 111\n}"
+        },
+        {
+          "name": "Basket Item Add/Change",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept-Charset",
+                "value": "application/json",
+                "type": "default"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer ACCESS_TOKEN",
+                "type": "default"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"product\":1, \"quantity\":2}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8000/api/baskets/142e1b71-d62c-4d52-9a5d-ec910637e4c5/add_basket_item/",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "baskets",
+                "142e1b71-d62c-4d52-9a5d-ec910637e4c5",
+                "add_basket_item",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": null,
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Vary",
+              "value": "Accept, Accept-Language, Cookie"
+            },
+            {
+              "key": "Allow",
+              "value": "POST, OPTIONS"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Length",
+              "value": "468"
+            },
+            {
+              "key": "Content-Language",
+              "value": "en"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "Referrer-Policy",
+              "value": "same-origin"
+            },
+            {
+              "key": "Server",
+              "value": "Werkzeug/2.0.2 Python/3.10.1"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 06 Jan 2022 15:49:46 GMT"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"customer\": 4,\n    \"status\": \"open\",\n    \"slug\": \"142e1b71-d62c-4d52-9a5d-ec910637e4c5\",\n    \"basketitem_set\": [\n        {\n            \"id\": 24,\n            \"basket\": 56,\n            \"product\": {\n                \"id\": 1,\n                \"sku\": \"00000001\",\n                \"name\": \"Kazak\",\n                \"description\": \"Kazak sicak tutar\",\n                \"color\": \"red\",\n                \"size\": \"X\",\n                \"categories\": [\n                    {\n                        \"id\": 1,\n                        \"name\": \"Kazak\"\n                    }\n                ],\n                \"created_at\": \"2021-12-06T11:49:45.161553+03:00\",\n                \"modified_at\": \"2021-12-26T07:57:03.383670+03:00\",\n                \"price\": {\n                    \"id\": 1,\n                    \"product\": 1,\n                    \"amount\": \"111.00\"\n                }\n            },\n            \"quantity\": 3,\n            \"price\": \"111.00\",\n            \"total\": 333\n        }\n    ],\n    \"total\": 333\n}"
+        },
+        {
+          "name": "Baskets Success",
+          "originalRequest": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept-Charset",
+                "value": "application/json",
+                "type": "default"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer ACCESS_TOKEN",
+                "type": "default"
+              }
+            ],
+            "url": {
+              "raw": "localhost:8000/api/baskets/",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "baskets",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": null,
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Vary",
+              "value": "Accept, Accept-Language, Cookie"
+            },
+            {
+              "key": "Allow",
+              "value": "GET, HEAD, OPTIONS"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Length",
+              "value": "468"
+            },
+            {
+              "key": "Content-Language",
+              "value": "en"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "Referrer-Policy",
+              "value": "same-origin"
+            },
+            {
+              "key": "Server",
+              "value": "Werkzeug/2.0.2 Python/3.10.1"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 06 Jan 2022 15:50:43 GMT"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"customer\": 4,\n    \"status\": \"open\",\n    \"slug\": \"142e1b71-d62c-4d52-9a5d-ec910637e4c5\",\n    \"basketitem_set\": [\n        {\n            \"id\": 24,\n            \"basket\": 56,\n            \"product\": {\n                \"id\": 1,\n                \"sku\": \"00000001\",\n                \"name\": \"Kazak\",\n                \"description\": \"Kazak sicak tutar\",\n                \"color\": \"red\",\n                \"size\": \"X\",\n                \"categories\": [\n                    {\n                        \"id\": 1,\n                        \"name\": \"Kazak\"\n                    }\n                ],\n                \"created_at\": \"2021-12-06T11:49:45.161553+03:00\",\n                \"modified_at\": \"2021-12-26T07:57:03.383670+03:00\",\n                \"price\": {\n                    \"id\": 1,\n                    \"product\": 1,\n                    \"amount\": \"111.00\"\n                }\n            },\n            \"quantity\": 3,\n            \"price\": \"111.00\",\n            \"total\": 333\n        }\n    ],\n    \"total\": 333\n}"
+        }
+      ]
+    },
+    {
+      "name": "Orders",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept-Charset",
+            "value": "application/json",
+            "type": "default"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer ACCESS_TOKEN",
+            "type": "default"
+          }
+        ],
+        "url": {
+          "raw": "localhost:8000/api/orders/",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "orders",
+            ""
+          ],
+          "query": [
+            {
+              "key": "",
+              "value": null,
+              "disabled": true
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Order Create Success",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept-Charset",
+                "value": "application/json",
+                "type": "default"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer ACCESS_TOKEN",
+                "type": "default"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"basket\": \"142e1b71-d62c-4d52-9a5d-ec910637e4c5\",\n    \"billing_address\": 1,\n    \"shipping_address\": 1,\n    \"bank_account\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8000/api/orders/",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "orders",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": null,
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Vary",
+              "value": "Accept, Accept-Language, Cookie"
+            },
+            {
+              "key": "Allow",
+              "value": "GET, POST, HEAD, OPTIONS"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Length",
+              "value": "1285"
+            },
+            {
+              "key": "Content-Language",
+              "value": "en"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "Referrer-Policy",
+              "value": "same-origin"
+            },
+            {
+              "key": "Server",
+              "value": "Werkzeug/2.0.2 Python/3.10.1"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 06 Jan 2022 15:53:08 GMT"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 1,\n    \"customer\": 4,\n    \"basket\": 56,\n    \"status\": \"pending\",\n    \"billing_address\": {\n        \"id\": 1,\n        \"full_name\": \"name surname\",\n        \"line_1\": \"mahalle\",\n        \"line_2\": \"\",\n        \"phone\": \"+905322223344\",\n        \"district\": \"ist\",\n        \"zipcode\": \"34000\",\n        \"city\": 1\n    },\n    \"shipping_address\": {\n        \"id\": 1,\n        \"full_name\": \"name surname\",\n        \"line_1\": \"mahalle\",\n        \"line_2\": \"\",\n        \"phone\": \"+905322223344\",\n        \"district\": \"ist\",\n        \"zipcode\": \"34000\",\n        \"city\": 1\n    },\n    \"total_price\": \"333.00\",\n    \"orderitem_set\": [\n        {\n            \"id\": 1,\n            \"order\": 1,\n            \"product\": {\n                \"id\": 1,\n                \"sku\": \"00000001\",\n                \"name\": \"Kazak\",\n                \"description\": \"Kazak sicak tutar\",\n                \"color\": \"red\",\n                \"size\": \"X\",\n                \"categories\": [\n                    1\n                ],\n                \"created_at\": \"2021-12-06T11:49:45.161553+03:00\",\n                \"modified_at\": \"2021-12-26T07:57:03.383670+03:00\"\n            },\n            \"price\": \"111.00\"\n        },\n        {\n            \"id\": 2,\n            \"order\": 1,\n            \"product\": {\n                \"id\": 1,\n                \"sku\": \"00000001\",\n                \"name\": \"Kazak\",\n                \"description\": \"Kazak sicak tutar\",\n                \"color\": \"red\",\n                \"size\": \"X\",\n                \"categories\": [\n                    1\n                ],\n                \"created_at\": \"2021-12-06T11:49:45.161553+03:00\",\n                \"modified_at\": \"2021-12-26T07:57:03.383670+03:00\"\n            },\n            \"price\": \"111.00\"\n        },\n        {\n            \"id\": 3,\n            \"order\": 1,\n            \"product\": {\n                \"id\": 1,\n                \"sku\": \"00000001\",\n                \"name\": \"Kazak\",\n                \"description\": \"Kazak sicak tutar\",\n                \"color\": \"red\",\n                \"size\": \"X\",\n                \"categories\": [\n                    1\n                ],\n                \"created_at\": \"2021-12-06T11:49:45.161553+03:00\",\n                \"modified_at\": \"2021-12-26T07:57:03.383670+03:00\"\n            },\n            \"price\": \"111.00\"\n        }\n    ],\n    \"orderbankaccount_set\": [\n        {\n            \"id\": 1,\n            \"name\": \"TL\",\n            \"iban\": \"TR349867387458345\",\n            \"bank_name\": \"Patika Bank\",\n            \"order\": 1\n        }\n    ]\n}"
+        },
+        {
+          "name": "Order List",
+          "originalRequest": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept-Charset",
+                "value": "application/json",
+                "type": "default"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer ACCESS_TOKEN",
+                "type": "default"
+              }
+            ],
+            "url": {
+              "raw": "localhost:8000/api/orders/",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "orders",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": null,
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Vary",
+              "value": "Accept, Accept-Language, Cookie"
+            },
+            {
+              "key": "Allow",
+              "value": "GET, POST, HEAD, OPTIONS"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Length",
+              "value": "168"
+            },
+            {
+              "key": "Content-Language",
+              "value": "en"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "Referrer-Policy",
+              "value": "same-origin"
+            },
+            {
+              "key": "Server",
+              "value": "Werkzeug/2.0.2 Python/3.10.1"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 06 Jan 2022 15:53:46 GMT"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"count\": 1,\n    \"next\": null,\n    \"previous\": null,\n    \"results\": [\n        {\n            \"id\": 1,\n            \"customer\": 4,\n            \"basket\": 56,\n            \"status\": \"pending\",\n            \"billing_address\": 1,\n            \"shipping_address\": 1,\n            \"total_price\": \"333.00\"\n        }\n    ]\n}"
+        },
+        {
+          "name": "Order Detailed List",
+          "originalRequest": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept-Charset",
+                "value": "application/json",
+                "type": "default"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer ACCESS_TOKEN",
+                "type": "default"
+              }
+            ],
+            "url": {
+              "raw": "localhost:8000/api/orders/detailed_list",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "orders",
+                "detailed_list"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": null,
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Vary",
+              "value": "Accept, Accept-Language, Cookie"
+            },
+            {
+              "key": "Allow",
+              "value": "GET, HEAD, OPTIONS"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Length",
+              "value": "1337"
+            },
+            {
+              "key": "Content-Language",
+              "value": "en"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "Referrer-Policy",
+              "value": "same-origin"
+            },
+            {
+              "key": "Server",
+              "value": "Werkzeug/2.0.2 Python/3.10.1"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 06 Jan 2022 15:54:09 GMT"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"count\": 1,\n    \"next\": null,\n    \"previous\": null,\n    \"results\": [\n        {\n            \"id\": 1,\n            \"customer\": 4,\n            \"basket\": 56,\n            \"status\": \"pending\",\n            \"billing_address\": {\n                \"id\": 1,\n                \"full_name\": \"name surname\",\n                \"line_1\": \"mahalle\",\n                \"line_2\": \"\",\n                \"phone\": \"+905322223344\",\n                \"district\": \"ist\",\n                \"zipcode\": \"34000\",\n                \"city\": 1\n            },\n            \"shipping_address\": {\n                \"id\": 1,\n                \"full_name\": \"name surname\",\n                \"line_1\": \"mahalle\",\n                \"line_2\": \"\",\n                \"phone\": \"+905322223344\",\n                \"district\": \"ist\",\n                \"zipcode\": \"34000\",\n                \"city\": 1\n            },\n            \"total_price\": \"333.00\",\n            \"orderitem_set\": [\n                {\n                    \"id\": 1,\n                    \"order\": 1,\n                    \"product\": {\n                        \"id\": 1,\n                        \"sku\": \"00000001\",\n                        \"name\": \"Kazak\",\n                        \"description\": \"Kazak sicak tutar\",\n                        \"color\": \"red\",\n                        \"size\": \"X\",\n                        \"categories\": [\n                            1\n                        ],\n                        \"created_at\": \"2021-12-06T11:49:45.161553+03:00\",\n                        \"modified_at\": \"2021-12-26T07:57:03.383670+03:00\"\n                    },\n                    \"price\": \"111.00\"\n                },\n                {\n                    \"id\": 2,\n                    \"order\": 1,\n                    \"product\": {\n                        \"id\": 1,\n                        \"sku\": \"00000001\",\n                        \"name\": \"Kazak\",\n                        \"description\": \"Kazak sicak tutar\",\n                        \"color\": \"red\",\n                        \"size\": \"X\",\n                        \"categories\": [\n                            1\n                        ],\n                        \"created_at\": \"2021-12-06T11:49:45.161553+03:00\",\n                        \"modified_at\": \"2021-12-26T07:57:03.383670+03:00\"\n                    },\n                    \"price\": \"111.00\"\n                },\n                {\n                    \"id\": 3,\n                    \"order\": 1,\n                    \"product\": {\n                        \"id\": 1,\n                        \"sku\": \"00000001\",\n                        \"name\": \"Kazak\",\n                        \"description\": \"Kazak sicak tutar\",\n                        \"color\": \"red\",\n                        \"size\": \"X\",\n                        \"categories\": [\n                            1\n                        ],\n                        \"created_at\": \"2021-12-06T11:49:45.161553+03:00\",\n                        \"modified_at\": \"2021-12-26T07:57:03.383670+03:00\"\n                    },\n                    \"price\": \"111.00\"\n                }\n            ],\n            \"orderbankaccount_set\": [\n                {\n                    \"id\": 1,\n                    \"name\": \"TL\",\n                    \"iban\": \"TR349867387458345\",\n                    \"bank_name\": \"Patika Bank\",\n                    \"order\": 1\n                }\n            ]\n        }\n    ]\n}"
+        }
+      ]
+    },
+    {
+      "name": "Profile",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Accept-Charset",
+            "value": "application/json",
+            "type": "default"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer ACCESS_TOKEN",
+            "type": "default"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"first_name\": \"Test name1\",\n    \"last_name\": \"test last name\",\n    \"email\": \"email@email.com\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:8000/api/profile/",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "profile",
+            ""
+          ],
+          "query": [
+            {
+              "key": "",
+              "value": null,
+              "disabled": true
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Profile Success",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept-Charset",
+                "value": "application/json",
+                "type": "default"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer ACCESS_TOKEN",
+                "type": "default"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"first_name\": \"Test name1\",\n    \"last_name\": \"test last name\",\n    \"email\": \"email@email.com\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8000/api/profile/",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "profile",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": null,
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Vary",
+              "value": "Accept, Accept-Language, Cookie"
+            },
+            {
+              "key": "Allow",
+              "value": "GET, PUT, PATCH, HEAD, OPTIONS"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Length",
+              "value": "82"
+            },
+            {
+              "key": "Content-Language",
+              "value": "en"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "Referrer-Policy",
+              "value": "same-origin"
+            },
+            {
+              "key": "Server",
+              "value": "Werkzeug/2.0.2 Python/3.10.1"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 06 Jan 2022 13:22:21 GMT"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"first_name\": \"Test name1\",\n    \"last_name\": \"test last name\",\n    \"email\": \"email@email.com\"\n}"
+        },
+        {
+          "name": "Profile Error",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept-Charset",
+                "value": "application/json",
+                "type": "default"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer ACCESS_TOKEN",
+                "type": "default"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"first_name\": \"Test name1\",\n    \"last_name\": \"test last name\",\n    \"email\": \"emailemail.com\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8000/api/profile/",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "profile",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": null,
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Vary",
+              "value": "Accept, Accept-Language, Cookie"
+            },
+            {
+              "key": "Allow",
+              "value": "GET, PUT, PATCH, HEAD, OPTIONS"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Length",
+              "value": "42"
+            },
+            {
+              "key": "Content-Language",
+              "value": "en"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "Referrer-Policy",
+              "value": "same-origin"
+            },
+            {
+              "key": "Server",
+              "value": "Werkzeug/2.0.2 Python/3.10.1"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 06 Jan 2022 15:29:10 GMT"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"email\": [\n        \"Enter a valid email address.\"\n    ]\n}"
+        }
+      ]
+    },
+    {
+      "name": "Profile",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Accept-Charset",
+            "value": "application/json",
+            "type": "default"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer ACCESS_TOKEN",
+            "type": "default"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"first_name\": \"Test name2\",\n    \"email\": \"email@email.com\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:8000/api/profile/",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "profile",
+            ""
+          ],
+          "query": [
+            {
+              "key": "",
+              "value": null,
+              "disabled": true
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Profile Success",
+          "originalRequest": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Accept-Charset",
+                "value": "application/json",
+                "type": "default"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer ACCESS_TOKEN",
+                "type": "default"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"first_name\": \"Test name2\",\n    \"email\": \"email@email.com\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8000/api/profile/",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "profile",
+                ""
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": null,
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Vary",
+              "value": "Accept, Accept-Language, Cookie"
+            },
+            {
+              "key": "Allow",
+              "value": "GET, PUT, PATCH, HEAD, OPTIONS"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Length",
+              "value": "82"
+            },
+            {
+              "key": "Content-Language",
+              "value": "en"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "Referrer-Policy",
+              "value": "same-origin"
+            },
+            {
+              "key": "Server",
+              "value": "Werkzeug/2.0.2 Python/3.10.1"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 06 Jan 2022 13:23:25 GMT"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"first_name\": \"Test name2\",\n    \"last_name\": \"test last name\",\n    \"email\": \"email@email.com\"\n}"
+        }
+      ]
+    }
+  ]
+}
