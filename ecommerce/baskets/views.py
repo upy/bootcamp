@@ -31,6 +31,7 @@ class BasketViewSet(
         "list": BasketDetailedSerializer,
         "retrieve": BasketDetailedSerializer,
         "basket_item": BasketItemValidateSerializer,
+        "add_basket_item": BasketItemValidateSerializer
     }
 
     def get_queryset(self):
