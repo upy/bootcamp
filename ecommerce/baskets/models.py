@@ -11,7 +11,8 @@ class Basket(BaseAbstractModel):
     customer = models.ForeignKey(Customer,
                                 verbose_name=_("Customer"),
                                 null=True,
-                                on_delete=models.CASCADE)
+                                on_delete=models.CASCADE,
+                                blank=True)
     status = models.CharField(max_length=100,
                               choices=enums.Status.choices,
                               verbose_name=_("Status"))
@@ -30,12 +31,12 @@ class BasketItem(BaseAbstractModel):
                                verbose_name=_("Basket"),
                                max_length=100,
                                on_delete=models.CASCADE,
-                               null=True)
+                               null=False)
     product = models.ForeignKey(Product,
                                 verbose_name=_("Product"),
                                 max_length=100,
                                 on_delete=models.CASCADE,
-                                null=True)
+                                null=False)
     quantity = models.PositiveSmallIntegerField(verbose_name=_("Quantity"))
     price = models.DecimalField(max_digits=10,
                                 decimal_places=2,
