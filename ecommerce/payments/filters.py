@@ -5,7 +5,6 @@ from payments.models import Bank, BankAccount
 
 
 class BankFilter(filters.FilterSet):
-    name = filters.CharFilter(label=_("Bank Name"))
 
     class Meta:
         model = Bank
@@ -13,8 +12,6 @@ class BankFilter(filters.FilterSet):
 
 
 class BankAccountFilter(filters.FilterSet):
-    name = filters.CharFilter(label=_("Bank Name"))
-    iban = filters.CharFilter(label=_("IBAN"))
 
     class Meta:
         model = BankAccount

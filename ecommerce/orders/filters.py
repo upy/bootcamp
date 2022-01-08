@@ -9,8 +9,6 @@ from baskets.filters import BasketFilter
 
 
 class BillingAddressFilter(filters.FilterSet):
-    full_name = filters.CharFilter(label=_("Full Name"))
-    city = CityFilter
 
     class Meta:
         model = BillingAddress
@@ -18,8 +16,6 @@ class BillingAddressFilter(filters.FilterSet):
 
 
 class ShippingAddressFilter(filters.FilterSet):
-    full_name = filters.CharFilter(label=_("Full Name"))
-    city = CityFilter
 
     class Meta:
         model = ShippingAddress
@@ -27,9 +23,6 @@ class ShippingAddressFilter(filters.FilterSet):
 
 
 class OrderFilter(filters.FilterSet):
-    customer = CustomerFilter
-    basket = BasketFilter
-    status = filters.ChoiceFilter(choices=enums.OrderStatus.choices)
 
     class Meta:
         model = Order
@@ -37,8 +30,6 @@ class OrderFilter(filters.FilterSet):
 
 
 class OrderItemFilter(filters.FilterSet):
-    order = OrderFilter
-    product = filters.CharFilter(label=_("Product"))
 
     class Meta:
         model = OrderItem
@@ -46,10 +37,6 @@ class OrderItemFilter(filters.FilterSet):
 
 
 class OrderBankAccountFilter(filters.FilterSet):
-    name = filters.CharFilter(label=_("Name"))
-    iban = filters.CharFilter(label=_("IBAN"))
-    bank_name = filters.CharFilter(label=_("Bank Name"))
-    order = OrderFilter
 
     class Meta:
         model = OrderBankAccount

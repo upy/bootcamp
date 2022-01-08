@@ -14,21 +14,21 @@ class CustomerSerializer(serializers.ModelSerializer):
 class CountrySerializer(serializers.ModelSerializer):
     class Meta:
         model = Country
-        fields = ("name",)
+        fields = ("id", "name",)
 
 
 class CitySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = City
-        fields = ("name", "country")
+        fields = ("id", "name", "country")
 
 
 class AddressSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Address
-        fields = ( "name", "full_name", "phone", "district", "zipcode", "city", "customer")
+        fields = ("id", "name", "full_name", "phone", "district", "zipcode", "city", "customer")
 
 
 class CityDetailedSerializer(CitySerializer):

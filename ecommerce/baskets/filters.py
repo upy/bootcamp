@@ -8,7 +8,6 @@ class BasketFilter(filters.FilterSet):
     """
     Basket Models Filter
     """
-    status = filters.CharFilter(label=_("Status"))
 
     class Meta:
         model = Basket

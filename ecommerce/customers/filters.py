@@ -5,7 +5,6 @@ from customers.models import Customer, Address,  Country, City
 
 
 class CustomerFilter(filters.FilterSet):
-    email = filters.CharFilter(label=_("Email"))
 
     class Meta:
         model = Customer
@@ -13,7 +12,6 @@ class CustomerFilter(filters.FilterSet):
 
 
 class CityFilter(filters.FilterSet):
-    name = filters.CharFilter(label=_("City"))
 
     class Meta:
         model = City
@@ -21,7 +19,6 @@ class CityFilter(filters.FilterSet):
 
 
 class CountryFilter(filters.FilterSet):
-    name = filters.CharFilter(label=_("Country"))
 
     class Meta:
         model = Country
@@ -29,7 +26,6 @@ class CountryFilter(filters.FilterSet):
 
 
 class AddressFilter(filters.FilterSet):
-    name = filters.CharFilter(label=_("Address"))
 
     class Meta:
         model = Address
